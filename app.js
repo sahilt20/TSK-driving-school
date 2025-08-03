@@ -1,695 +1,428 @@
-// TSK Driving School - Automatic Only Website JavaScript
+// TSK Driving School - Manual & Automatic Website JavaScript
 
-// Application data from provided JSON
+// Application data with actual image file names from images folder
 const appData = {
   areas: [
-    {
-      name: "Coventry",
-      hourlyRate: 34,
-      packages: {
-        "5hours": 165,
-        "10hours": 330,
-        "20hours": 650,
-        "40hours": 1280
+      {
+          name: "Coventry",
+          automatic: {
+              "1hour": 37,
+              "1.5hours": 57,
+              "2hours": 70,
+              "10hours": 340,
+              "beginnerPackage": 68
+          },
+          manual: {
+              "1hour": 36,
+              "1.5hours": 56,
+              "2hours": 70,
+              "10hours": 340,
+              "beginnerPackage": 65
+          }
       }
-    },
-    {
-      name: "Nuneaton", 
-      hourlyRate: 36,
-      packages: {
-        "5hours": 175,
-        "10hours": 350,
-        "20hours": 690,
-        "40hours": 1360
-      }
-    },
-    {
-      name: "Warwick",
-      hourlyRate: 36,
-      packages: {
-        "5hours": 175,
-        "10hours": 350,
-        "20hours": 690,
-        "40hours": 1360
-      }
-    },
-    {
-      name: "Rugby",
-      hourlyRate: 36,
-      packages: {
-        "5hours": 175,
-        "10hours": 350,
-        "20hours": 690,
-        "40hours": 1360
-      }
-    }
   ],
   testimonials: [
-    {
-      name: "Marcus Thompson",
-      area: "Coventry",
-      rating: 5,
-      text: "TSK's automatic lessons were fantastic! As a busy professional, I appreciated how quickly I could focus on actual driving skills rather than clutch control. Passed first time!",
-      image: "attachment1"
-    },
-    {
-      name: "Priya Patel", 
-      area: "Warwick",
-      rating: 5,
-      text: "I was so nervous about learning to drive, but automatic lessons with TSK gave me confidence. No stalling, no stress - just smooth learning. Highly recommend!",
-      image: "attachment2"
-    },
-    {
-      name: "Emma Williams",
-      area: "Rugby", 
-      rating: 5,
-      text: "The automatic lessons were perfect for my schedule. I could concentrate on road awareness and hazard perception without worrying about gears. Excellent instruction!",
-      image: "attachment3"
-    },
-    {
-      name: "Jake Morrison",
-      area: "Nuneaton",
-      rating: 5,
-      text: "Initially worried automatic would be 'cheating', but it's actually the smarter choice. Learned faster, felt more confident, and now I'm a safe driver on the roads!",
-      image: "attachment4"
-    }
+      {
+          name: "Sarah Thompson",
+          area: "Coventry",
+          rating: 5,
+          text: "Passed my test first time! The instructor was incredibly patient and helped me build confidence behind the wheel. Highly recommend TSK Driving School!",
+          image: "images/2025-04-16.png"
+      },
+      {
+          name: "James Wilson",
+          area: "Coventry", 
+          rating: 5,
+          text: "Great instructor! Very professional and made learning to drive enjoyable. The lessons were well-structured and I felt well prepared for my test.",
+          image: "images/2025-04-19.png"
+      },
+      {
+          name: "Emma Clarke",
+          area: "Coventry",
+          rating: 5,
+          text: "Excellent driving school! The instructor was calm, patient, and gave clear instructions. I passed on my first attempt thanks to the quality training.",
+          image: "images/2025-04-1c9.png"
+      },
+      {
+          name: "Michael Brown",
+          area: "Coventry",
+          rating: 5,
+          text: "Very patient instructor who helped me overcome my nervousness. The lessons were tailored to my needs and I felt confident for my test.",
+          image: "images/2025-04-20.png"
+      },
+      {
+          name: "Lucy Davis",
+          area: "Coventry",
+          rating: 5,
+          text: "Learned so much in each lesson. The instructor's teaching method was perfect for me. Passed first time with only 2 minor faults!",
+          image: "images/2025-04-28.png"
+      },
+      {
+          name: "David Miller",
+          area: "Coventry",
+          rating: 5,
+          text: "Thank you for helping me pass! Professional service from start to finish. The instructor was knowledgeable and encouraging throughout.",
+          image: "images/2025-04-2s5.png"
+      },
+      {
+          name: "Sophie Anderson",
+          area: "Coventry",
+          rating: 5,
+          text: "Finally passed after switching to TSK! The instructor was brilliant at explaining complex maneuvers in a simple way. Couldn't be happier!",
+          image: "images/2025-04-916.png"
+      },
+      {
+          name: "Ryan Taylor",
+          area: "Coventry",
+          rating: 5,
+          text: "So happy with the results! Clear explanations and plenty of practice made all the difference. Passed with confidence thanks to TSK.",
+          image: "images/2025-05-1dsds4.png"
+      },
+      {
+          name: "Hannah White",
+          area: "Coventry",
+          rating: 5,
+          text: "Great lessons with excellent feedback after each session. Felt fully prepared and confident for my driving test. Highly recommend!",
+          image: "images/2025-07-13.png"
+      },
+      {
+          name: "Tom Johnson",
+          area: "Coventry",
+          rating: 5,
+          text: "Amazing instructor! Patient, professional, and really knows how to teach driving effectively. Made the whole experience enjoyable.",
+          image: "images/202wdw5-06-01.png"
+      },
+      {
+          name: "Katie Roberts",
+          area: "Coventry",
+          rating: 5,
+          text: "Couldn't have done it without TSK! The lessons were perfectly structured and the instructor was always encouraging and supportive.",
+          image: "images/cunnamed.png"
+      },
+      {
+          name: "Alex Green",
+          area: "Coventry",
+          rating: 5,
+          text: "Fantastic teacher who made learning to drive enjoyable and stress-free. Passed first time thanks to the excellent preparation!",
+          image: "images/ss2025-04-2s5.png"
+      }
   ],
   benefits: [
-    {
-      title: "Easier Learning Curve",
-      description: "Focus on road awareness and hazards without clutch control complexity",
-      icon: "🎯"
-    },
-    {
-      title: "Faster Progress", 
-      description: "Typically require 20% fewer lessons than manual transmission",
-      icon: "⚡"
-    },
-    {
-      title: "Less Stress",
-      description: "No stalling, no rolling back on hills, more confidence building",
-      icon: "😌"
-    },
-    {
-      title: "Better for Traffic",
-      description: "Ideal for urban driving with stop-start traffic conditions",
-      icon: "🚦"
-    },
-    {
-      title: "Enhanced Safety",
-      description: "Keep both hands on wheel, better hazard perception",
-      icon: "🛡️"
-    },
-    {
-      title: "Future Ready",
-      description: "Most new cars are automatic, especially electric vehicles",
-      icon: "🔮"
-    }
+      {
+          title: "Expert Manual Instruction",
+          description: "Master clutch control and gear changes with patient, professional guidance",
+          icon: "⚙️"
+      },
+      {
+          title: "Stress-Free Automatic",
+          description: "Focus on road awareness and hazards without clutch control complexity",
+          icon: "🎯"
+      },
+      {
+          title: "Flexible Learning",
+          description: "Choose between manual and automatic based on your preferences and needs",
+          icon: "🔄"
+      },
+      {
+          title: "High Pass Rates",
+          description: "Proven track record with excellent first-time pass rates for both transmissions",
+          icon: "🏆"
+      },
+      {
+          title: "Modern Vehicles",
+          description: "Learn in well-maintained, modern cars equipped with dual controls for safety",
+          icon: "🚗"
+      },
+      {
+          title: "Experienced Instructor",
+          description: "DVSA approved instructor with years of experience teaching both manual and automatic",
+          icon: "👨‍🏫"
+      }
   ],
   contact: {
-    phone: "07850 900 382",
-    whatsapp: "447850900382",
-    email: "info@tskdriving.co.uk"
+      phone: "+44 7872 309080",
+      whatsapp: "447872309080", // Number for WhatsApp URL
+      email: "tskdrivingschool101@gmail.com"
   }
 };
 
-// Global state
-let currentArea = 'Coventry';
-let currentTestimonialIndex = 0;
+let currentTransmission = 'automatic';
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('Initializing TSK Driving School website...');
-  
-  // Initialize all components
   initNavigation();
-  initAreas();
   initBenefits();
   initPricingSystem();
   initTestimonials();
   initContactForm();
-  initAnimations();
   initSmoothScrolling();
-  updateWhatsAppMessage();
-  
-  console.log('Website initialized successfully');
+  initScrollAnimations();
 });
 
 // Navigation functionality
 function initNavigation() {
   const navToggle = document.getElementById('nav-toggle');
   const navMenu = document.getElementById('nav-menu');
-  
+
   if (navToggle && navMenu) {
-    navToggle.addEventListener('click', function() {
-      navMenu.classList.toggle('active');
-      navToggle.classList.toggle('active');
-    });
-
-    // Close mobile menu when clicking on a link
-    const navLinks = document.querySelectorAll('.nav__link');
-    navLinks.forEach(link => {
-      link.addEventListener('click', function() {
-        navMenu.classList.remove('active');
-        navToggle.classList.remove('active');
+      navToggle.addEventListener('click', function(e) {
+          e.preventDefault();
+          navMenu.classList.toggle('active');
+          navToggle.classList.toggle('active');
       });
-    });
 
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', function(e) {
-      if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
-        navMenu.classList.remove('active');
-        navToggle.classList.remove('active');
-      }
-    });
+      const navLinks = document.querySelectorAll('.nav__link');
+      navLinks.forEach(link => {
+          link.addEventListener('click', function() {
+              navMenu.classList.remove('active');
+              navToggle.classList.remove('active');
+          });
+      });
   }
-}
-
-// Initialize areas section
-function initAreas() {
-  const areasGrid = document.getElementById('areas-grid');
-  if (!areasGrid) return;
-  
-  areasGrid.innerHTML = '';
-  
-  appData.areas.forEach((area, index) => {
-    const areaCard = document.createElement('div');
-    areaCard.className = `area__card ${index === 0 ? 'active' : ''}`;
-    areaCard.dataset.area = area.name;
-    
-    areaCard.innerHTML = `
-      <h3 class="area__title">${area.name}</h3>
-      <p class="area__description">Professional automatic driving lessons with experienced instructors who know the local test routes and driving conditions.</p>
-      <div class="area__pricing">
-        <span class="area__price">Automatic: <span class="area__hourly">£${area.hourlyRate}/hr</span></span>
-      </div>
-    `;
-    
-    areaCard.addEventListener('click', function() {
-      selectArea(area.name);
-    });
-    
-    areasGrid.appendChild(areaCard);
-  });
 }
 
 // Initialize benefits section
 function initBenefits() {
   const benefitsGrid = document.getElementById('benefits-grid');
   if (!benefitsGrid) return;
-  
-  benefitsGrid.innerHTML = '';
-  
-  appData.benefits.forEach(benefit => {
-    const benefitCard = document.createElement('div');
-    benefitCard.className = 'benefit__card';
-    
-    benefitCard.innerHTML = `
-      <div class="benefit__icon">${benefit.icon}</div>
-      <h3 class="benefit__title">${benefit.title}</h3>
-      <p class="benefit__description">${benefit.description}</p>
-    `;
-    
-    benefitsGrid.appendChild(benefitCard);
-  });
+
+  benefitsGrid.innerHTML = appData.benefits.map((benefit, index) => `
+      <div class="benefit__card fade-in" style="animation-delay: ${index * 100}ms;">
+          <div class="benefit__icon">${benefit.icon}</div>
+          <h3 class="benefit__title">${benefit.title}</h3>
+          <p class="benefit__description">${benefit.description}</p>
+      </div>
+  `).join('');
 }
 
-// Area selection functionality
-function selectArea(areaName) {
-  console.log('Selecting area:', areaName);
-  currentArea = areaName;
-  
-  // Update area cards
-  const areaCards = document.querySelectorAll('.area__card');
-  areaCards.forEach(card => {
-    card.classList.remove('active');
-    if (card.dataset.area === areaName) {
-      card.classList.add('active');
-    }
-  });
-  
-  // Update area select dropdown
-  const areaSelect = document.getElementById('area-select');
-  if (areaSelect) {
-    areaSelect.value = areaName;
-  }
-  
-  // Update pricing
-  updatePackagePricing();
-  updateWhatsAppMessage();
-}
-
-// Pricing system
+// FIXED Pricing system with toggle switch
 function initPricingSystem() {
-  const areaSelect = document.getElementById('area-select');
-  
-  if (areaSelect) {
-    areaSelect.addEventListener('change', function() {
-      console.log('Area dropdown changed to:', this.value);
-      selectArea(this.value);
-    });
+  const transmissionToggle = document.getElementById('transmission-toggle');
+  const manualLabel = document.getElementById('manual-label');
+  const automaticLabel = document.getElementById('automatic-label');
+
+  if (transmissionToggle) {
+      // Set initial state (checked = automatic)
+      updateTransmissionState();
+      
+      transmissionToggle.addEventListener('change', function() {
+          updateTransmissionState();
+          updatePackagePricing();
+      });
   }
-  
-  // Initial pricing display
-  updatePackagePricing();
+
+  function updateTransmissionState() {
+      if (transmissionToggle.checked) {
+          currentTransmission = 'automatic';
+          manualLabel.classList.remove('active');
+          automaticLabel.classList.add('active');
+      } else {
+          currentTransmission = 'manual';
+          manualLabel.classList.add('active');
+          automaticLabel.classList.remove('active');
+      }
+  }
+
+  updatePackagePricing(); // Initial render
 }
 
 function updatePackagePricing() {
   const packagesGrid = document.getElementById('packages-grid');
   if (!packagesGrid) return;
-  
-  const selectedArea = appData.areas.find(area => area.name === currentArea);
-  if (!selectedArea) return;
-  
-  console.log('Updating pricing for', currentArea, '- Hourly rate:', selectedArea.hourlyRate);
-  
-  packagesGrid.innerHTML = '';
-  
+
+  const prices = appData.areas[0][currentTransmission];
+  if (!prices) {
+      console.error(`Pricing data not found for transmission: ${currentTransmission}`);
+      return;
+  }
+
   const packageOptions = [
-    { hours: 5, name: "Starter Package", description: "Perfect for beginners", popular: false },
-    { hours: 10, name: "Foundation Package", description: "Build solid driving skills", popular: false },
-    { hours: 20, name: "Comprehensive Package", description: "Most popular choice", popular: true },
-    { hours: 40, name: "Complete Mastery", description: "From beginner to test ready", popular: false }
+      { key: '1hour', name: "1 Hour Lesson", description: "Perfect for a refresher", hours: "1" },
+      { key: '1.5hours', name: "1.5 Hour Lesson", description: "Extended learning time", hours: "1.5" },
+      { key: '2hours', name: "2 Hour Lesson", description: "Intensive session", hours: "2" },
+      { key: '10hours', name: "10 Hours Block", description: "Save with bulk booking", isPopular: true, hours: "10" },
+      { key: 'beginnerPackage', name: "Beginner Package", description: "Introductory rate for new learners", hours: "beginner" }
   ];
-  
-  packageOptions.forEach(pkg => {
-    const packagePrice = selectedArea.packages[`${pkg.hours}hours`];
-    const regularPrice = pkg.hours * selectedArea.hourlyRate;
-    const savings = regularPrice - packagePrice;
-    const pricePerHourPackage = packagePrice / pkg.hours;
-    
-    const packageCard = document.createElement('div');
-    packageCard.className = `package__card ${pkg.popular ? 'popular' : ''}`;
-    
-    packageCard.innerHTML = `
-      ${pkg.popular ? '<div class="package__popular">Most Popular</div>' : ''}
-      <h3 class="package__title">${pkg.name}</h3>
-      <p class="package__description">${pkg.description}</p>
-      <div class="package__hours">${pkg.hours} Hours</div>
-      <div class="package__price">£${packagePrice}</div>
-      <div class="package__per-hour">£${pricePerHourPackage.toFixed(2)} per hour</div>
-      ${savings > 0 ? `<div class="package__savings">Save £${savings}!</div>` : ''}
-      <button class="btn btn--primary" onclick="bookPackage('${pkg.name}', '${currentArea}', ${pkg.hours}, ${packagePrice})">Book Now</button>
-    `;
-    
-    packagesGrid.appendChild(packageCard);
-  });
+
+  packagesGrid.innerHTML = packageOptions.map((pkg, index) => {
+      const price = prices[pkg.key];
+      return `
+          <div class="package__card fade-in ${pkg.isPopular ? 'popular' : ''}" style="animation-delay: ${index * 100}ms;">
+              ${pkg.isPopular ? '<div class="package__popular">Most Popular</div>' : ''}
+              <h3 class="package__title">${pkg.name}</h3>
+              <p class="package__description">${pkg.description}</p>
+              <div class="package__price">£${price}</div>
+              ${pkg.key === '10hours' ? '<div class="package__savings">Save £30 compared to individual lessons!</div>' : ''}
+              <button class="btn btn--primary" onclick="bookPackage('${pkg.name}', ${price}, '${pkg.hours}')">Book Now</button>
+          </div>
+      `;
+  }).join('');
 }
 
-// Global function for booking packages
-window.bookPackage = function(packageName, area, hours, price) {
-  const whatsappMessage = `Hi! I'm interested in the ${packageName} (${hours} hours, £${price}) for automatic lessons in ${area}. Can you provide more information?`;
-  const whatsappUrl = `https://wa.me/${appData.contact.whatsapp}?text=${encodeURIComponent(whatsappMessage)}`;
-  console.log('Opening WhatsApp with message:', whatsappMessage);
-  window.open(whatsappUrl, '_blank');
+window.bookPackage = function(packageName, price, hours) {
+  const message = `Hi! I'm interested in the ${packageName} (£${price}) for ${currentTransmission} lessons in Coventry. Can you provide more information?`;
+  const url = `https://wa.me/${appData.contact.whatsapp}?text=${encodeURIComponent(message)}`;
+  window.open(url, '_blank');
 };
 
-// Testimonials carousel
+// UPDATED Testimonials - Enhanced with bigger images and better separation
 function initTestimonials() {
-  const testimonialsContainer = document.getElementById('testimonials-container');
-  const prevBtn = document.getElementById('prev-btn');
-  const nextBtn = document.getElementById('next-btn');
-  
-  if (!testimonialsContainer) return;
-  
-  renderTestimonials();
-  
-  if (prevBtn) {
-    prevBtn.addEventListener('click', function() {
-      currentTestimonialIndex = Math.max(0, currentTestimonialIndex - 1);
-      updateTestimonialCarousel();
-    });
-  }
-  
-  if (nextBtn) {
-    nextBtn.addEventListener('click', function() {
-      const maxIndex = Math.max(0, appData.testimonials.length - getVisibleTestimonials());
-      currentTestimonialIndex = Math.min(maxIndex, currentTestimonialIndex + 1);
-      updateTestimonialCarousel();
-    });
-  }
+  const testimonialsGrid = document.getElementById('testimonials-grid');
+  if (!testimonialsGrid) return;
+
+  testimonialsGrid.innerHTML = appData.testimonials.map((testimonial, index) => {
+      const initials = testimonial.name.split(' ').map(n => n[0]).join('');
+      return `
+      <div class="testimonial__card fade-in" style="animation-delay: ${index * 50}ms;">
+          <div class="testimonial__image-section">
+              <div class="testimonial__image-container">
+                  <img src="${testimonial.image}" 
+                       alt="Success story from ${testimonial.name}" 
+                       class="testimonial__image"
+                       loading="lazy"
+                       onerror="this.style.display='none'; this.parentElement.innerHTML+='<div class=\\"testimonial__image-placeholder\\"></div>
+              </div>
+          </div>
+          <div class="testimonial__review-section">
+              <div class="testimonial__rating">
+                  <div class="testimonial__stars">${'★'.repeat(testimonial.rating)}</div>
+              </div>
+              <div class="testimonial__content">
+                  <p class="testimonial__text">${testimonial.text}</p>
+              </div>
+              <div class="testimonial__footer">
+                  <div class="testimonial__author">${testimonial.name}</div>
+                  <div class="testimonial__area">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                          <circle cx="12" cy="10" r="3"></circle>
+                      </svg>
+                      ${testimonial.area}
+                  </div>
+              </div>
+          </div>
+      </div>
+  `;
+  }).join('');
 }
 
-function renderTestimonials() {
-  const testimonialsContainer = document.getElementById('testimonials-container');
-  if (!testimonialsContainer) return;
-  
-  testimonialsContainer.innerHTML = '';
-  
-  appData.testimonials.forEach(testimonial => {
-    const testimonialCard = document.createElement('div');
-    testimonialCard.className = 'testimonial__card';
-    
-    const stars = '★'.repeat(testimonial.rating);
-    
-    testimonialCard.innerHTML = `
-      <div class="testimonial__stars">${stars}</div>
-      <p class="testimonial__text">"${testimonial.text}"</p>
-      <div class="testimonial__author">${testimonial.name}</div>
-      <div class="testimonial__area">${testimonial.area}</div>
-    `;
-    
-    testimonialsContainer.appendChild(testimonialCard);
-  });
-}
-
-function updateTestimonialCarousel() {
-  const testimonialsContainer = document.getElementById('testimonials-container');
-  if (!testimonialsContainer) return;
-  
-  const cardWidth = 350 + 24; // card width + gap
-  const scrollLeft = currentTestimonialIndex * cardWidth;
-  testimonialsContainer.scrollTo({
-    left: scrollLeft,
-    behavior: 'smooth'
-  });
-}
-
-function getVisibleTestimonials() {
-  const testimonialsContainer = document.getElementById('testimonials-container');
-  if (!testimonialsContainer) return 1;
-  
-  const containerWidth = testimonialsContainer.offsetWidth;
-  const cardWidth = 350 + 24;
-  return Math.floor(containerWidth / cardWidth);
-}
-
-// Contact form
+// FIXED Contact form to send detailed WhatsApp message
 function initContactForm() {
   const contactForm = document.getElementById('contact-form');
   if (!contactForm) return;
-  
+
   contactForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    console.log('Contact form submitted');
-    
-    if (validateForm()) {
-      submitForm();
-    }
+      e.preventDefault();
+      
+      // Get all form data
+      const formData = new FormData(contactForm);
+      
+      // Create detailed message
+      let messageBody = `🚗 Driving Lesson Enquiry\n\n`;
+      messageBody += `👤 Name: ${formData.get('name')}\n`;
+      messageBody += `📧 Email: ${formData.get('email')}\n`;
+      messageBody += `📞 Phone: ${formData.get('phone')}\n`;
+      messageBody += `⚙️ Transmission: ${formData.get('transmission-preference')}\n`;
+      
+      const selectedPackage = formData.get('package-interest');
+      if (selectedPackage) {
+          messageBody += `📦 Package Interest: ${selectedPackage}\n`;
+      }
+      
+      const experienceLevel = formData.get('experience-level');
+      if (experienceLevel) {
+          messageBody += `🎯 Experience Level: ${experienceLevel}\n`;
+      }
+      
+      const customMessage = formData.get('message');
+      if (customMessage && customMessage.trim()) {
+          messageBody += `💬 Message: ${customMessage.trim()}\n`;
+      }
+      
+      messageBody += `\n📍 Area: Coventry`;
+      messageBody += `\n🕒 Enquiry sent: ${new Date().toLocaleDateString('en-GB')}`;
+
+      // Open WhatsApp with detailed message
+      const whatsappUrl = `https://wa.me/${appData.contact.whatsapp}?text=${encodeURIComponent(messageBody)}`;
+      window.open(whatsappUrl, '_blank');
+      
+      // Show success message
+      showNotification('Opening WhatsApp with your enquiry details...', 'success');
+      
+      // Reset form after a short delay
+      setTimeout(() => {
+          contactForm.reset();
+      }, 1000);
   });
-}
-
-function validateForm() {
-  const requiredFields = ['name', 'email', 'phone', 'service-area'];
-  let isValid = true;
-  
-  console.log('Validating form...');
-  
-  // Clear previous error messages
-  const errorMessages = document.querySelectorAll('.error-message');
-  errorMessages.forEach(msg => msg.remove());
-  
-  const formControls = document.querySelectorAll('.form-control');
-  formControls.forEach(control => {
-    control.classList.remove('error', 'success');
-  });
-  
-  requiredFields.forEach(fieldName => {
-    const field = document.getElementById(fieldName);
-    if (!field) {
-      console.error('Field not found:', fieldName);
-      return;
-    }
-    
-    const value = field.value.trim();
-    
-    if (!value) {
-      showFieldError(field, 'This field is required');
-      isValid = false;
-      console.log('Field validation failed:', fieldName, 'is required');
-    } else if (fieldName === 'email' && !isValidEmail(value)) {
-      showFieldError(field, 'Please enter a valid email address');
-      isValid = false;
-      console.log('Email validation failed:', value);
-    } else if (fieldName === 'phone' && !isValidPhone(value)) {
-      showFieldError(field, 'Please enter a valid phone number');
-      isValid = false;
-      console.log('Phone validation failed:', value);
-    } else {
-      field.classList.add('success');
-      console.log('Field validation passed:', fieldName);
-    }
-  });
-  
-  console.log('Form validation result:', isValid);
-  return isValid;
-}
-
-function showFieldError(field, message) {
-  field.classList.add('error');
-  const errorDiv = document.createElement('div');
-  errorDiv.className = 'error-message';
-  errorDiv.textContent = message;
-  field.parentNode.appendChild(errorDiv);
-}
-
-function isValidEmail(email) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-}
-
-function isValidPhone(phone) {
-  const phoneRegex = /^[\+]?[0-9\s\-\(\)]{10,}$/;
-  return phoneRegex.test(phone);
-}
-
-function submitForm() {
-  const contactForm = document.getElementById('contact-form');
-  if (!contactForm) return;
-  
-  const submitBtn = contactForm.querySelector('button[type="submit"]');
-  const originalText = submitBtn.textContent;
-  
-  console.log('Submitting form...');
-  
-  // Show loading state
-  submitBtn.classList.add('loading');
-  submitBtn.textContent = 'Sending...';
-  submitBtn.disabled = true;
-  
-  // Simulate form submission (in real implementation, this would send to a server)
-  setTimeout(() => {
-    // Reset form
-    contactForm.reset();
-    
-    // Reset button
-    submitBtn.classList.remove('loading');
-    submitBtn.textContent = originalText;
-    submitBtn.disabled = false;
-    
-    // Show success message
-    showNotification('Thank you for your message! We\'ll get back to you soon.', 'success');
-    
-    // Clear validation classes
-    const formControls = document.querySelectorAll('.form-control');
-    formControls.forEach(control => {
-      control.classList.remove('error', 'success');
-    });
-    
-    console.log('Form submitted successfully');
-  }, 2000);
 }
 
 function showNotification(message, type = 'info') {
   const notification = document.createElement('div');
   notification.className = `notification notification--${type}`;
   notification.style.cssText = `
-    position: fixed;
-    top: calc(var(--header-height) + 20px);
-    right: 20px;
-    background: var(--color-${type === 'success' ? 'success' : 'primary'});
-    color: white;
-    padding: var(--space-16) var(--space-20);
-    border-radius: var(--radius-base);
-    box-shadow: var(--shadow-lg);
-    z-index: 1001;
-    max-width: 400px;
-    transform: translateX(100%);
-    transition: transform var(--duration-normal) var(--ease-standard);
+      position: fixed;
+      top: calc(var(--header-height) + 20px);
+      right: 20px;
+      background: var(--color-${type === 'success' ? 'success' : 'primary'});
+      color: white;
+      padding: var(--space-16) var(--space-20);
+      border-radius: var(--radius-base);
+      box-shadow: var(--shadow-lg);
+      z-index: 1001;
+      max-width: 400px;
+      transform: translateX(100%);
+      transition: transform var(--duration-normal) var(--ease-standard);
   `;
   notification.textContent = message;
-  
+
   document.body.appendChild(notification);
-  
+
   // Animate in
   setTimeout(() => {
-    notification.style.transform = 'translateX(0)';
+      notification.style.transform = 'translateX(0)';
   }, 100);
-  
+
   // Animate out and remove
   setTimeout(() => {
-    notification.style.transform = 'translateX(100%)';
-    setTimeout(() => {
-      if (document.body.contains(notification)) {
-        document.body.removeChild(notification);
-      }
-    }, 300);
+      notification.style.transform = 'translateX(100%)';
+      setTimeout(() => {
+          if (document.body.contains(notification)) {
+              document.body.removeChild(notification);
+          }
+      }, 300);
   }, 4000);
 }
 
 // Smooth scrolling
 function initSmoothScrolling() {
-  console.log('Initializing smooth scrolling...');
-  
-  // Get all navigation links that start with #
-  const navLinks = document.querySelectorAll('a[href^="#"]');
-  console.log('Found navigation links:', navLinks.length);
-  
-  navLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-      const href = this.getAttribute('href');
-      
-      // Skip if it's just a hash without ID
-      if (href === '#') return;
-      
-      e.preventDefault();
-      
-      const targetId = href;
-      console.log('Clicking navigation link:', targetId);
-      
-      const targetSection = document.querySelector(targetId);
-      
-      if (targetSection) {
-        const headerOffset = 80;
-        const elementPosition = targetSection.offsetTop;
-        const offsetPosition = elementPosition - headerOffset;
-        
-        console.log('Scrolling to:', targetId, 'at position:', offsetPosition);
-        
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
-        });
-      } else {
-        console.warn('Target section not found:', targetId);
-      }
-    });
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+              const headerOffset = 80;
+              const elementPosition = targetElement.getBoundingClientRect().top;
+              const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+              window.scrollTo({
+                  top: offsetPosition,
+                  behavior: 'smooth'
+              });
+          }
+      });
   });
 }
 
-// Animations on scroll
-function initAnimations() {
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
-  
-  const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, observerOptions);
-  
-  // Add fade-in class to elements that should animate
-  const animatedElements = document.querySelectorAll('.section__header, .area__card, .package__card, .benefit__card, .testimonial__card');
-  animatedElements.forEach(el => {
-    el.classList.add('fade-in');
-    observer.observe(el);
-  });
+// Scroll animations
+function initScrollAnimations() {
+  const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+          if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+          }
+      });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 }
-
-// Update WhatsApp floating button with dynamic message
-function updateWhatsAppMessage() {
-  const whatsappFloat = document.getElementById('whatsapp-float');
-  if (!whatsappFloat) return;
-  
-  const selectedArea = appData.areas.find(area => area.name === currentArea);
-  const hourlyRate = selectedArea ? selectedArea.hourlyRate : 36;
-  
-  const message = `Hi! I'm interested in automatic driving lessons in ${currentArea} (£${hourlyRate}/hr). Can you help me get started?`;
-  const url = `https://wa.me/${appData.contact.whatsapp}?text=${encodeURIComponent(message)}`;
-  whatsappFloat.href = url;
-  console.log('Updated WhatsApp message for:', currentArea);
-}
-
-// Responsive testimonial carousel
-function handleResize() {
-  // Reset testimonial carousel on resize
-  currentTestimonialIndex = 0;
-  updateTestimonialCarousel();
-}
-
-window.addEventListener('resize', handleResize);
-
-// Update active navigation link on scroll
-function updateActiveNavLink() {
-  const sections = document.querySelectorAll('section[id]');
-  const scrollPosition = window.scrollY + 100;
-  
-  sections.forEach(section => {
-    const sectionTop = section.offsetTop;
-    const sectionHeight = section.offsetHeight;
-    const navLink = document.querySelector(`a[href="#${section.id}"]`);
-    
-    if (navLink) {
-      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-        document.querySelectorAll('.nav__link').forEach(link => link.classList.remove('active'));
-        navLink.classList.add('active');
-      }
-    }
-  });
-}
-
-window.addEventListener('scroll', updateActiveNavLink);
-
-// Auto-scroll testimonials every 5 seconds
-setInterval(() => {
-  const maxIndex = Math.max(0, appData.testimonials.length - getVisibleTestimonials());
-  currentTestimonialIndex = currentTestimonialIndex >= maxIndex ? 0 : currentTestimonialIndex + 1;
-  updateTestimonialCarousel();
-}, 5000);
-
-// Handle touch events for testimonial carousel
-let startX = 0;
-let currentX = 0;
-let isDragging = false;
-
-// Add event listeners after DOM is loaded
-setTimeout(() => {
-  const testimonialsContainer = document.getElementById('testimonials-container');
-  if (testimonialsContainer) {
-    testimonialsContainer.addEventListener('touchstart', function(e) {
-      startX = e.touches[0].clientX;
-      isDragging = true;
-    });
-
-    testimonialsContainer.addEventListener('touchmove', function(e) {
-      if (!isDragging) return;
-      currentX = e.touches[0].clientX;
-    });
-
-    testimonialsContainer.addEventListener('touchend', function(e) {
-      if (!isDragging) return;
-      isDragging = false;
-      
-      const diffX = startX - currentX;
-      const threshold = 50;
-      
-      if (Math.abs(diffX) > threshold) {
-        if (diffX > 0) {
-          // Swipe left - next testimonial
-          const maxIndex = Math.max(0, appData.testimonials.length - getVisibleTestimonials());
-          currentTestimonialIndex = Math.min(maxIndex, currentTestimonialIndex + 1);
-        } else {
-          // Swipe right - previous testimonial
-          currentTestimonialIndex = Math.max(0, currentTestimonialIndex - 1);
-        }
-        updateTestimonialCarousel();
-      }
-    });
-  }
-}, 500);
-
-// Keyboard navigation for testimonial carousel
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'ArrowLeft') {
-    currentTestimonialIndex = Math.max(0, currentTestimonialIndex - 1);
-    updateTestimonialCarousel();
-  } else if (e.key === 'ArrowRight') {
-    const maxIndex = Math.max(0, appData.testimonials.length - getVisibleTestimonials());
-    currentTestimonialIndex = Math.min(maxIndex, currentTestimonialIndex + 1);
-    updateTestimonialCarousel();
-  }
-});
