@@ -306,7 +306,7 @@ function initTestimonials() {
                    alt="Success story from ${testimonial.name}" 
                    class="testimonial__image"
                    loading="lazy"
-                   onerror="this.style.display='none'; this.parentElement.innerHTML+='<div class=\\"testimonial__image-placeholder\\"></div>'">
+                   onerror="this.style.display='none'; this.parentElement.innerHTML+='<div class=\\"testimonial__image-placeholder\\"></div>
           </div>
           <div class="testimonial__review-section">
               <div class="testimonial__rating">
