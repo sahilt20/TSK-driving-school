@@ -1,18 +1,18 @@
 /* --- THEME & DESIGN OVERHAUL --- */
 :root {
-  /* --- LIGHT MODE --- */
+  /* --- LIGHT MODE (High-Contrast) --- */
   --color-background: #f8f9fa;
   --color-surface: #ffffff;
   --color-text: #1d3557;
-  --color-text-secondary: #6c757d;
-  --color-primary: #457b9d;
-  --color-primary-hover: #3a6886;
-  --color-primary-active: #2c4f69;
+  --color-text-secondary: #5a677d;
+  --color-primary: #2a6f97; /* Darker blue for better contrast */
+  --color-primary-hover: #256184;
+  --color-primary-active: #1f526e;
   --color-btn-primary-text: #ffffff;
   --color-border: rgba(29, 53, 87, 0.1);
   --color-success: #2a9d8f;
-  --color-hero-bg: #e0e6ec;
-  --color-focus-ring: rgba(69, 123, 157, 0.4);
+  --color-hero-bg: #e9ecef;
+  --color-focus-ring: rgba(42, 111, 151, 0.4);
 
   /* Shadows */
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -21,11 +21,11 @@
 }
 
 body.dark-mode {
-  /* --- DARK MODE --- */
+  /* --- DARK MODE (High-Contrast) --- */
   --color-background: #121822;
   --color-surface: #1a222f;
-  --color-text: #e1eaf2;
-  --color-text-secondary: #94a3b8;
+  --color-text: #e8eff7;
+  --color-text-secondary: #a0aec0; /* Brighter for better readability */
   --color-primary: #a8dadc;
   --color-primary-hover: #bde0e2;
   --color-primary-active: #94cacd;
@@ -76,7 +76,7 @@ a:hover { color: var(--color-primary-hover); }
 }
 .header--hidden { transform: translateY(-100%); }
 .nav { display: flex; align-items: center; justify-content: space-between; height: 100%; }
-.nav__brand { display: flex; align-items: center; gap: 12px; }
+.nav__brand { display: flex; align-items: center; gap: 12px; color: var(--color-text); }
 .nav__logo-img { height: 55px; }
 .nav__logo { font-size: 1.25rem; color: var(--color-text); margin: 0; }
 .nav__actions { display: flex; align-items: center; gap: 16px; }
@@ -151,6 +151,10 @@ body.dark-mode .theme-toggle .moon-icon { display: block; }
 .section__subtitle { max-width: 600px; margin: 0 auto; color: var(--color-text-secondary); }
 .benefits, .pricing, .testimonials, .contact { padding: 80px 0; }
 .benefits { background: var(--color-surface); }
+.pricing { background: var(--color-background); } /* Alternating bg */
+.testimonials { background: var(--color-surface); } /* Alternating bg */
+.contact { background: var(--color-background); } /* Alternating bg */
+
 
 /* --- CARDS (Benefits, Pricing, Testimonials) --- */
 .benefit__card, .package__card, .testimonial__card {
@@ -184,7 +188,6 @@ body.dark-mode .theme-toggle .moon-icon { display: block; }
 .package__card .btn { margin-top: auto; }
 
 /* --- TESTIMONIALS --- */
-.testimonials { background: var(--color-background); }
 .testimonials__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 32px; }
 .testimonial__card { padding: 0; overflow: hidden; }
 .testimonial__image-container { width: 100%; height: 280px; overflow: hidden; }
@@ -200,13 +203,12 @@ body.dark-mode .theme-toggle .moon-icon { display: block; }
 .testimonial__area { font-size: 0.875rem; }
 
 /* --- CONTACT --- */
-.contact { background: var(--color-surface); }
 .contact__content { display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px; margin-top: 48px; }
 .contact__info h3 { margin-bottom: 24px; }
 .contact__item { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
 .hours__list { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
 .hours__item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed var(--color-border); }
-.contact__form { background: var(--color-background); padding: 32px; border-radius: 16px; border: 1px solid var(--color-border); }
+.contact__form { background: var(--color-surface); padding: 32px; border-radius: 16px; border: 1px solid var(--color-border); }
 .form-group { margin-bottom: 24px; }
 .form-label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.875rem; }
 .form-control { display: block; width: 100%; padding: 12px; font-size: 1rem; color: var(--color-text); background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: 8px; transition: all 0.3s ease; min-height: 48px; }
@@ -233,8 +235,8 @@ body.dark-mode .footer { background: #0d131b; }
 @media (max-width: 992px) {
   body { padding-top: 70px; }
   .header { height: 70px; }
-  .nav__logo-img { height: 50px; }
-  .nav__logo { display: none; }
+  .nav__logo-img { height: 45px; }
+  .nav__logo { font-size: 1.1rem; }
   .nav__menu--desktop { display: none; }
   .nav__phone-desktop { display: none; }
   .nav__phone-mobile { display: flex; }
