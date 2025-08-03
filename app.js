@@ -149,7 +149,8 @@ const appData = {
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
   initThemeToggle();
-  initNavigation();
+  initMobileMenu();
+  initStickyHeader();
   initBenefits();
   initPricingSystem();
   initTestimonials();
@@ -164,11 +165,7 @@ function initThemeToggle() {
     if (!themeToggle) return;
 
     const applyTheme = (theme) => {
-        if (theme === 'dark') {
-            document.body.classList.add('dark-mode');
-        } else {
-            document.body.classList.remove('dark-mode');
-        }
+        document.body.classList.toggle('dark-mode', theme === 'dark');
         localStorage.setItem('theme', theme);
     };
 
@@ -184,26 +181,51 @@ function initThemeToggle() {
     });
 }
 
-// Navigation functionality
-function initNavigation() {
-  const navToggle = document.getElementById('nav-toggle');
-  const navMenu = document.getElementById('nav-menu');
+// --- MOBILE NAVIGATION ---
+function initMobileMenu() {
+    const navToggle = document.getElementById('nav-toggle');
+    const mobileMenu = document.getElementById('nav-menu-mobile');
+    if (!navToggle || !mobileMenu) return;
 
-  if (navToggle && navMenu) {
-      navToggle.addEventListener('click', function(e) {
-          e.preventDefault();
-          navMenu.classList.toggle('active');
-          navToggle.classList.toggle('active');
-      });
+    const closeMenu = () => {
+        navToggle.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        document.body.classList.remove('menu-open');
+    };
 
-      const navLinks = document.querySelectorAll('.nav__link');
-      navLinks.forEach(link => {
-          link.addEventListener('click', function() {
-              navMenu.classList.remove('active');
-              navToggle.classList.remove('active');
-          });
-      });
-  }
+    navToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        navToggle.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+        document.body.classList.toggle('menu-open');
+    });
+
+    document.addEventListener('click', (e) => {
+        if (mobileMenu.classList.contains('active') && !mobileMenu.contains(e.target)) {
+            closeMenu();
+        }
+    });
+
+    mobileMenu.querySelectorAll('.nav__link-mobile').forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+}
+
+// --- STICKY/SCROLLING HEADER ---
+function initStickyHeader() {
+    const header = document.getElementById('header');
+    if (!header) return;
+
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+        if (lastScrollY < window.scrollY && window.scrollY > 150) {
+            header.classList.add('header--hidden');
+        } else {
+            header.classList.remove('header--hidden');
+        }
+        lastScrollY = window.scrollY;
+    });
 }
 
 // Initialize benefits section
@@ -335,7 +357,7 @@ function initSmoothScrolling() {
           const targetId = this.getAttribute('href');
           const targetElement = document.querySelector(targetId);
           if (targetElement) {
-              const headerOffset = 90;
+              const headerOffset = 80;
               const elementPosition = targetElement.getBoundingClientRect().top;
               const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
               window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
