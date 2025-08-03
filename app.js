@@ -148,6 +148,7 @@ const appData = {
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
+  initThemeToggle();
   initNavigation();
   initBenefits();
   initPricingSystem();
@@ -156,6 +157,32 @@ document.addEventListener('DOMContentLoaded', function() {
   initSmoothScrolling();
   initScrollAnimations();
 });
+
+// --- THEME TOGGLE FUNCTIONALITY ---
+function initThemeToggle() {
+    const themeToggle = document.getElementById('theme-toggle');
+    if (!themeToggle) return;
+
+    const applyTheme = (theme) => {
+        if (theme === 'dark') {
+            document.body.classList.add('dark-mode');
+        } else {
+            document.body.classList.remove('dark-mode');
+        }
+        localStorage.setItem('theme', theme);
+    };
+
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const currentTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+    
+    applyTheme(currentTheme);
+
+    themeToggle.addEventListener('click', () => {
+        const newTheme = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
+        applyTheme(newTheme);
+    });
+}
 
 // Navigation functionality
 function initNavigation() {
@@ -193,13 +220,8 @@ function initBenefits() {
   `).join('');
 }
 
-// --- PRICE DISPLAY REBUILT ---
-// No toggle, shows both prices for clarity and reliability.
+// Pricing system - shows both prices side-by-side
 function initPricingSystem() {
-  updatePackagePricing(); // Just render the prices on load
-}
-
-function updatePackagePricing() {
   const packagesGrid = document.getElementById('packages-grid');
   if (!packagesGrid) return;
 
@@ -223,7 +245,6 @@ function updatePackagePricing() {
   packagesGrid.innerHTML = packageOptions.map((pkg, index) => {
       const manualPrice = manualPrices[pkg.key];
       const autoPrice = autoPrices[pkg.key];
-
       const manualPriceDisplay = manualPrice ? `£${manualPrice}` : 'N/A';
       const autoPriceDisplay = autoPrice ? `£${autoPrice}` : 'N/A';
 
@@ -245,35 +266,25 @@ function updatePackagePricing() {
               </div>
 
               ${pkg.key === '10hours' ? '<div class="package__savings">Save on block bookings!</div>' : ''}
-              <button class="btn btn--primary" onclick="bookPackage('${pkg.name}')">Enquire Now</button>
+              <a href="#contact" class="btn btn--primary">Enquire Now</a>
           </div>
       `;
   }).join('');
 }
 
-window.bookPackage = function(packageName) {
-  const message = `Hi! I'm interested in the ${packageName} lessons in Coventry. Could you tell me more about the manual and automatic options and availability?`;
-  const url = `https://wa.me/${appData.contact.whatsapp}?text=${encodeURIComponent(message)}`;
-  window.open(url, '_blank');
-};
-
-// UPDATED Testimonials - Enhanced with bigger images and better separation
+// Testimonials section
 function initTestimonials() {
   const testimonialsGrid = document.getElementById('testimonials-grid');
   if (!testimonialsGrid) return;
 
-  testimonialsGrid.innerHTML = appData.testimonials.map((testimonial, index) => {
-      const initials = testimonial.name.split(' ').map(n => n[0]).join('');
-      return `
+  testimonialsGrid.innerHTML = appData.testimonials.map((testimonial, index) => `
       <div class="testimonial__card fade-in" style="animation-delay: ${index * 50}ms;">
-          <div class="testimonial__image-section">
-              <div class="testimonial__image-container">
-                  <img src="${testimonial.image}" 
-                       alt="Success story from ${testimonial.name}" 
-                       class="testimonial__image"
-                       loading="lazy"
-                       onerror="this.style.display='none'; this.parentElement.innerHTML+='<div class=\\"testimonial__image-placeholder\\"></div>
-              </div>
+          <div class="testimonial__image-container">
+              <img src="${testimonial.image}" 
+                   alt="Success story from ${testimonial.name}" 
+                   class="testimonial__image"
+                   loading="lazy"
+                   onerror="this.style.display='none'; this.parentElement.innerHTML+='<div class=\\"testimonial__image-placeholder\\"></div>'">
           </div>
           <div class="testimonial__review-section">
               <div class="testimonial__rating">
@@ -283,106 +294,37 @@ function initTestimonials() {
                   <p class="testimonial__text">${testimonial.text}</p>
               </div>
               <div class="testimonial__footer">
-                  <div class="testimonial__author">${testimonial.name}</div>
-                  <div class="testimonial__area">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                          <circle cx="12" cy="10" r="3"></circle>
-                      </svg>
-                      ${testimonial.area}
-                  </div>
+                  <h4 class="testimonial__author">${testimonial.name}</h4>
+                  <p class="testimonial__area">${testimonial.area}</p>
               </div>
           </div>
       </div>
-  `;
-  }).join('');
+  `).join('');
 }
 
-// FIXED Contact form to send detailed WhatsApp message
+// Contact form
 function initContactForm() {
   const contactForm = document.getElementById('contact-form');
   if (!contactForm) return;
 
   contactForm.addEventListener('submit', function(e) {
       e.preventDefault();
-      
-      // Get all form data
       const formData = new FormData(contactForm);
+      let messageBody = `🚗 Driving Lesson Enquiry\n\n` +
+                        `👤 Name: ${formData.get('name')}\n` +
+                        `📧 Email: ${formData.get('email')}\n` +
+                        `📞 Phone: ${formData.get('phone')}\n` +
+                        `⚙️ Transmission: ${formData.get('transmission-preference')}\n`;
       
-      // Create detailed message
-      let messageBody = `🚗 Driving Lesson Enquiry\n\n`;
-      messageBody += `👤 Name: ${formData.get('name')}\n`;
-      messageBody += `📧 Email: ${formData.get('email')}\n`;
-      messageBody += `📞 Phone: ${formData.get('phone')}\n`;
-      messageBody += `⚙️ Transmission: ${formData.get('transmission-preference')}\n`;
-      
-      const selectedPackage = formData.get('package-interest');
-      if (selectedPackage) {
-          messageBody += `📦 Package Interest: ${selectedPackage}\n`;
-      }
-      
-      const experienceLevel = formData.get('experience-level');
-      if (experienceLevel) {
-          messageBody += `🎯 Experience Level: ${experienceLevel}\n`;
-      }
-      
-      const customMessage = formData.get('message');
-      if (customMessage && customMessage.trim()) {
-          messageBody += `💬 Message: ${customMessage.trim()}\n`;
-      }
+      if (formData.get('package-interest')) messageBody += `📦 Package: ${formData.get('package-interest')}\n`;
+      if (formData.get('experience-level')) messageBody += `🎯 Experience: ${formData.get('experience-level')}\n`;
+      if (formData.get('message')) messageBody += `💬 Message: ${formData.get('message').trim()}\n`;
       
       messageBody += `\n📍 Area: Coventry`;
-      messageBody += `\n🕒 Enquiry sent: ${new Date().toLocaleDateString('en-GB')}`;
 
-      // Open WhatsApp with detailed message
       const whatsappUrl = `https://wa.me/${appData.contact.whatsapp}?text=${encodeURIComponent(messageBody)}`;
       window.open(whatsappUrl, '_blank');
-      
-      // Show success message
-      showNotification('Opening WhatsApp with your enquiry details...', 'success');
-      
-      // Reset form after a short delay
-      setTimeout(() => {
-          contactForm.reset();
-      }, 1000);
   });
-}
-
-function showNotification(message, type = 'info') {
-  const notification = document.createElement('div');
-  notification.className = `notification notification--${type}`;
-  notification.style.cssText = `
-      position: fixed;
-      top: calc(var(--header-height) + 20px);
-      right: 20px;
-      background: var(--color-${type === 'success' ? 'success' : 'primary'});
-      color: white;
-      padding: var(--space-16) var(--space-20);
-      border-radius: var(--radius-base);
-      box-shadow: var(--shadow-lg);
-      z-index: 1001;
-      max-width: 400px;
-      transform: translateX(100%);
-      transition: transform var(--duration-normal) var(--ease-standard);
-  `;
-  notification.textContent = message;
-
-  document.body.appendChild(notification);
-
-  // Animate in
-  setTimeout(() => {
-      notification.style.transform = 'translateX(0)';
-  }, 100);
-
-  // Animate out and remove
-  setTimeout(() => {
-      notification.style.transform = 'translateX(100%)';
-      setTimeout(() => {
-          if (document.body.contains(notification)) {
-              document.body.removeChild(notification);
-          }
-      }, 300);
-  }, 4000);
 }
 
 // Smooth scrolling
@@ -393,14 +335,10 @@ function initSmoothScrolling() {
           const targetId = this.getAttribute('href');
           const targetElement = document.querySelector(targetId);
           if (targetElement) {
-              const headerOffset = 80;
+              const headerOffset = 90;
               const elementPosition = targetElement.getBoundingClientRect().top;
               const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-              window.scrollTo({
-                  top: offsetPosition,
-                  behavior: 'smooth'
-              });
+              window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
           }
       });
   });
