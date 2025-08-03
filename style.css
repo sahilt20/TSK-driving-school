@@ -642,84 +642,6 @@ select.form-control {
   background: var(--color-bg-2);
 }
 
-.pricing__controls {
-  display: flex;
-  justify-content: center;
-  margin-bottom: var(--space-32);
-}
-
-/* Transmission Switch Styles */
-.transmission-switch {
-  display: flex;
-  align-items: center;
-  gap: var(--space-16);
-  background: var(--color-surface);
-  padding: var(--space-16) var(--space-24);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--color-card-border);
-}
-
-.transmission-switch__label {
-  font-weight: var(--font-weight-medium);
-  font-size: var(--font-size-lg);
-  color: var(--color-text-secondary);
-  transition: color var(--duration-fast) var(--ease-standard);
-  min-width: 60px;
-  text-align: center;
-}
-
-.transmission-switch__label.active {
-  color: var(--color-driving-blue);
-  font-weight: var(--font-weight-bold);
-}
-
-.transmission-switch__toggle {
-  position: relative;
-}
-
-.transmission-switch__input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.transmission-switch__slider {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-  background-color: var(--color-border);
-  border-radius: var(--radius-full);
-  cursor: pointer;
-  transition: all var(--duration-normal) var(--ease-standard);
-}
-
-.transmission-switch__slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: var(--color-white);
-  border-radius: 50%;
-  transition: all var(--duration-normal) var(--ease-standard);
-  box-shadow: var(--shadow-sm);
-}
-
-.transmission-switch__input:checked + .transmission-switch__slider {
-  background-color: var(--color-driving-blue);
-}
-
-.transmission-switch__input:checked + .transmission-switch__slider:before {
-  transform: translateX(26px);
-}
-
-.transmission-switch__slider:hover {
-  box-shadow: var(--shadow-md);
-}
-
 .packages__grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -734,6 +656,8 @@ select.form-control {
   text-align: center;
   position: relative;
   transition: all var(--duration-normal) var(--ease-standard);
+  display: flex;
+  flex-direction: column;
 }
 
 .package__card:hover {
@@ -768,6 +692,7 @@ select.form-control {
 .package__description {
   color: var(--color-text-secondary);
   margin-bottom: var(--space-16);
+  flex-grow: 1;
 }
 
 .package__price {
@@ -781,6 +706,39 @@ select.form-control {
   font-weight: var(--font-weight-medium);
   margin-bottom: var(--space-16);
 }
+
+/* NEW STYLES FOR DUAL PRICE DISPLAY */
+.package__price-details {
+  display: flex;
+  justify-content: space-around;
+  gap: var(--space-16);
+  margin: var(--space-16) 0;
+  padding: var(--space-16) 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.price-option {
+  text-align: center;
+}
+
+.price-label {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-4);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.price-value {
+  display: block;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-driving-blue);
+}
+
 
 /* ENHANCED Testimonials Section - Bigger Images & Better Separation */
 .testimonials {
@@ -1252,12 +1210,6 @@ select.form-control {
   .hero__buttons .btn {
     width: 100%;
     max-width: 300px;
-  }
-
-  .transmission-switch {
-    flex-direction: column;
-    gap: var(--space-12);
-    text-align: center;
   }
 
   .contact__content {

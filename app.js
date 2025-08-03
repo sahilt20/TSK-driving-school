@@ -146,8 +146,6 @@ const appData = {
   }
 };
 
-let currentTransmission = 'automatic';
-
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
   initNavigation();
@@ -195,72 +193,66 @@ function initBenefits() {
   `).join('');
 }
 
-// FIXED Pricing system with toggle switch
+// --- PRICE DISPLAY REBUILT ---
+// No toggle, shows both prices for clarity and reliability.
 function initPricingSystem() {
-  const transmissionToggle = document.getElementById('transmission-toggle');
-  const manualLabel = document.getElementById('manual-label');
-  const automaticLabel = document.getElementById('automatic-label');
-
-  if (transmissionToggle) {
-      // Set initial state (checked = automatic)
-      updateTransmissionState();
-      
-      transmissionToggle.addEventListener('change', function() {
-          updateTransmissionState();
-          updatePackagePricing();
-      });
-  }
-
-  function updateTransmissionState() {
-      if (transmissionToggle.checked) {
-          currentTransmission = 'automatic';
-          manualLabel.classList.remove('active');
-          automaticLabel.classList.add('active');
-      } else {
-          currentTransmission = 'manual';
-          manualLabel.classList.add('active');
-          automaticLabel.classList.remove('active');
-      }
-  }
-
-  updatePackagePricing(); // Initial render
+  updatePackagePricing(); // Just render the prices on load
 }
 
 function updatePackagePricing() {
   const packagesGrid = document.getElementById('packages-grid');
   if (!packagesGrid) return;
 
-  const prices = appData.areas[0][currentTransmission];
-  if (!prices) {
-      console.error(`Pricing data not found for transmission: ${currentTransmission}`);
+  const manualPrices = appData.areas[0].manual;
+  const autoPrices = appData.areas[0].automatic;
+
+  if (!manualPrices || !autoPrices) {
+      console.error(`Pricing data not found.`);
+      packagesGrid.innerHTML = '<p>Sorry, pricing information is currently unavailable.</p>';
       return;
   }
 
   const packageOptions = [
-      { key: '1hour', name: "1 Hour Lesson", description: "Perfect for a refresher", hours: "1" },
-      { key: '1.5hours', name: "1.5 Hour Lesson", description: "Extended learning time", hours: "1.5" },
-      { key: '2hours', name: "2 Hour Lesson", description: "Intensive session", hours: "2" },
-      { key: '10hours', name: "10 Hours Block", description: "Save with bulk booking", isPopular: true, hours: "10" },
-      { key: 'beginnerPackage', name: "Beginner Package", description: "Introductory rate for new learners", hours: "beginner" }
+      { key: '1hour', name: "1 Hour Lesson", description: "Perfect for a refresher" },
+      { key: '1.5hours', name: "1.5 Hour Lesson", description: "Extended learning time" },
+      { key: '2hours', name: "2 Hour Lesson", description: "Intensive session" },
+      { key: '10hours', name: "10 Hours Block", description: "Save with bulk booking", isPopular: true },
+      { key: 'beginnerPackage', name: "Beginner Package", description: "Introductory rate for new learners" }
   ];
 
   packagesGrid.innerHTML = packageOptions.map((pkg, index) => {
-      const price = prices[pkg.key];
+      const manualPrice = manualPrices[pkg.key];
+      const autoPrice = autoPrices[pkg.key];
+
+      const manualPriceDisplay = manualPrice ? `£${manualPrice}` : 'N/A';
+      const autoPriceDisplay = autoPrice ? `£${autoPrice}` : 'N/A';
+
       return `
           <div class="package__card fade-in ${pkg.isPopular ? 'popular' : ''}" style="animation-delay: ${index * 100}ms;">
               ${pkg.isPopular ? '<div class="package__popular">Most Popular</div>' : ''}
               <h3 class="package__title">${pkg.name}</h3>
               <p class="package__description">${pkg.description}</p>
-              <div class="package__price">£${price}</div>
-              ${pkg.key === '10hours' ? '<div class="package__savings">Save £30 compared to individual lessons!</div>' : ''}
-              <button class="btn btn--primary" onclick="bookPackage('${pkg.name}', ${price}, '${pkg.hours}')">Book Now</button>
+              
+              <div class="package__price-details">
+                  <div class="price-option">
+                      <span class="price-label">Manual</span>
+                      <span class="price-value">${manualPriceDisplay}</span>
+                  </div>
+                  <div class="price-option">
+                      <span class="price-label">Automatic</span>
+                      <span class="price-value">${autoPriceDisplay}</span>
+                  </div>
+              </div>
+
+              ${pkg.key === '10hours' ? '<div class="package__savings">Save on block bookings!</div>' : ''}
+              <button class="btn btn--primary" onclick="bookPackage('${pkg.name}')">Enquire Now</button>
           </div>
       `;
   }).join('');
 }
 
-window.bookPackage = function(packageName, price, hours) {
-  const message = `Hi! I'm interested in the ${packageName} (£${price}) for ${currentTransmission} lessons in Coventry. Can you provide more information?`;
+window.bookPackage = function(packageName) {
+  const message = `Hi! I'm interested in the ${packageName} lessons in Coventry. Could you tell me more about the manual and automatic options and availability?`;
   const url = `https://wa.me/${appData.contact.whatsapp}?text=${encodeURIComponent(message)}`;
   window.open(url, '_blank');
 };
