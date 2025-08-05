@@ -105,7 +105,14 @@ const appData = {
           rating: 5,
           text: "Fantastic teacher who made learning to drive enjoyable and stress-free. Passed first time thanks to the excellent preparation!",
           image: "images/ss2025-04-2s5.png"
-      }
+      },
+      {
+        name: "Vikram Choudhary",
+        area: "Warwick",
+        rating: 5,
+        text: "Passed my test in first attempt! The instructor was very patient and helped me build confidence behind the wheel. Highly recommend TSK Driving School!",
+        image: "images/vk.png"
+    }
   ],
   benefits: [
       {
