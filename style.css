@@ -696,28 +696,75 @@ body.dark-mode .footer__bottom {
   border-top: 1px solid var(--color-border);
 }
 
-/* --- WHATSAPP FLOAT --- */
-.whatsapp__float { 
-  position: fixed; 
-  bottom: 24px; 
-  right: 24px; 
-  width: 60px; 
-  height: 60px; 
-  background: #25d366; 
-  color: white; 
-  border: none;
-  border-radius: 50%; 
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
-  box-shadow: var(--shadow-lg); 
-  z-index: 1000; 
+/* --- FLOATING ACTION BUTTONS --- */
+.floating-buttons {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  z-index: 1000;
+}
+
+.call__float, .whatsapp__float {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg);
   transition: all 0.3s ease;
+  text-decoration: none;
+  border: none;
   cursor: pointer;
 }
-.whatsapp__float:hover { 
-  transform: scale(1.1) rotate(10deg); 
-  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3); 
+
+.call__float {
+  background: #007bff;
+  color: white;
+}
+
+.call__float:hover {
+  background: #0056b3;
+  transform: scale(1.1) rotate(-5deg);
+  box-shadow: 0 8px 25px rgba(0, 123, 255, 0.4);
+}
+
+.whatsapp__float {
+  background: #25d366;
+  color: white;
+}
+
+.whatsapp__float:hover {
+  background: #1ea952;
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+}
+
+/* Mobile adjustments for floating buttons */
+@media (max-width: 768px) {
+  .floating-buttons {
+    bottom: 20px;
+    right: 20px;
+    gap: 12px;
+  }
+  
+  .call__float, .whatsapp__float {
+    width: 52px;
+    height: 52px;
+  }
+  
+  .call__float svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .whatsapp__float svg {
+    width: 24px;
+    height: 24px;
+  }
 }
 
 /* --- MOBILE RESPONSIVE STYLES --- */
