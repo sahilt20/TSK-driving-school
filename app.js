@@ -212,13 +212,13 @@ const appData = {
         text: "Professional and patient instructor who helped me overcome my driving anxiety. The lessons were well-structured and I felt fully prepared for my test.",
         image: "images/unnamesd.png"
       },
-      // {
-      //   name: "Olivia Bennett",
-      //   area: "Solihull",
-      //   rating: 5,
-      //   text: "Amazing driving school! The instructor was encouraging and made complex maneuvers easy to understand. Passed with only 1 minor fault!",
-      //   image: "images/logo.png"
-      // },
+      {
+        name: "Sahil Tanwar",
+        area: "Coventry",
+        rating: 5,
+        text: "TSK Driving School is the best! The instructor was calm, knowledgeable, and made sure I understood everything before my test. Passed with only 1 minor fault!",
+        image: "images/st.png"
+      },
       // {
       //   name: "Connor Walsh",
       //   area: "Rugby",
