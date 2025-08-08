@@ -19,6 +19,91 @@ const appData = {
               "10hours": 340,
               "beginnerPackage": 65
           }
+      },
+      {
+          name: "Nuneaton",
+          automatic: {
+              "1hour": 38,
+              "1.5hours": 55,
+              "2hours": 72,
+              "10hours": 360,
+              "beginnerPackage": 70
+          },
+          manual: {
+              "1hour": 37,
+              "1.5hours": 54,
+              "2hours": 70,
+              "10hours": 350,
+              "beginnerPackage": 67
+          }
+      },
+      {
+          name: "Leamington Spa",
+          automatic: {
+              "1hour": 42,
+              "1.5hours": 62,
+              "2hours": 80,
+              "10hours": 400,
+              "beginnerPackage": 78
+          },
+          manual: {
+              "1hour": 40,
+              "1.5hours": 60,
+              "2hours": 78,
+              "10hours": 390,
+              "beginnerPackage": 75
+          }
+      },
+      {
+          name: "Solihull",
+          automatic: {
+              "1hour": 45,
+              "1.5hours": 65,
+              "2hours": 85,
+              "10hours": 420,
+              "beginnerPackage": 82
+          },
+          manual: {
+              "1hour": 43,
+              "1.5hours": 63,
+              "2hours": 83,
+              "10hours": 410,
+              "beginnerPackage": 79
+          }
+      },
+      {
+          name: "Rugby",
+          automatic: {
+              "1hour": 36,
+              "1.5hours": 54,
+              "2hours": 68,
+              "10hours": 330,
+              "beginnerPackage": 66
+          },
+          manual: {
+              "1hour": 35,
+              "1.5hours": 52,
+              "2hours": 66,
+              "10hours": 320,
+              "beginnerPackage": 63
+          }
+      },
+      {
+          name: "Warwick",
+          automatic: {
+              "1hour": 41,
+              "1.5hours": 59,
+              "2hours": 76,
+              "10hours": 380,
+              "beginnerPackage": 74
+          },
+          manual: {
+              "1hour": 39,
+              "1.5hours": 57,
+              "2hours": 74,
+              "10hours": 370,
+              "beginnerPackage": 71
+          }
       }
   ],
   testimonials: [
@@ -112,7 +197,35 @@ const appData = {
         rating: 5,
         text: "Passed my test in first attempt! The instructor was very patient and helped me build confidence behind the wheel. Highly recommend TSK Driving School!",
         image: "images/vk.png"
-    }
+      },
+      {
+        name: "Charlotte Mason",
+        area: "Nuneaton",
+        rating: 5,
+        text: "Brilliant instructor! Made learning to drive fun and stress-free. Passed first time with confidence thanks to TSK's excellent teaching methods.",
+        image: "images/unnamed.png"
+      },
+      {
+        name: "Jake Phillips",
+        area: "Leamington Spa",
+        rating: 5,
+        text: "Professional and patient instructor who helped me overcome my driving anxiety. The lessons were well-structured and I felt fully prepared for my test.",
+        image: "images/unnamesd.png"
+      },
+      // {
+      //   name: "Olivia Bennett",
+      //   area: "Solihull",
+      //   rating: 5,
+      //   text: "Amazing driving school! The instructor was encouraging and made complex maneuvers easy to understand. Passed with only 1 minor fault!",
+      //   image: "images/logo.png"
+      // },
+      // {
+      //   name: "Connor Walsh",
+      //   area: "Rugby",
+      //   rating: 5,
+      //   text: "Top quality instruction! The lessons were tailored to my learning style and I felt confident throughout. Highly recommend TSK Driving School!",
+      //   image: "images/tsk.png"
+      // }
   ],
   benefits: [
       {
@@ -149,7 +262,52 @@ const appData = {
   contact: {
       phone: "+44 7872 309080",
       whatsapp: "447872309080", // Number for WhatsApp URL
-      email: "tskdrivingschool101@gmail.com"
+      email: "tskdrivingschool101@gmail.com",
+      instructorName: "Darrin"
+  }
+};
+
+// WhatsApp Messaging System
+const WhatsAppMessages = {
+  // Create a friendly, professional WhatsApp message
+  createMessage: function(type, data = {}) {
+    const instructorName = appData.contact.instructorName;
+    const currentCity = AppState.getCurrentCity();
+    
+    const baseGreeting = `Hi ${instructorName}! 👋\n\nI hope you're having a great day! `;
+    
+    switch(type) {
+      case 'package-enquiry':
+        return `${baseGreeting}I'm interested in learning to drive and would love to know more about your ${data.packageName} in ${currentCity.name}.\n\n📦 Package: ${data.packageName}\n💰 Manual Price: £${data.manualPrice}\n💰 Automatic Price: £${data.autoPrice}\n📍 Location: ${currentCity.name}\n\nCould you please tell me more about:\n• Lesson availability\n• Next available slots\n• What's included in this package\n• Your teaching approach\n\nI'm really excited to start my driving journey with TSK Driving School! 🚗\n\nLooking forward to hearing from you soon!\n\nBest regards`;
+      
+      case 'general-enquiry':
+        return `${baseGreeting}I'm interested in taking driving lessons with TSK Driving School in ${currentCity.name}.\n\nI'd love to discuss:\n• Available lesson packages\n• Your teaching methodology\n• Scheduling flexibility\n• Next available start dates\n\n📍 Preferred Location: ${currentCity.name}\n\nI've heard great things about TSK Driving School and would be thrilled to learn from such an experienced instructor! 🌟\n\nWhen would be a good time to chat?\n\nThanks so much!`;
+      
+      case 'manual-focus':
+        return `${baseGreeting}I'm specifically interested in manual driving lessons with TSK Driving School in ${currentCity.name}.\n\n🔧 I'd love to master:\n• Clutch control\n• Smooth gear changes\n• Hill starts\n• All aspects of manual driving\n\n📍 Location: ${currentCity.name}\n\nI believe learning manual will give me better driving skills overall, and I'd love to learn from your expertise! Could we discuss lesson packages and your availability?\n\nThank you for your time!`;
+      
+      case 'automatic-focus':
+        return `${baseGreeting}I'm interested in automatic driving lessons with TSK Driving School in ${currentCity.name}.\n\n🎯 I'd like to focus on:\n• Road awareness\n• Hazard perception\n• Traffic rules and safety\n• Building confidence behind the wheel\n\n📍 Location: ${currentCity.name}\n\nAutomatic seems perfect for me to concentrate fully on road safety without clutch complexity. Could you tell me about your automatic lesson packages and availability?\n\nLooking forward to starting this journey!`;
+      
+      case 'intensive-course':
+        return `${baseGreeting}I'm looking for an intensive driving course to get test-ready quickly with TSK Driving School in ${currentCity.name}.\n\n⚡ I'm hoping to:\n• Get test-ready in 2-4 weeks\n• Have intensive focused lessons\n• Build confidence quickly\n• Pass my test first time\n\n📍 Location: ${currentCity.name}\n\nI've heard you have excellent pass rates and would love to benefit from your proven teaching methods! Could we discuss intensive course options?\n\nThank you so much!`;
+      
+      case 'contact-form':
+        return `${baseGreeting}I've filled out the contact form on your website and wanted to reach out directly!\n\n👤 Name: ${data.name}\n📧 Email: ${data.email}\n📞 Phone: ${data.phone}\n⚙️ Transmission Preference: ${data.transmission}\n${data.package ? `📦 Package Interest: ${data.package}\n` : ''}${data.experience ? `🎯 Experience Level: ${data.experience}\n` : ''}📍 Preferred Area: ${currentCity.name}\n\n${data.message ? `💬 Additional Message:\n${data.message}\n\n` : ''}I'm really excited about the possibility of learning to drive with such a highly recommended instructor! When would be a convenient time to discuss lessons?\n\nThanks for all you do to help people achieve their driving goals! 🚗✨`;
+      
+      case 'refresher-training':
+        return `${baseGreeting}I'm interested in refresher driving lessons with TSK Driving School in ${currentCity.name}.\n\n🔄 I'd like help with:\n• Building confidence after time away from driving\n• Motorway driving practice\n• Night driving preparation\n• Handling different weather conditions\n\n📍 Location: ${currentCity.name}\n\nI think some professional guidance would really help me become a more confident driver. Could we discuss your refresher packages?\n\nThank you for offering such comprehensive training!`;
+      
+      default:
+        return `${baseGreeting}I'm interested in driving lessons with TSK Driving School in ${currentCity.name}.\n\nI'd love to learn more about your services and discuss how we can get started!\n\n📍 Preferred Location: ${currentCity.name}\n\nLooking forward to hearing from you!\n\nBest regards`;
+    }
+  },
+  
+  // Send WhatsApp message
+  send: function(messageType, data = {}) {
+    const message = this.createMessage(messageType, data);
+    const whatsappUrl = `https://wa.me/${appData.contact.whatsapp}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
   }
 };
 
@@ -158,7 +316,9 @@ document.addEventListener('DOMContentLoaded', function() {
   initThemeToggle();
   initMobileMenu();
   initStickyHeader();
+  initHeroSlider();
   initBenefits();
+  initCitySelector();
   initPricingSystem();
   initTestimonials();
   initContactForm();
@@ -235,6 +395,86 @@ function initStickyHeader() {
     });
 }
 
+// --- HERO SLIDER FUNCTIONALITY ---
+function initHeroSlider() {
+    const slider = document.getElementById('hero-slider');
+    const slides = slider?.querySelectorAll('.hero__slide');
+    const prevBtn = document.getElementById('hero-prev');
+    const nextBtn = document.getElementById('hero-next');
+    const indicators = document.querySelectorAll('.indicator');
+    
+    if (!slider || !slides.length) return;
+    
+    let currentSlide = 0;
+    const totalSlides = slides.length;
+    
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.toggle('active', i === index);
+        });
+        
+        indicators.forEach((indicator, i) => {
+            indicator.classList.toggle('active', i === index);
+        });
+        
+        currentSlide = index;
+    }
+    
+    function nextSlide() {
+        const newIndex = (currentSlide + 1) % totalSlides;
+        showSlide(newIndex);
+    }
+    
+    function prevSlide() {
+        const newIndex = (currentSlide - 1 + totalSlides) % totalSlides;
+        showSlide(newIndex);
+    }
+    
+    // Pause auto-advance when user interacts with controls
+    let pauseAutoAdvance = false;
+    
+    function pauseAndResume() {
+        pauseAutoAdvance = true;
+        setTimeout(() => {
+            pauseAutoAdvance = false;
+        }, 10000); // Resume after 10 seconds of no interaction
+    }
+    
+    // Event listeners with pause functionality
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            pauseAndResume();
+            nextSlide();
+        });
+    }
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            pauseAndResume();
+            prevSlide();
+        });
+    }
+    
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            pauseAndResume();
+            showSlide(index);
+        });
+    });
+    
+    // Auto-advance slides every 5 seconds
+    const autoAdvanceInterval = setInterval(() => {
+        if (!pauseAutoAdvance) {
+            nextSlide();
+        }
+    }, 5000);
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') prevSlide();
+        if (e.key === 'ArrowRight') nextSlide();
+    });
+}
+
 // Initialize benefits section
 function initBenefits() {
   const benefitsGrid = document.getElementById('benefits-grid');
@@ -249,56 +489,139 @@ function initBenefits() {
   `).join('');
 }
 
-// Pricing system - shows both prices side-by-side
-function initPricingSystem() {
-  const packagesGrid = document.getElementById('packages-grid');
-  if (!packagesGrid) return;
-
-  const manualPrices = appData.areas[0].manual;
-  const autoPrices = appData.areas[0].automatic;
-
-  if (!manualPrices || !autoPrices) {
-      console.error(`Pricing data not found.`);
-      packagesGrid.innerHTML = '<p>Sorry, pricing information is currently unavailable.</p>';
-      return;
-  }
-
-  const packageOptions = [
+// Application State Management
+const AppState = {
+  currentCityIndex: 0,
+  
+  setCity: function(index) {
+    if (index >= 0 && index < appData.areas.length) {
+      this.currentCityIndex = index;
+      this.updateUI();
+    }
+  },
+  
+  getCurrentCity: function() {
+    return appData.areas[this.currentCityIndex];
+  },
+  
+  updateUI: function() {
+    this.updateCityDisplay();
+    this.updateCityButtons();
+    this.updatePricing();
+  },
+  
+  updateCityDisplay: function() {
+    const cityDisplays = document.querySelectorAll('.current-city, .current-city-pricing');
+    cityDisplays.forEach(display => {
+      display.textContent = this.getCurrentCity().name;
+    });
+  },
+  
+  updateCityButtons: function() {
+    const allCityButtons = document.querySelectorAll('.city-btn, .pricing-city-btn');
+    allCityButtons.forEach((btn, index) => {
+      const btnIndex = parseInt(btn.dataset.cityIndex) || index;
+      btn.classList.toggle('active', btnIndex === this.currentCityIndex);
+    });
+  },
+  
+  updatePricing: function() {
+    const packagesGrid = document.getElementById('packages-grid');
+    if (!packagesGrid) return;
+    
+    const currentCity = this.getCurrentCity();
+    console.log('Updating pricing for:', currentCity.name);
+    
+    const packageOptions = [
       { key: '1hour', name: "1 Hour Lesson", description: "Perfect for a refresher" },
       { key: '1.5hours', name: "1.5 Hour Lesson", description: "Extended learning time" },
       { key: '2hours', name: "2 Hour Lesson", description: "Intensive session" },
       { key: '10hours', name: "10 Hours Block", description: "Save with bulk booking", isPopular: true },
       { key: 'beginnerPackage', name: "Beginner Package", description: "Introductory rate for new learners" }
-  ];
+    ];
 
-  packagesGrid.innerHTML = packageOptions.map((pkg, index) => {
-      const manualPrice = manualPrices[pkg.key];
-      const autoPrice = autoPrices[pkg.key];
-      const manualPriceDisplay = manualPrice ? `£${manualPrice}` : 'N/A';
-      const autoPriceDisplay = autoPrice ? `£${autoPrice}` : 'N/A';
-
+    packagesGrid.innerHTML = packageOptions.map((pkg, index) => {
+      const manualPrice = currentCity.manual[pkg.key];
+      const autoPrice = currentCity.automatic[pkg.key];
+      
       return `
-          <div class="package__card fade-in ${pkg.isPopular ? 'popular' : ''}" style="animation-delay: ${index * 100}ms;">
-              ${pkg.isPopular ? '<div class="package__popular">Most Popular</div>' : ''}
-              <h3 class="package__title">${pkg.name}</h3>
-              <p class="package__description">${pkg.description}</p>
-              
-              <div class="package__price-details">
-                  <div class="price-option">
-                      <span class="price-label">Manual</span>
-                      <span class="price-value">${manualPriceDisplay}</span>
-                  </div>
-                  <div class="price-option">
-                      <span class="price-label">Automatic</span>
-                      <span class="price-value">${autoPriceDisplay}</span>
-                  </div>
-              </div>
-
-              ${pkg.key === '10hours' ? '<div class="package__savings">Save on block bookings!</div>' : ''}
-              <a href="#contact" class="btn btn--primary">Enquire Now</a>
+        <div class="package__card fade-in ${pkg.isPopular ? 'popular' : ''}" style="animation-delay: ${index * 100}ms;">
+          ${pkg.isPopular ? '<div class="package__popular">Most Popular</div>' : ''}
+          <h3 class="package__title">${pkg.name}</h3>
+          <p class="package__description">${pkg.description}</p>
+          
+          <div class="package__price-details">
+            <div class="price-option">
+              <span class="price-label">Manual</span>
+              <span class="price-value">£${manualPrice}</span>
+            </div>
+            <div class="price-option">
+              <span class="price-label">Automatic</span>
+              <span class="price-value">£${autoPrice}</span>
+            </div>
           </div>
+          
+          ${pkg.key === '10hours' ? '<div class="package__savings">Save on block bookings!</div>' : ''}
+          <button class="btn btn--primary" onclick="WhatsAppMessages.send('package-enquiry', {packageName: '${pkg.name}', manualPrice: '${manualPrice}', autoPrice: '${autoPrice}'})">
+            📱 Enquire Now
+          </button>
+        </div>
       `;
-  }).join('');
+    }).join('');
+    
+    // Re-observe new elements for animations
+    if (window.reObserveFadeInElements) {
+      setTimeout(window.reObserveFadeInElements, 100);
+    }
+  }
+};
+
+// Global function for HTML onclick events
+window.selectCity = function(index) {
+  AppState.setCity(index);
+};
+
+// City selector initialization
+function initCitySelector() {
+  createPricingCitySelector();
+  AppState.updateUI();
+}
+
+function createPricingCitySelector() {
+  const pricingSection = document.getElementById('pricing');
+  if (!pricingSection) return;
+  
+  const sectionHeader = pricingSection.querySelector('.section__header');
+  if (!sectionHeader || sectionHeader.querySelector('.pricing-city-selector')) return;
+  
+  const citySelectorHTML = `
+    <div class="pricing-city-selector">
+      <h3>📍 Select Your Area for Pricing:</h3>
+      <div class="pricing-city-buttons">
+        ${appData.areas.map((area, index) => `
+          <button class="pricing-city-btn ${index === 0 ? 'active' : ''}" 
+                  data-city-index="${index}" 
+                  onclick="selectCity(${index})">
+            ${area.name}
+          </button>
+        `).join('')}
+      </div>
+      <p class="selected-city-display">Currently showing prices for: <span class="current-city-pricing">${appData.areas[0].name}</span></p>
+    </div>
+  `;
+  
+  sectionHeader.insertAdjacentHTML('afterend', citySelectorHTML);
+}
+
+// Legacy function for backward compatibility
+window.updateCityPricing = function(index) {
+  selectCity(index);
+};
+
+// Pricing system - now handled by AppState
+function initPricingSystem() {
+  // Initial pricing display is handled by AppState
+  AppState.updatePricing();
 }
 
 // Testimonials section
@@ -313,7 +636,7 @@ function initTestimonials() {
                    alt="Success story from ${testimonial.name}" 
                    class="testimonial__image"
                    loading="lazy"
-                   onerror="this.style.display='none'; this.parentElement.innerHTML+='<div class=\\"testimonial__image-placeholder\\"></div>
+                   onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\"testimonial__image-placeholder\\">👤</div>
           </div>
           <div class="testimonial__review-section">
               <div class="testimonial__rating">
@@ -339,20 +662,18 @@ function initContactForm() {
   contactForm.addEventListener('submit', function(e) {
       e.preventDefault();
       const formData = new FormData(contactForm);
-      let messageBody = `🚗 Driving Lesson Enquiry\n\n` +
-                        `👤 Name: ${formData.get('name')}\n` +
-                        `📧 Email: ${formData.get('email')}\n` +
-                        `📞 Phone: ${formData.get('phone')}\n` +
-                        `⚙️ Transmission: ${formData.get('transmission-preference')}\n`;
       
-      if (formData.get('package-interest')) messageBody += `📦 Package: ${formData.get('package-interest')}\n`;
-      if (formData.get('experience-level')) messageBody += `🎯 Experience: ${formData.get('experience-level')}\n`;
-      if (formData.get('message')) messageBody += `💬 Message: ${formData.get('message').trim()}\n`;
+      const contactData = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        transmission: formData.get('transmission-preference'),
+        package: formData.get('package-interest'),
+        experience: formData.get('experience-level'),
+        message: formData.get('message')
+      };
       
-      messageBody += `\n📍 Area: Coventry`;
-
-      const whatsappUrl = `https://wa.me/${appData.contact.whatsapp}?text=${encodeURIComponent(messageBody)}`;
-      window.open(whatsappUrl, '_blank');
+      WhatsAppMessages.send('contact-form', contactData);
   });
 }
 
@@ -381,7 +702,21 @@ function initScrollAnimations() {
               entry.target.classList.add('visible');
           }
       });
-  }, { threshold: 0.1 });
+  }, { 
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px' 
+  });
 
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  // Observe all fade-in elements
+  const observeElements = () => {
+    document.querySelectorAll('.fade-in:not(.visible)').forEach(el => {
+      observer.observe(el);
+    });
+  };
+  
+  // Initial observation
+  observeElements();
+  
+  // Re-observe after DOM changes (useful for dynamic content)
+  window.reObserveFadeInElements = observeElements;
 }

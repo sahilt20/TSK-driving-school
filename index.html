@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TSK Driving School - Manual & Automatic Driving Lessons in Coventry</title>
-    <meta name="description" content="Professional manual and automatic driving lessons in Coventry. DVSA approved instructors, high pass rates, focus on road awareness. Book today!">
+    <title>TSK Driving School - Manual & Automatic Driving Lessons | Coventry, Nuneaton, Leamington Spa, Solihull, Rugby, Warwick</title>
+    <meta name="description" content="🚗 Professional manual & automatic driving lessons across Coventry, Nuneaton, Leamington Spa, Solihull, Rugby & Warwick. DVSA approved instructors, 95% pass rate. Book today! 📱">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -58,21 +58,183 @@
             <li><a href="#contact" class="nav__link-mobile">Contact</a></li>
         </ul>
         <div class="nav__menu-footer">
-            <a href="https://wa.me/447872309080" target="_blank" class="btn btn--primary btn--full-width">Book via WhatsApp</a>
+            <button class="btn btn--primary btn--full-width" onclick="WhatsAppMessages.send('general-enquiry')">Book via WhatsApp</button>
         </div>
     </div>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero__container container">
-            <div class="hero__content">
-                <h1 class="hero__title">Your Journey to Driving <span class="highlight">Starts Here</span></h1>
-                <p class="hero__subtitle">Expert Manual & Automatic driving lessons in Coventry. Pass your test with confidence and become a safe driver for life with TSK Driving School.</p>
-                <div class="hero__buttons">
-                    <a href="#pricing" class="btn btn--primary btn--lg">View Pricing & Packages</a>
-                    <a href="https://wa.me/447872309080?text=Hi! I'm interested in driving lessons. Can you provide more information?" target="_blank" class="btn btn--outline btn--lg">Book via WhatsApp</a>
+        <div class="hero__slider" id="hero-slider">
+            <div class="hero__slide active">
+                <div class="hero__bg-image" style="background-image: url('images/2025-04-16.png')"></div>
+                <div class="hero__overlay"></div>
+                <div class="hero__container container">
+                    <div class="hero__content">
+                        <h1 class="hero__title">🚗 Master the Roads with <span class="highlight">Confidence</span></h1>
+                        <p class="hero__subtitle">🎯 Expert Manual & Automatic driving lessons across <span class="current-city">Coventry</span> and surrounding areas. Transform into a skilled, confident driver with TSK Driving School!</p>
+                        <div class="hero__stats">
+                            <div class="stat">
+                                <span class="stat__number">95%</span>
+                                <span class="stat__label">Pass Rate</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat__number">500+</span>
+                                <span class="stat__label">Happy Students</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat__number">5★</span>
+                                <span class="stat__label">Reviews</span>
+                            </div>
+                        </div>
+                        <div class="hero__buttons">
+                            <a href="#pricing" class="btn btn--primary btn--lg">🎯 View Pricing & Packages</a>
+                            <button class="btn btn--outline btn--lg" onclick="WhatsAppMessages.send('general-enquiry')">📱 Book via WhatsApp</button>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div class="hero__slide">
+                <div class="hero__bg-image" style="background-image: url('images/2025-04-19.png')"></div>
+                <div class="hero__overlay"></div>
+                <div class="hero__container container">
+                    <div class="hero__content">
+                        <h1 class="hero__title">🏆 Pass Your Test <span class="highlight">First Time</span></h1>
+                        <p class="hero__subtitle">💪 Join hundreds of successful students who achieved their driving dreams with our proven teaching methods across Nuneaton, Leamington Spa, Solihull, Rugby, and Warwick!</p>
+                        <div class="hero__features">
+                            <div class="feature">✅ DVSA Approved Instructors</div>
+                            <div class="feature">✅ Modern Dual-Control Vehicles</div>
+                            <div class="feature">✅ Flexible Lesson Times</div>
+                        </div>
+                        <div class="hero__buttons">
+                            <a href="tel:+447872309080" class="btn btn--primary btn--lg">📞 Call Now</a>
+                            <a href="#why-choose" class="btn btn--outline btn--lg">🌟 Why Choose TSK</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero__slide">
+                <div class="hero__bg-image" style="background-image: url('images/2025-04-20.png')"></div>
+                <div class="hero__overlay"></div>
+                <div class="hero__container container">
+                    <div class="hero__content">
+                        <h1 class="hero__title">🚀 Start Your Driving <span class="highlight">Adventure Today</span></h1>
+                        <p class="hero__subtitle">🎉 Ready to hit the road? Choose from Manual or Automatic lessons tailored to your pace and learning style. Your independence awaits!</p>
+                        <div class="city-selector">
+                            <h3>📍 Choose Your Area:</h3>
+                            <div class="city-buttons">
+                                <button class="city-btn active" data-city-index="0" onclick="selectCity(0)">Coventry</button>
+                                <button class="city-btn" data-city-index="1" onclick="selectCity(1)">Nuneaton</button>
+                                <button class="city-btn" data-city-index="2" onclick="selectCity(2)">Leamington Spa</button>
+                                <button class="city-btn" data-city-index="3" onclick="selectCity(3)">Solihull</button>
+                                <button class="city-btn" data-city-index="4" onclick="selectCity(4)">Rugby</button>
+                                <button class="city-btn" data-city-index="5" onclick="selectCity(5)">Warwick</button>
+                            </div>
+                        </div>
+                        <div class="hero__buttons">
+                            <a href="#contact" class="btn btn--primary btn--lg">💬 Get Started</a>
+                            <a href="#success-stories" class="btn btn--outline btn--lg">📖 Success Stories</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero__slide">
+                <div class="hero__bg-image" style="background-image: url('images/2025-04-28.png')"></div>
+                <div class="hero__overlay"></div>
+                <div class="hero__container container">
+                    <div class="hero__content">
+                        <h1 class="hero__title">💯 <span class="highlight">Expert</span> Manual Transmission Training</h1>
+                        <p class="hero__subtitle">🎯 Master clutch control, perfect gear changes, and hill starts with our specialized manual driving instructors. Build real driving skills that last a lifetime!</p>
+                        <div class="hero__features">
+                            <div class="feature">🔧 Complete Clutch Control Mastery</div>
+                            <div class="feature">⚡ Smooth Gear Transition Training</div>
+                            <div class="feature">🏔️ Hill Start & Emergency Stop Expertise</div>
+                        </div>
+                        <div class="hero__buttons">
+                            <a href="#pricing" class="btn btn--primary btn--lg">🎯 View Manual Prices</a>
+                            <button class="btn btn--outline btn--lg" onclick="WhatsAppMessages.send('manual-focus')">📱 Book Manual Lessons</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero__slide">
+                <div class="hero__bg-image" style="background-image: url('images/2025-04-2s5.png')"></div>
+                <div class="hero__overlay"></div>
+                <div class="hero__container container">
+                    <div class="hero__content">
+                        <h1 class="hero__title">🚗 <span class="highlight">Automatic</span> Driving Made Simple</h1>
+                        <p class="hero__subtitle">✨ Focus purely on road awareness, hazard perception, and traffic rules without clutch control complexity. Perfect for stress-free learning!</p>
+                        <div class="hero__features">
+                            <div class="feature">🎯 Pure Focus on Road Safety</div>
+                            <div class="feature">🧠 Enhanced Hazard Perception Training</div>
+                            <div class="feature">😌 Stress-Free Learning Environment</div>
+                        </div>
+                        <div class="hero__buttons">
+                            <a href="#pricing" class="btn btn--primary btn--lg">💰 View Automatic Prices</a>
+                            <button class="btn btn--outline btn--lg" onclick="WhatsAppMessages.send('automatic-focus')">📱 Book Automatic Lessons</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero__slide">
+                <div class="hero__bg-image" style="background-image: url('images/2025-07-13.png')"></div>
+                <div class="hero__overlay"></div>
+                <div class="hero__container container">
+                    <div class="hero__content">
+                        <h1 class="hero__title">🏆 <span class="highlight">Test Ready</span> in Record Time</h1>
+                        <p class="hero__subtitle">⚡ Intensive courses designed to get you test-ready fast! Our proven methods have helped hundreds pass their driving test on the first attempt.</p>
+                        <div class="hero__stats">
+                            <div class="stat">
+                                <span class="stat__number">2-4</span>
+                                <span class="stat__label">Weeks to Test Ready</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat__number">95%</span>
+                                <span class="stat__label">First Time Pass</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat__number">10+</span>
+                                <span class="stat__label">Years Experience</span>
+                            </div>
+                        </div>
+                        <div class="hero__buttons">
+                            <button class="btn btn--primary btn--lg" onclick="WhatsAppMessages.send('intensive-course')">🚀 Get Test Ready</button>
+                            <a href="#success-stories" class="btn btn--outline btn--lg">📖 Read Success Stories</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero__slide">
+                <div class="hero__bg-image" style="background-image: url('images/202wdw5-06-01.png')"></div>
+                <div class="hero__overlay"></div>
+                <div class="hero__container container">
+                    <div class="hero__content">
+                        <h1 class="hero__title">💡 <span class="highlight">Refresher</span> & Advanced Training</h1>
+                        <p class="hero__subtitle">🔄 Been away from driving? Need to build confidence after passing? Our refresher courses and advanced training sessions help you become a skilled, confident driver.</p>
+                        <div class="hero__features">
+                            <div class="feature">🔄 Confidence Building Sessions</div>
+                            <div class="feature">🛣️ Motorway Driving Training</div>
+                            <div class="feature">🌙 Night Driving Preparation</div>
+                            <div class="feature">❄️ Adverse Weather Conditions</div>
+                        </div>
+                        <div class="hero__buttons">
+                            <button class="btn btn--primary btn--lg" onclick="WhatsAppMessages.send('refresher-training')">📱 Discuss Your Needs</button>
+                            <a href="#why-choose" class="btn btn--outline btn--lg">🌟 Our Expertise</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero__nav">
+            <button class="hero__nav-btn hero__nav-btn--prev" id="hero-prev">❮</button>
+            <button class="hero__nav-btn hero__nav-btn--next" id="hero-next">❯</button>
+        </div>
+        <div class="hero__indicators" id="hero-indicators">
+            <button class="indicator active" data-slide="0"></button>
+            <button class="indicator" data-slide="1"></button>
+            <button class="indicator" data-slide="2"></button>
+            <button class="indicator" data-slide="3"></button>
+            <button class="indicator" data-slide="4"></button>
+            <button class="indicator" data-slide="5"></button>
         </div>
     </section>
 
@@ -80,8 +242,8 @@
     <section id="why-choose" class="benefits">
         <div class="container">
             <div class="section__header">
-                <h2 class="section__title">Why Choose TSK Driving School?</h2>
-                <p class="section__subtitle">We provide a clear path to your full driving license</p>
+                <h2 class="section__title">🌟 Why TSK Drives Success?</h2>
+                <p class="section__subtitle">🚀 We don't just teach driving - we build confident, skilled drivers who pass with flying colors!</p>
             </div>
             
             <div class="benefits__grid" id="benefits-grid">
@@ -94,8 +256,8 @@
     <section id="pricing" class="pricing">
         <div class="container">
             <div class="section__header">
-                <h2 class="section__title">Driving Lesson Packages</h2>
-                <p class="section__subtitle">Transparent pricing for both Manual and Automatic lessons</p>
+                <h2 class="section__title">💰 Unbeatable Value Packages</h2>
+                <p class="section__subtitle">🎯 Crystal-clear pricing with no hidden fees - Choose Manual or Automatic and start saving today!</p>
             </div>
 
             <div class="packages__grid" id="packages-grid">
@@ -108,8 +270,8 @@
     <section id="success-stories" class="testimonials">
         <div class="container">
             <div class="section__header">
-                <h2 class="section__title">Success Stories</h2>
-                <p class="section__subtitle">Real students, real results - see what our learners say about TSK Driving School</p>
+                <h2 class="section__title">🏆 Amazing Success Stories</h2>
+                <p class="section__subtitle">📣 Real students, incredible results! See why hundreds chose TSK and passed with confidence across our service areas</p>
             </div>
 
             <div class="testimonials__grid" id="testimonials-grid">
@@ -122,8 +284,8 @@
     <section id="contact" class="contact">
         <div class="container">
             <div class="section__header">
-                <h2 class="section__title">Get In Touch</h2>
-                <p class="section__subtitle">Ready to start your driving journey? Contact us today</p>
+                <h2 class="section__title">🚀 Ready to Start Your Journey?</h2>
+                <p class="section__subtitle">💪 Don't wait! Your driving independence is just one call away - Get started today!</p>
             </div>
 
             <div class="contact__content">
@@ -213,8 +375,35 @@
                         <textarea class="form-control" id="message" name="message" rows="4" placeholder="Tell us about your driving goals, availability, or any questions..."></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn--primary btn--full-width">Send Message via WhatsApp</button>
+                    <button type="submit" class="btn btn--primary btn--full-width">📱 Send Message via WhatsApp</button>
                 </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Contact Section -->
+    <section class="quick-contact">
+        <div class="container">
+            <div class="quick-contact__content">
+                <h2 class="quick-contact__title">🚨 Ready to Book? Get Instant Response!</h2>
+                <p class="quick-contact__subtitle">Choose your preferred way to get started immediately</p>
+                <div class="quick-contact__buttons">
+                    <button class="quick-btn quick-btn--whatsapp" onclick="WhatsAppMessages.send('general-enquiry')">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.669.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.525 3.687"/>
+                        </svg>
+                        <span>WhatsApp Now</span>
+                        <small>Instant response guaranteed!</small>
+                    </button>
+                    <a href="tel:+447872309080" class="quick-btn quick-btn--phone">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.29-.077.431 1.57 2.673 3.89 4.994 6.563 6.563.141.087.33.058.431-.077l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z"/>
+                        </svg>
+                        <span>Call Now</span>
+                        <small>+44 7872 309080</small>
+                    </a>
+                </div>
+                <p class="quick-contact__hours">📞 Available Mon-Fri: 8AM-8PM | Sat: 8AM-6PM | Sun: 10AM-4PM</p>
             </div>
         </div>
     </section>
@@ -224,8 +413,8 @@
         <div class="container">
             <div class="footer__content">
                 <div class="footer__section">
-                    <h3 class="footer__title">TSK Driving School</h3>
-                    <p class="footer__description">Professional manual and automatic driving instruction in Coventry</p>
+                    <h3 class="footer__title">🚗 TSK Driving School</h3>
+                    <p class="footer__description">Professional manual and automatic driving instruction across Coventry, Nuneaton, Leamington Spa, Solihull, Rugby & Warwick</p>
                 </div>
 
                 <div class="footer__section">
@@ -257,11 +446,11 @@
     </footer>
 
     <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/447872309080?text=Hi! I'm interested in driving lessons. Can you provide more information?" class="whatsapp__float" target="_blank" id="whatsapp-float">
+    <button class="whatsapp__float" id="whatsapp-float" onclick="WhatsAppMessages.send('general-enquiry')">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.669.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.525 3.687"/>
         </svg>
-    </a>
+    </button>
 
     <script src="app.js"></script>
 </body>
