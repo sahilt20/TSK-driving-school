@@ -259,6 +259,122 @@ const appData = {
           icon: "👨‍🏫"
       }
   ],
+  theoryClasses: {
+    packages: [
+      {
+        name: "Theory Test Preparation",
+        duration: "2 weeks",
+        sessions: "6 sessions",
+        price: 75,
+        features: [
+          "Highway Code mastery",
+          "Hazard perception training", 
+          "Mock tests & practice",
+          "Test booking assistance",
+          "Pass guarantee support"
+        ],
+        popular: true
+      }
+    ]
+  },
+  comboPackages: {
+    // Theory + Practical combo packages with city-specific pricing
+    packages: [
+      {
+        name: "Theory + 5 Hour Practical Combo",
+        description: "Perfect starter package - Theory classes + 5 practical lessons",
+        theoryComponent: "Theory Test Preparation (6 sessions)",
+        practicalComponent: "5 x 1-hour practical lessons",
+        features: [
+          "Complete theory test preparation",
+          "5 hours practical driving lessons",
+          "Coordinated learning approach",
+          "Priority booking",
+          "Progress tracking"
+        ],
+        popular: false
+      },
+      {
+        name: "Theory + 10 Hour Complete Package",
+        description: "Most popular - Theory preparation + comprehensive practical training",
+        theoryComponent: "Theory Test Preparation (6 sessions)", 
+        practicalComponent: "10 x 1-hour practical lessons",
+        features: [
+          "Full theory test preparation",
+          "10 hours practical lessons",
+          "Mock test simulations",
+          "Test-ready preparation",
+          "Flexible scheduling",
+          "Pass guarantee support"
+        ],
+        popular: true
+      },
+      {
+        name: "Complete Driver Package",
+        description: "Ultimate package - Everything you need from theory to test",
+        theoryComponent: "Theory Test Preparation (6 sessions)",
+        practicalComponent: "20 x 1-hour practical lessons",
+        features: [
+          "Complete theory preparation",
+          "Extensive practical training",
+          "Mock theory & practical tests",
+          "Test booking assistance",
+          "Ongoing support until pass",
+          "Flexible lesson scheduling"
+        ],
+        popular: false
+      }
+    ]
+  },
+  instructorProgram: {
+    requirements: [
+      "Full UK driving license (3+ years)",
+      "No more than 6 penalty points",
+      "Right to work in the UK",
+      "Good communication skills",
+      "Patient and professional attitude"
+    ],
+    benefits: [
+      "Flexible working hours",
+      "Competitive earning potential",
+      "Full training provided",
+      "Modern dual-control vehicles",
+      "Ongoing support & development",
+      "Established client base"
+    ],
+    process: [
+      {
+        step: 1,
+        title: "Initial Application",
+        description: "Submit your application and we'll review your eligibility",
+        duration: "1-2 days"
+      },
+      {
+        step: 2,
+        title: "Interview & Assessment", 
+        description: "Meet with our team to discuss your suitability and career goals",
+        duration: "1 week"
+      },
+      {
+        step: 3,
+        title: "Training Program",
+        description: "Complete our comprehensive instructor training course",
+        duration: "4-6 weeks"
+      },
+      {
+        step: 4,
+        title: "DVSA Qualification",
+        description: "Pass your ADI (Approved Driving Instructor) tests",
+        duration: "2-4 weeks"
+      },
+      {
+        step: 5,
+        title: "Start Teaching",
+        description: "Begin your career with full support from TSK team",
+        duration: "Ongoing"
+      }
+    ]
+  },
   contact: {
       phone: "+44 7872 309080",
       whatsapp: "447872309080", // Number for WhatsApp URL
@@ -298,6 +414,15 @@ const WhatsAppMessages = {
       case 'refresher-training':
         return `${baseGreeting}I'm interested in refresher driving lessons with TSK Driving School in ${currentCity.name}.\n\n🔄 I'd like help with:\n• Building confidence after time away from driving\n• Motorway driving practice\n• Night driving preparation\n• Handling different weather conditions\n\n📍 Location: ${currentCity.name}\n\nI think some professional guidance would really help me become a more confident driver. Could we discuss your refresher packages?\n\nThank you for offering such comprehensive training!`;
       
+      case 'theory-classes':
+        return `${baseGreeting}I'm interested in your theory test classes with TSK Driving School in ${currentCity.name}.\n\n📚 I'd love to know more about:\n• Theory test preparation courses\n• Hazard perception training\n• Mock tests and practice sessions\n• Course schedules and availability\n• Pass rates and success stories\n\n${data.packageName ? `📦 Specific Interest: ${data.packageName}\n💰 Price: £${data.price}\n` : ''}📍 Location: ${currentCity.name}\n\nI want to make sure I'm fully prepared for my theory test and would love to benefit from your expert guidance!\n\nLooking forward to starting my theory journey with TSK! 📖✨`;
+      
+      case 'join-instructor':
+        return `${baseGreeting}I'm interested in joining TSK Driving School as a driving instructor in ${currentCity.name}.\n\n👨‍🏫 I'd love to learn more about:\n• The application and training process\n• Requirements and qualifications needed\n• Earning potential and working conditions\n• Training timeline and support provided\n• Career development opportunities\n\n📍 Preferred Area: ${currentCity.name}\n\nI'm passionate about helping people learn to drive safely and would be thrilled to join such a reputable driving school with excellent standards!\n\nCould we arrange a time to discuss this opportunity further?\n\nThank you for building such a fantastic team! 🚗👏`;
+      
+      case 'combo-package':
+        return `${baseGreeting}I'm very interested in your ${data.packageName} in ${currentCity.name}!\n\n🎯 This combo package looks perfect for me:\n📦 Package: ${data.packageName}\n💰 Manual Combo Price: £${data.manualPrice} (Save £${data.manualSavings})\n💰 Automatic Combo Price: £${data.autoPrice} (Save £${data.autoSavings})\n📍 Location: ${currentCity.name}\n\nI love that this combines theory and practical lessons - it seems like the most efficient way to learn! 🚗✨\n\nCould you please tell me more about:\n• How the theory and practical lessons are coordinated\n• Flexibility in scheduling both components\n• Next available start dates\n• What's included in the package\n\nI'm excited to get started with both theory and practical learning together!\n\nLooking forward to your response!`;
+      
       default:
         return `${baseGreeting}I'm interested in driving lessons with TSK Driving School in ${currentCity.name}.\n\nI'd love to learn more about your services and discuss how we can get started!\n\n📍 Preferred Location: ${currentCity.name}\n\nLooking forward to hearing from you!\n\nBest regards`;
     }
@@ -320,6 +445,8 @@ document.addEventListener('DOMContentLoaded', function() {
   initBenefits();
   initCitySelector();
   initPricingSystem();
+  initTheoryClasses();
+  initInstructorProgram();
   initTestimonials();
   initContactForm();
   initSmoothScrolling();
@@ -489,6 +616,216 @@ function initBenefits() {
   `).join('');
 }
 
+// Calculate combo package pricing for current city
+function calculateComboPackagePricing(comboPackage) {
+  const currentCity = AppState.getCurrentCity();
+  const theoryPrice = 75; // Single theory package price
+  
+  const practicalHours = {
+    "Theory + 5 Hour Practical Combo": 5,
+    "Theory + 10 Hour Complete Package": 10, 
+    "Complete Driver Package": 20
+  };
+  
+  const hours = practicalHours[comboPackage.name];
+  
+  // Calculate practical pricing (using 1-hour rates)
+  const manualPracticalPrice = currentCity.manual["1hour"] * hours;
+  const autoPracticalPrice = currentCity.automatic["1hour"] * hours;
+  
+  // Calculate combo prices with discounts
+  const manualComboPrice = Math.floor((theoryPrice + manualPracticalPrice) * 0.9); // 10% discount
+  const autoComboPrice = Math.floor((theoryPrice + autoPracticalPrice) * 0.9); // 10% discount
+  
+  return {
+    theoryPrice,
+    manualPracticalPrice,
+    autoPracticalPrice,
+    manualComboPrice,
+    autoComboPrice,
+    manualSavings: (theoryPrice + manualPracticalPrice) - manualComboPrice,
+    autoSavings: (theoryPrice + autoPracticalPrice) - autoComboPrice
+  };
+}
+
+// Initialize theory classes section
+function initTheoryClasses() {
+  const theoryPackagesGrid = document.getElementById('theory-packages');
+  if (!theoryPackagesGrid) return;
+
+  // Single simplified theory package
+  const theoryPackage = appData.theoryClasses.packages[0];
+
+  const theoryPackageHTML = `
+      <div class="theory-intro-card fade-in">
+          <div class="theory-intro__badge">📚 Theory Test Preparation</div>
+          <h3 class="theory-intro__title">${theoryPackage.name}</h3>
+          <p class="theory-intro__subtitle">Build your knowledge and confidence for the road ahead with our comprehensive theory test preparation program designed to help you pass first time.</p>
+          
+          <div class="theory-stats">
+              <div class="theory-stat">
+                  <span class="theory-stat__number">98%</span>
+                  <span class="theory-stat__label">Pass Rate</span>
+              </div>
+              <div class="theory-stat">
+                  <span class="theory-stat__number">200+</span>
+                  <span class="theory-stat__label">Students Passed</span>
+              </div>
+              <div class="theory-stat">
+                  <span class="theory-stat__number">1st</span>
+                  <span class="theory-stat__label">Time Success</span>
+              </div>
+          </div>
+          
+          <div class="theory-intro__price-section">
+              <div class="theory-price-item">
+                  <span class="theory-price-label">Price</span>
+                  <span class="theory-price-value">£${theoryPackage.price}</span>
+              </div>
+              <div class="theory-price-item">
+                  <span class="theory-price-label">Duration</span>
+                  <span class="theory-price-value">${theoryPackage.duration}</span>
+              </div>
+              <div class="theory-price-item">
+                  <span class="theory-price-label">Sessions</span>
+                  <span class="theory-price-value">${theoryPackage.sessions}</span>
+              </div>
+          </div>
+          
+          <div class="theory-intro__features">
+              <div class="theory-feature-card">
+                  <div class="theory-feature-card__icon">📖</div>
+                  <h4 class="theory-feature-card__title">Highway Code Mastery</h4>
+                  <p class="theory-feature-card__description">Complete coverage of all essential road rules and regulations</p>
+              </div>
+              <div class="theory-feature-card">
+                  <div class="theory-feature-card__icon">🎯</div>
+                  <h4 class="theory-feature-card__title">Hazard Perception Training</h4>
+                  <p class="theory-feature-card__description">Advanced training to identify and respond to road hazards</p>
+              </div>
+              <div class="theory-feature-card">
+                  <div class="theory-feature-card__icon">📝</div>
+                  <h4 class="theory-feature-card__title">Mock Tests & Practice</h4>
+                  <p class="theory-feature-card__description">Regular practice tests to track your progress and readiness</p>
+              </div>
+              <div class="theory-feature-card">
+                  <div class="theory-feature-card__icon">🎓</div>
+                  <h4 class="theory-feature-card__title">Pass Guarantee Support</h4>
+                  <p class="theory-feature-card__description">Additional support if you need extra help to pass your test</p>
+              </div>
+          </div>
+          
+          <div class="theory-intro__actions">
+              <button class="btn btn--primary" onclick="WhatsAppMessages.send('theory-classes', {packageName: '${theoryPackage.name}', price: '${theoryPackage.price}'})">
+                  📚 Book Theory Classes
+              </button>
+              <button class="btn btn--outline" onclick="WhatsAppMessages.send('theory-classes', {packageName: '${theoryPackage.name}', price: '${theoryPackage.price}'})">
+                  💬 Ask Questions
+              </button>
+          </div>
+      </div>
+  `;
+
+  // Combo packages with city-specific pricing
+  const comboPackagesHTML = appData.comboPackages.packages.map((combo, index) => {
+    const pricing = calculateComboPackagePricing(combo);
+    return `
+      <div class="combo-package__card fade-in ${combo.popular ? 'popular' : ''}" style="animation-delay: ${(index + 1) * 100}ms;">
+          ${combo.popular ? '<div class="combo-package__popular">🔥 Best Value</div>' : ''}
+          <h3 class="combo-package__title">${combo.name}</h3>
+          <p class="combo-package__description">${combo.description}</p>
+          
+          <div class="combo-package__components">
+              <div class="combo-component">
+                  <span class="component-label">Theory:</span>
+                  <span class="component-value">${combo.theoryComponent}</span>
+              </div>
+              <div class="combo-component">
+                  <span class="component-label">Practical:</span>
+                  <span class="component-value">${combo.practicalComponent}</span>
+              </div>
+          </div>
+          
+          <div class="combo-package__pricing">
+              <div class="price-breakdown">
+                  <div class="price-option">
+                      <span class="price-label">Manual Combo</span>
+                      <div class="price-details">
+                          <span class="original-price">£${pricing.theoryPrice + pricing.manualPracticalPrice}</span>
+                          <span class="combo-price">£${pricing.manualComboPrice}</span>
+                      </div>
+                      <span class="savings">Save £${pricing.manualSavings}</span>
+                  </div>
+                  <div class="price-option">
+                      <span class="price-label">Auto Combo</span>
+                      <div class="price-details">
+                          <span class="original-price">£${pricing.theoryPrice + pricing.autoPracticalPrice}</span>
+                          <span class="combo-price">£${pricing.autoComboPrice}</span>
+                      </div>
+                      <span class="savings">Save £${pricing.autoSavings}</span>
+                  </div>
+              </div>
+          </div>
+          
+          <ul class="combo-package__features">
+              ${combo.features.map(feature => `<li>✓ ${feature}</li>`).join('')}
+          </ul>
+          
+          <button class="btn btn--primary btn--full-width" onclick="WhatsAppMessages.send('combo-package', {packageName: '${combo.name}', manualPrice: '${pricing.manualComboPrice}', autoPrice: '${pricing.autoComboPrice}', manualSavings: '${pricing.manualSavings}', autoSavings: '${pricing.autoSavings}'})">
+              🎯 Book Combo Package
+          </button>
+      </div>
+    `;
+  }).join('');
+
+  // Simplified layout with theory info at top and combo packages below
+  theoryPackagesGrid.innerHTML = `
+    <div class="theory-simple-section">
+        ${theoryPackageHTML}
+    </div>
+    <div class="packages-section">
+        <h3 class="packages-section__title">🎯 Theory + Practical Combo Packages</h3>
+        <div class="packages-grid combo-packages">
+            ${comboPackagesHTML}
+        </div>
+    </div>
+  `;
+}
+
+// Initialize instructor program section
+function initInstructorProgram() {
+  // Populate requirements
+  const requirementsList = document.getElementById('requirements-list');
+  if (requirementsList) {
+      requirementsList.innerHTML = appData.instructorProgram.requirements.map(req => `
+          <li class="requirement-item fade-in">✓ ${req}</li>
+      `).join('');
+  }
+
+  // Populate benefits
+  const benefitsList = document.getElementById('benefits-list');
+  if (benefitsList) {
+      benefitsList.innerHTML = appData.instructorProgram.benefits.map(benefit => `
+          <li class="benefit-item fade-in">🎯 ${benefit}</li>
+      `).join('');
+  }
+
+  // Populate process steps
+  const processSteps = document.getElementById('process-steps');
+  if (processSteps) {
+      processSteps.innerHTML = appData.instructorProgram.process.map((step, index) => `
+          <div class="process-step fade-in" style="animation-delay: ${index * 100}ms;">
+              <div class="process-step__number">${step.step}</div>
+              <div class="process-step__content">
+                  <h4 class="process-step__title">${step.title}</h4>
+                  <p class="process-step__description">${step.description}</p>
+                  <span class="process-step__duration">${step.duration}</span>
+              </div>
+          </div>
+      `).join('');
+  }
+}
+
 // Application State Management
 const AppState = {
   currentCityIndex: 0,
@@ -508,6 +845,14 @@ const AppState = {
     this.updateCityDisplay();
     this.updateCityButtons();
     this.updatePricing();
+    this.updateTheoryPackages();
+  },
+
+  updateTheoryPackages: function() {
+    // Re-initialize theory classes to update combo package pricing for new city
+    if (typeof initTheoryClasses === 'function') {
+      initTheoryClasses();
+    }
   },
   
   updateCityDisplay: function() {
