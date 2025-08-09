@@ -74,35 +74,35 @@ const appData = {
       {
           name: "Rugby",
           automatic: {
-              "1hour": 36,
-              "1.5hours": 54,
-              "2hours": 68,
-              "10hours": 330,
-              "beginnerPackage": 66
+              "1hour": 42,
+              "1.5hours": 62,
+              "2hours": 80,
+              "10hours": 400,
+              "beginnerPackage": 78
           },
           manual: {
-              "1hour": 35,
-              "1.5hours": 52,
-              "2hours": 66,
-              "10hours": 320,
-              "beginnerPackage": 63
+              "1hour": 40,
+              "1.5hours": 60,
+              "2hours": 78,
+              "10hours": 390,
+              "beginnerPackage": 75
           }
       },
       {
           name: "Warwick",
           automatic: {
-              "1hour": 41,
-              "1.5hours": 59,
-              "2hours": 76,
-              "10hours": 380,
-              "beginnerPackage": 74
+              "1hour": 42,
+              "1.5hours": 62,
+              "2hours": 80,
+              "10hours": 400,
+              "beginnerPackage": 78
           },
           manual: {
-              "1hour": 39,
-              "1.5hours": 57,
-              "2hours": 74,
-              "10hours": 370,
-              "beginnerPackage": 71
+              "1hour": 40,
+              "1.5hours": 60,
+              "2hours": 78,
+              "10hours": 390,
+              "beginnerPackage": 75
           }
       }
   ],
