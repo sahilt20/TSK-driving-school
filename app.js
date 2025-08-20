@@ -23,86 +23,86 @@ const appData = {
       {
           name: "Nuneaton",
           automatic: {
-              "1hour": 38,
-              "1.5hours": 55,
-              "2hours": 72,
-              "10hours": 360,
-              "beginnerPackage": 70
+              "1hour": 40,
+              "1.5hours": 56,
+              "2hours": 75,
+              "10hours": 365,
+              "beginnerPackage": 56
           },
           manual: {
-              "1hour": 37,
+              "1hour": 36,
               "1.5hours": 54,
               "2hours": 70,
-              "10hours": 350,
-              "beginnerPackage": 67
+              "10hours": 340,
+              "beginnerPackage": 52.5
           }
       },
       {
           name: "Leamington Spa",
           automatic: {
-              "1hour": 42,
-              "1.5hours": 62,
-              "2hours": 80,
-              "10hours": 400,
-              "beginnerPackage": 78
+              "1hour": 40,
+              "1.5hours": 56,
+              "2hours": 75,
+              "10hours": 365,
+              "beginnerPackage": 56
           },
           manual: {
-              "1hour": 40,
-              "1.5hours": 60,
-              "2hours": 78,
-              "10hours": 390,
-              "beginnerPackage": 75
+              "1hour": 36,
+              "1.5hours": 54,
+              "2hours": 70,
+              "10hours": 340,
+              "beginnerPackage": 52.5
           }
       },
       {
           name: "Solihull",
           automatic: {
-              "1hour": 45,
-              "1.5hours": 65,
-              "2hours": 85,
-              "10hours": 420,
-              "beginnerPackage": 82
+              "1hour": 40,
+              "1.5hours": 56,
+              "2hours": 75,
+              "10hours": 365,
+              "beginnerPackage": 56
           },
           manual: {
-              "1hour": 43,
-              "1.5hours": 63,
-              "2hours": 83,
-              "10hours": 410,
-              "beginnerPackage": 79
+              "1hour": 36,
+              "1.5hours": 54,
+              "2hours": 70,
+              "10hours": 340,
+              "beginnerPackage": 52.5
           }
       },
       {
           name: "Rugby",
           automatic: {
-              "1hour": 42,
-              "1.5hours": 62,
-              "2hours": 80,
-              "10hours": 400,
-              "beginnerPackage": 78
+              "1hour": 40,
+              "1.5hours": 56,
+              "2hours": 75,
+              "10hours": 365,
+              "beginnerPackage": 56
           },
           manual: {
-              "1hour": 40,
-              "1.5hours": 60,
-              "2hours": 78,
-              "10hours": 390,
-              "beginnerPackage": 75
+              "1hour": 36,
+              "1.5hours": 54,
+              "2hours": 70,
+              "10hours": 340,
+              "beginnerPackage": 52.5
           }
       },
       {
           name: "Warwick",
           automatic: {
-              "1hour": 42,
-              "1.5hours": 62,
-              "2hours": 80,
-              "10hours": 400,
-              "beginnerPackage": 78
+              "1hour": 40,
+              "1.5hours": 56,
+              "2hours": 75,
+              "10hours": 365,
+              "beginnerPackage": 56
           },
           manual: {
-              "1hour": 40,
-              "1.5hours": 60,
-              "2hours": 78,
-              "10hours": 390,
-              "beginnerPackage": 75
+              "1hour": 36,
+              "1.5hours": 54,
+              "2hours": 70,
+              "10hours": 340,
+              "beginnerPackage": 52.5
           }
       }
   ],
