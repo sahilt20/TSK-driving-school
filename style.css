@@ -231,8 +231,9 @@ body.dark-mode .theme-toggle .moon-icon { display: block; }
   display: block;
   font-size: 2.5rem;
   font-weight: 700;
-  color: #a8dadc;
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+  color: #FFFFFF;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.9);
+  animation: pulse 2s infinite;
 }
 
 .stat__label {
@@ -980,6 +981,18 @@ body.dark-mode .footer__bottom {
   .section__header { margin-bottom: 32px; }
 }
 
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 /* --- ANIMATIONS --- */
 .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
 .fade-in.visible { opacity: 1; transform: translateY(0); }
@@ -1410,8 +1423,9 @@ body.dark-mode .footer__bottom {
   display: block;
   font-size: 1.8rem;
   font-weight: 700;
-  color: var(--color-primary);
+  color: var(--color-accent);
   margin-bottom: 8px;
+  animation: pulse 2s infinite;
 }
 
 .theory-stat__label {
