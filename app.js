@@ -21,6 +21,23 @@ const appData = {
           }
       },
       {
+          name: "Rugby",
+          automatic: {
+              "1hour": 40,
+              "1.5hours": 56,
+              "2hours": 75,
+              "10hours": 365,
+              "beginnerPackage": 56
+          },
+          manual: {
+              "1hour": 36,
+              "1.5hours": 54,
+              "2hours": 70,
+              "10hours": 340,
+              "beginnerPackage": 52.5
+          }
+      },
+      {
           name: "Nuneaton",
           automatic: {
               "1hour": 40,
@@ -56,23 +73,6 @@ const appData = {
       },
       {
           name: "Solihull",
-          automatic: {
-              "1hour": 40,
-              "1.5hours": 56,
-              "2hours": 75,
-              "10hours": 365,
-              "beginnerPackage": 56
-          },
-          manual: {
-              "1hour": 36,
-              "1.5hours": 54,
-              "2hours": 70,
-              "10hours": 340,
-              "beginnerPackage": 52.5
-          }
-      },
-      {
-          name: "Rugby",
           automatic: {
               "1hour": 40,
               "1.5hours": 56,

@@ -3,8 +3,8 @@
   /* --- LIGHT MODE (High Contrast) --- */
   --color-background: #f7fafc;
   --color-surface: #ffffff;
-  --color-text: #2d3748;
-  --color-text-secondary: #4a5568;
+  --color-text: #1A202C;
+  --color-text-secondary: #2D3748;
   --color-primary: #2c5aa0;
   --color-primary-hover: #2a4d8d;
   --color-primary-active: #1e3a5f;
@@ -28,8 +28,8 @@ body.dark-mode {
   /* --- DARK MODE (High Contrast) --- */
   --color-background: #1a202c;
   --color-surface: #2d3748;
-  --color-text: #f7fafc;
-  --color-text-secondary: #cbd5e0;
+  --color-text: #FFFFFF;
+  --color-text-secondary: #E2E8F0;
   --color-primary: #4299e1;
   --color-primary-hover: #63b3ed;
   --color-primary-active: #3182ce;
