@@ -13,11 +13,11 @@ const appData = {
               "beginnerPackage": 68
           },
           manual: {
-              "1hour": 36,
-              "1.5hours": 56,
+              "1hour": 37,
+              "1.5hours": 57,
               "2hours": 70,
               "10hours": 340,
-              "beginnerPackage": 65
+              "beginnerPackage": 68
           }
       },
       {
@@ -30,11 +30,11 @@ const appData = {
               "beginnerPackage": 56
           },
           manual: {
-              "1hour": 36,
-              "1.5hours": 54,
-              "2hours": 70,
-              "10hours": 340,
-              "beginnerPackage": 52.5
+              "1hour": 40,
+              "1.5hours": 56,
+              "2hours": 75,
+              "10hours": 365,
+              "beginnerPackage": 56
           }
       },
       {
@@ -47,11 +47,11 @@ const appData = {
               "beginnerPackage": 56
           },
           manual: {
-              "1hour": 36,
-              "1.5hours": 54,
-              "2hours": 70,
-              "10hours": 340,
-              "beginnerPackage": 52.5
+              "1hour": 40,
+              "1.5hours": 56,
+              "2hours": 75,
+              "10hours": 365,
+              "beginnerPackage": 56
           }
       },
       {
@@ -64,11 +64,11 @@ const appData = {
               "beginnerPackage": 56
           },
           manual: {
-              "1hour": 36,
-              "1.5hours": 54,
-              "2hours": 70,
-              "10hours": 340,
-              "beginnerPackage": 52.5
+              "1hour": 40,
+              "1.5hours": 56,
+              "2hours": 75,
+              "10hours": 365,
+              "beginnerPackage": 56
           }
       },
       {
@@ -81,11 +81,11 @@ const appData = {
               "beginnerPackage": 56
           },
           manual: {
-              "1hour": 36,
-              "1.5hours": 54,
-              "2hours": 70,
-              "10hours": 340,
-              "beginnerPackage": 52.5
+              "1hour": 40,
+              "1.5hours": 56,
+              "2hours": 75,
+              "10hours": 365,
+              "beginnerPackage": 56
           }
       },
       {
@@ -98,11 +98,11 @@ const appData = {
               "beginnerPackage": 56
           },
           manual: {
-              "1hour": 36,
-              "1.5hours": 54,
-              "2hours": 70,
-              "10hours": 340,
-              "beginnerPackage": 52.5
+              "1hour": 40,
+              "1.5hours": 56,
+              "2hours": 75,
+              "10hours": 365,
+              "beginnerPackage": 56
           }
       }
   ],
