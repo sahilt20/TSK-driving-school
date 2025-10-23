@@ -66,42 +66,42 @@ class CricketFieldPlanner {
     initializePositions() {
         return {
             close_catching: [
-                { name: "Wicket Keeper", position: [0, -15], description: "Behind the stumps, catches deliveries and prevents byes" },
-                { name: "First Slip", position: [8, -18], description: "Catches edges off fast bowlers" },
-                { name: "Second Slip", position: [15, -20], description: "Additional slip catching position" },
-                { name: "Third Slip", position: [22, -22], description: "Extended slip cordon for attacking field" },
-                { name: "Gully", position: [30, -15], description: "Catches deflections at 60° angle on off side" },
-                { name: "Short Leg", position: [-25, 8], description: "Close on leg side for catching edges" },
-                { name: "Silly Point", position: [25, 8], description: "Close on off side, especially for spin bowling" },
-                { name: "Silly Mid-Off", position: [15, 15], description: "Very close to batsman on off side" },
-                { name: "Silly Mid-On", position: [-15, 15], description: "Very close to batsman on leg side" },
-                { name: "Leg Slip", position: [-8, -18], description: "Rare position behind wicketkeeper on leg side" }
+                { name: "Wicket Keeper", position: [0, -12], description: "Behind the stumps, catches deliveries and prevents byes" },
+                { name: "First Slip", position: [10, -16], description: "Catches edges off fast bowlers" },
+                { name: "Second Slip", position: [18, -18], description: "Additional slip catching position" },
+                { name: "Third Slip", position: [26, -20], description: "Extended slip cordon for attacking field" },
+                { name: "Gully", position: [30, -12], description: "Catches deflections at a 60° angle on the off side" },
+                { name: "Short Leg", position: [-22, 8], description: "Close on the leg side for catching edges" },
+                { name: "Silly Point", position: [22, 8], description: "Close on the off side, especially for spin bowling" },
+                { name: "Silly Mid-Off", position: [15, 15], description: "Very close to the batsman on the off side" },
+                { name: "Silly Mid-On", position: [-15, 15], description: "Very close to the batsman on the leg side" },
+                { name: "Leg Slip", position: [-10, -16], description: "Rare position behind the wicketkeeper on the leg side" }
             ],
             inner_ring: [
-                { name: "Point", position: [50, 0], description: "Square on off side, key position for saving runs" },
-                { name: "Cover", position: [45, 25], description: "Between point and mid-off, intercepts driving shots" },
-                { name: "Extra Cover", position: [35, 35], description: "Between cover and mid-off positions" },
-                { name: "Mid-Off", position: [20, 45], description: "Straight on off side, stops straight drives" },
-                { name: "Mid-On", position: [-20, 45], description: "Straight on leg side, mirror of mid-off" },
-                { name: "Mid-Wicket", position: [-45, 25], description: "Between square leg and mid-on" },
-                { name: "Square Leg", position: [-50, 0], description: "Square on leg side, level with batsman" },
-                { name: "Backward Square Leg", position: [-45, -15], description: "Behind square on leg side" },
-                { name: "Backward Point", position: [45, -15], description: "Behind square on off side" },
-                { name: "Short Third Man", position: [40, -30], description: "Shorter version of third man position" },
-                { name: "Short Fine Leg", position: [-40, -30], description: "Shorter version of fine leg position" }
+                { name: "Point", position: [60, 0], description: "Square on the off side, a key position for saving runs" },
+                { name: "Cover", position: [50, 30], description: "Between point and mid-off, intercepts driving shots" },
+                { name: "Extra Cover", position: [40, 45], description: "Between cover and mid-off positions" },
+                { name: "Mid-Off", position: [25, 55], description: "Straight on the off side, stops straight drives" },
+                { name: "Mid-On", position: [-25, 55], description: "Straight on the leg side, a mirror of mid-off" },
+                { name: "Mid-Wicket", position: [-50, 30], description: "Between square leg and mid-on" },
+                { name: "Square Leg", position: [-60, 0], description: "Square on the leg side, level with the batsman" },
+                { name: "Backward Square Leg", position: [-55, -25], description: "Behind square on the leg side" },
+                { name: "Backward Point", position: [55, -25], description: "Behind square on the off side" },
+                { name: "Short Third Man", position: [45, -40], description: "A shorter version of the third man position" },
+                { name: "Short Fine Leg", position: [-45, -40], description: "A shorter version of the fine leg position" }
             ],
             outfield: [
-                { name: "Third Man", position: [65, -60], description: "Deep on off side boundary, saves runs from edges" },
-                { name: "Deep Point", position: [80, -20], description: "Deep backward point on boundary" },
-                { name: "Deep Cover", position: [75, 35], description: "Deep cover on boundary line" },
-                { name: "Long Off", position: [35, 75], description: "Straight boundary on off side" },
-                { name: "Long On", position: [-35, 75], description: "Straight boundary on leg side" },
-                { name: "Deep Mid-Wicket", position: [-75, 35], description: "Deep on leg side boundary" },
-                { name: "Deep Square Leg", position: [-80, -5], description: "Deep square on leg side boundary" },
-                { name: "Fine Leg", position: [-65, -60], description: "Deep behind square on leg side" },
-                { name: "Long Leg", position: [-70, -45], description: "Wider than fine leg on boundary" },
-                { name: "Cow Corner", position: [-60, 60], description: "Between deep mid-wicket and long-on" },
-                { name: "Deep Backward Square Leg", position: [-75, -25], description: "Deep behind square leg on boundary" }
+                { name: "Third Man", position: [70, -70], description: "Deep on the off side boundary, saves runs from edges" },
+                { name: "Deep Point", position: [90, -30], description: "Deep backward point on the boundary" },
+                { name: "Deep Cover", position: [80, 40], description: "Deep cover on the boundary line" },
+                { name: "Long Off", position: [40, 85], description: "Straight boundary on the off side" },
+                { name: "Long On", position: [-40, 85], description: "Straight boundary on the leg side" },
+                { name: "Deep Mid-Wicket", position: [-80, 40], description: "Deep on the leg side boundary" },
+                { name: "Deep Square Leg", position: [-90, -5], description: "Deep square on the leg side boundary" },
+                { name: "Fine Leg", position: [-70, -70], description: "Deep behind square on the leg side" },
+                { name: "Long Leg", position: [-80, -50], description: "Wider than fine leg on the boundary" },
+                { name: "Cow Corner", position: [-65, 70], description: "Between deep mid-wicket and long-on" },
+                { name: "Deep Backward Square Leg", position: [-85, -35], description: "Deep behind square leg on the boundary" }
             ]
         };
     }
