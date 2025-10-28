@@ -26,8 +26,11 @@
   /* RGB versions for opacity control */
   --color-brown-600-rgb: 94, 82, 64;
   --color-teal-500-rgb: 33, 128, 141;
+  --color-teal-300-rgb: 50, 184, 198;
   --color-slate-900-rgb: 19, 52, 59;
   --color-slate-500-rgb: 98, 108, 113;
+  --color-gray-300-rgb: 167, 169, 169;
+  --color-gray-400-rgb: 119, 124, 124;
   --color-red-500-rgb: 192, 21, 47;
   --color-red-400-rgb: 255, 84, 89;
   --color-orange-500-rgb: 168, 75, 47;
@@ -86,10 +89,12 @@
   --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
 
   /* Cricket-specific colors */
-  --cricket-grass: #2d5016;
+  --cricket-grass-light: #3a6b1f;
+  --cricket-grass-dark: #1f3d0d;
   --cricket-pitch: #8b6914;
   --cricket-boundary: #ffffff;
   --cricket-crease: #ffffff;
+  --cricket-ground-shadow: rgba(0, 0, 0, 0.3);
 
   /* Semantic Color Tokens (Light Mode) */
   --color-background: var(--color-cream-50);
@@ -170,8 +175,6 @@ h1, h2, h3, h4, h5, h6 {
 h1 { font-size: var(--font-size-4xl); }
 h2 { font-size: var(--font-size-3xl); }
 h3 { font-size: var(--font-size-2xl); }
-h4 { font-size: var(--font-size-xl); }
-h5 { font-size: var(--font-size-lg); }
 
 /* Buttons */
 .btn {
@@ -317,11 +320,12 @@ select.form-control {
 
 /* Sidebar */
 .sidebar {
-  width: 320px;
+  width: clamp(280px, 25vw, 360px);
   background: var(--color-surface);
   border-right: 1px solid var(--color-border);
   padding: var(--space-20);
   overflow-y: auto;
+  overflow-x: hidden;
   box-shadow: var(--shadow-sm);
 }
 
@@ -442,9 +446,10 @@ select.form-control {
   flex: 1;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  background: linear-gradient(135deg, #e1f5e1 0%, #c5e8c5 100%);
   position: relative;
-  overflow: hidden;
+  overflow: auto;
+  min-height: 0;
 }
 
 .ground-wrapper {
@@ -453,7 +458,8 @@ select.form-control {
   justify-content: center;
   align-items: center;
   position: relative;
-  padding: var(--space-20);
+  padding: clamp(var(--space-12), 3vw, var(--space-32));
+  min-height: 0;
 }
 
 .field-indicators {
@@ -485,22 +491,25 @@ select.form-control {
 
 /* Cricket Ground */
 .cricket-ground {
-  width: 500px;
-  height: 500px;
+  width: min(90vmin, 600px);
+  height: min(90vmin, 600px);
+  max-width: 600px;
+  max-height: 600px;
+  aspect-ratio: 1;
   position: relative;
   border-radius: 50%;
-  background: radial-gradient(circle, var(--cricket-grass) 0%, #1a3d0b 100%);
-  box-shadow: var(--shadow-lg), inset 0 0 50px rgba(0, 0, 0, 0.3);
+  background: radial-gradient(circle, var(--cricket-grass-light) 0%, var(--cricket-grass-dark) 100%);
+  box-shadow: var(--shadow-lg), inset 0 0 50px var(--cricket-ground-shadow);
   overflow: visible;
   transform-origin: center center;
 }
 
 .boundary {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  right: 10px;
-  bottom: 10px;
+  top: 2%;
+  left: 2%;
+  right: 2%;
+  bottom: 2%;
   border: 3px solid var(--cricket-boundary);
   border-radius: 50%;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
@@ -510,8 +519,8 @@ select.form-control {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 240px;
-  height: 240px;
+  width: 48%;
+  height: 48%;
   transform: translate(-50%, -50%);
   border: 2px dashed rgba(255, 255, 255, 0.6);
   border-radius: 50%;
@@ -521,8 +530,8 @@ select.form-control {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 120px;
-  height: 120px;
+  width: 24%;
+  height: 24%;
   transform: translate(-50%, -50%);
   border: 1px dotted rgba(255, 255, 255, 0.4);
   border-radius: 50%;
@@ -532,8 +541,8 @@ select.form-control {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 40px;
-  height: 160px;
+  width: 8%;
+  height: 32%;
   transform: translate(-50%, -50%);
   background: linear-gradient(to bottom, #a67c1a, var(--cricket-pitch), #8b5914);
   border-radius: var(--radius-sm);
@@ -544,8 +553,8 @@ select.form-control {
 .bowling-crease {
   position: absolute;
   top: 50%;
-  left: -5px;
-  right: -5px;
+  left: -10%;
+  right: -10%;
   height: 2px;
   background: var(--cricket-crease);
   transform: translateY(-50%);
@@ -554,26 +563,26 @@ select.form-control {
 
 .popping-crease {
   position: absolute;
-  left: -5px;
-  right: -5px;
+  left: -10%;
+  right: -10%;
   height: 2px;
   background: var(--cricket-crease);
   box-shadow: 0 0 2px rgba(255, 255, 255, 0.8);
 }
 
 .popping-crease-striker {
-  bottom: 15px;
+  bottom: 9%;
 }
 
 .popping-crease-non-striker {
-  top: 15px;
+  top: 9%;
 }
 
 .stumps {
   position: absolute;
   left: 50%;
-  width: 12px;
-  height: 8px;
+  width: 30%;
+  height: 5%;
   background: var(--color-white);
   border-radius: var(--radius-sm);
   transform: translateX(-50%);
@@ -581,11 +590,11 @@ select.form-control {
 }
 
 .stumps-striker {
-  bottom: 18px;
+  bottom: 11%;
 }
 
 .stumps-non-striker {
-  top: 18px;
+  top: 11%;
 }
 
 /* Position Markers */
@@ -606,14 +615,14 @@ select.form-control {
 
 .position-marker {
   position: absolute;
-  width: 30px;
-  height: 30px;
+  width: clamp(24px, 4vmin, 36px);
+  height: clamp(24px, 4vmin, 36px);
   border-radius: 50%;
   border: 2px dashed rgba(255, 255, 255, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 10px;
+  font-size: clamp(8px, 1.5vmin, 11px);
   color: white;
   font-weight: bold;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
@@ -653,35 +662,36 @@ select.form-control {
 
 .player {
   position: absolute;
-  width: 24px;
-  height: 24px;
+  width: clamp(20px, 4.5vmin, 32px);
+  height: clamp(20px, 4.5vmin, 32px);
   border-radius: 50%;
   border: 2px solid var(--color-white);
   cursor: move;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--font-size-xs);
+  font-size: clamp(9px, 2vmin, 12px);
   font-weight: var(--font-weight-bold);
   color: var(--color-white);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-  box-shadow: var(--shadow-sm), 0 0 0 1px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md), 0 0 0 1px rgba(0, 0, 0, 0.1);
   transition: transform var(--duration-fast), box-shadow var(--duration-fast);
   z-index: 100;
   pointer-events: all;
   user-select: none;
   -webkit-user-select: none;
+  touch-action: none;
   transform: translate(-50%, -50%);
 }
 
 .player:hover {
-  transform: translate(-50%, -50%) scale(1.1);
-  box-shadow: var(--shadow-md), 0 0 10px rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%) scale(1.15);
+  box-shadow: var(--shadow-lg), 0 0 12px rgba(255, 255, 255, 0.6);
 }
 
 .player.dragging {
-  transform: translate(-50%, -50%) scale(1.15);
-  box-shadow: var(--shadow-lg), 0 0 15px rgba(255, 255, 255, 0.7);
+  transform: translate(-50%, -50%) scale(1.2);
+  box-shadow: var(--shadow-lg), 0 0 20px rgba(255, 255, 255, 0.8);
   z-index: 200;
   cursor: grabbing;
 }
@@ -921,22 +931,11 @@ select.form-control {
 /* Responsive Design */
 @media (max-width: 1200px) {
   .sidebar {
-    width: 280px;
+    width: clamp(260px, 30vw, 320px);
   }
-  
-  .cricket-ground {
-    width: 450px;
-    height: 450px;
-  }
-  
-  .inner-circle {
-    width: 216px;
-    height: 216px;
-  }
-  
-  .close-infield {
-    width: 108px;
-    height: 108px;
+
+  .app-header h1 {
+    font-size: var(--font-size-xl);
   }
 }
 
@@ -944,48 +943,35 @@ select.form-control {
   .main-content {
     flex-direction: column;
   }
-  
+
   .sidebar {
     width: 100%;
-    height: 200px;
+    height: auto;
+    max-height: clamp(180px, 25vh, 240px);
     overflow-x: auto;
+    overflow-y: hidden;
     display: flex;
     gap: var(--space-16);
     padding: var(--space-16);
     border-right: none;
     border-bottom: 1px solid var(--color-border);
   }
-  
+
   .sidebar-section {
-    min-width: 250px;
+    min-width: clamp(220px, 40vw, 280px);
     margin-bottom: 0;
     border-bottom: none;
     border-right: 1px solid var(--color-card-border);
     padding-right: var(--space-16);
+    flex-shrink: 0;
   }
-  
+
   .sidebar-section:last-child {
     border-right: none;
   }
-  
-  .cricket-ground {
-    width: 400px;
-    height: 400px;
-  }
-  
-  .inner-circle {
-    width: 192px;
-    height: 192px;
-  }
-  
-  .close-infield {
-    width: 96px;
-    height: 96px;
-  }
-  
-  .cricket-pitch {
-    height: 140px;
-    width: 36px;
+
+  .ground-wrapper {
+    padding: var(--space-16);
   }
 }
 
@@ -995,70 +981,65 @@ select.form-control {
     flex-wrap: wrap;
     gap: var(--space-8);
   }
-  
+
   .app-header h1 {
-    font-size: var(--font-size-xl);
-    flex: 1;
-    min-width: 200px;
+    font-size: var(--font-size-lg);
+    flex: 1 1 100%;
+    min-width: 0;
   }
-  
+
   .header-controls {
     gap: var(--space-8);
     flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
   }
-  
+
   .header-controls .btn {
     font-size: var(--font-size-sm);
-    padding: var(--space-6) var(--space-12);
+    padding: var(--space-8) var(--space-12);
+    flex: 1;
+    min-width: 100px;
   }
-  
+
   .sidebar {
-    height: 180px;
+    max-height: clamp(160px, 22vh, 200px);
     padding: var(--space-12);
   }
-  
+
   .sidebar-section {
-    min-width: 220px;
+    min-width: clamp(200px, 35vw, 240px);
   }
-  
-  .cricket-ground {
-    width: 350px;
-    height: 350px;
+
+  .sidebar-section h3 {
+    font-size: var(--font-size-base);
   }
-  
-  .inner-circle {
-    width: 168px;
-    height: 168px;
-  }
-  
-  .close-infield {
-    width: 84px;
-    height: 84px;
-  }
-  
-  .cricket-pitch {
-    height: 120px;
-    width: 32px;
-  }
-  
+
   .ground-wrapper {
-    padding: var(--space-12);
+    padding: var(--space-8);
   }
-  
-  .player {
-    width: 22px;
-    height: 22px;
-  }
-  
+
   .ground-controls {
     bottom: var(--space-12);
     right: var(--space-12);
+    left: var(--space-12);
     flex-wrap: wrap;
-    gap: var(--space-4);
+    gap: var(--space-6);
+    justify-content: center;
   }
-  
+
+  .ground-controls .btn {
+    flex: 1 1 auto;
+    min-width: 80px;
+  }
+
   .field-map-content {
     grid-template-columns: 1fr;
+  }
+
+  .modal-content {
+    width: 92%;
+    padding: var(--space-20);
   }
 }
 
@@ -1066,138 +1047,136 @@ select.form-control {
   .app-header {
     padding: var(--space-10) var(--space-12);
   }
-  
+
   .app-header h1 {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-md);
     width: 100%;
     text-align: center;
-    margin-bottom: var(--space-8);
+    margin-bottom: var(--space-6);
   }
-  
+
   .header-controls {
     width: 100%;
     justify-content: center;
   }
-  
+
+  .header-controls .btn {
+    font-size: var(--font-size-xs);
+    padding: var(--space-6) var(--space-10);
+  }
+
   .sidebar {
-    height: 160px;
+    max-height: clamp(140px, 20vh, 180px);
     overflow-x: auto;
     overflow-y: hidden;
     padding: var(--space-10);
   }
-  
+
   .sidebar-section {
-    min-width: 200px;
+    min-width: clamp(180px, 45vw, 220px);
   }
-  
+
   .sidebar-section h3 {
-    font-size: var(--font-size-base);
-    margin-bottom: var(--space-12);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-10);
   }
-  
-  .cricket-ground {
-    width: 320px;
-    height: 320px;
+
+  .form-control {
+    font-size: var(--font-size-sm);
+    padding: var(--space-6) var(--space-10);
   }
-  
-  .inner-circle {
-    width: 154px;
-    height: 154px;
-  }
-  
-  .close-infield {
-    width: 77px;
-    height: 77px;
-  }
-  
-  .cricket-pitch {
-    height: 110px;
-    width: 30px;
-  }
-  
+
   .ground-wrapper {
-    padding: var(--space-8);
+    padding: var(--space-6);
   }
-  
+
   .quick-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-6);
   }
-  
+
   .strategy-controls {
     grid-template-columns: 1fr;
     gap: var(--space-6);
   }
-}
 
-@media (max-width: 480px) {
-  .app-header h1 {
-    font-size: var(--font-size-md);
-    margin-bottom: var(--space-6);
-  }
-  
-  .header-controls .btn {
-    font-size: var(--font-size-xs);
-    padding: var(--space-4) var(--space-8);
-  }
-  
-  .cricket-ground {
-    width: 280px;
-    height: 280px;
-  }
-  
-  .inner-circle {
-    width: 134px;
-    height: 134px;
-  }
-  
-  .close-infield {
-    width: 67px;
-    height: 67px;
-  }
-  
-  .cricket-pitch {
-    height: 100px;
-    width: 28px;
-  }
-  
-  .player {
-    width: 20px;
-    height: 20px;
-  }
-  
   .field-indicators {
-    flex-direction: column;
-    gap: var(--space-4);
     top: var(--space-8);
+    flex-direction: row;
+    gap: var(--space-8);
   }
-  
+
   .field-indicator {
     padding: var(--space-2) var(--space-8);
     font-size: var(--font-size-xs);
   }
-  
+}
+
+@media (max-width: 480px) {
+  .app-header {
+    padding: var(--space-8) var(--space-10);
+  }
+
+  .app-header h1 {
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-4);
+  }
+
+  .header-controls .btn {
+    font-size: 10px;
+    padding: var(--space-4) var(--space-8);
+    min-width: 70px;
+  }
+
+  .sidebar {
+    max-height: clamp(120px, 18vh, 160px);
+    padding: var(--space-8);
+  }
+
+  .sidebar-section {
+    min-width: clamp(160px, 50vw, 200px);
+  }
+
+  .field-indicators {
+    flex-direction: row;
+    gap: var(--space-4);
+    top: var(--space-6);
+  }
+
+  .field-indicator {
+    padding: var(--space-1) var(--space-6);
+    font-size: 10px;
+  }
+
   .modal-content {
     width: 95%;
     padding: var(--space-16);
-    margin: var(--space-16);
+    margin: var(--space-12);
   }
-  
+
   .ground-controls {
     bottom: var(--space-8);
     right: var(--space-8);
+    left: var(--space-8);
     padding: var(--space-4);
+    gap: var(--space-4);
   }
-  
+
   .ground-controls .btn {
-    font-size: 10px;
-    padding: var(--space-2) var(--space-6);
+    font-size: 9px;
+    padding: var(--space-2) var(--space-4);
+    min-width: 60px;
   }
-  
+
   .zoom-level {
-    font-size: var(--font-size-xs);
-    padding: var(--space-2) var(--space-6);
+    font-size: 9px;
+    padding: var(--space-2) var(--space-4);
+  }
+
+  .quick-buttons .btn--sm {
+    font-size: 10px;
+    padding: var(--space-3) var(--space-8);
   }
 }
 
@@ -1240,57 +1219,72 @@ select.form-control {
 /* Touch improvements for mobile */
 @media (hover: none) and (pointer: coarse) {
   .player {
-    width: 28px;
-    height: 28px;
-    font-size: 12px;
+    width: clamp(26px, 5vmin, 36px);
+    height: clamp(26px, 5vmin, 36px);
+    font-size: clamp(11px, 2.5vmin, 14px);
   }
-  
+
   .btn {
-    min-height: 48px;
+    min-height: 44px;
+    padding: var(--space-10) var(--space-16);
   }
-  
+
+  .btn--sm {
+    min-height: 40px;
+    padding: var(--space-6) var(--space-12);
+  }
+
   .player-item,
   .saved-field-item {
-    min-height: 48px;
-    padding: var(--space-12) var(--space-8);
+    min-height: 44px;
+    padding: var(--space-10) var(--space-8);
   }
-  
+
   input[type="text"],
   input[type="email"],
   input[type="password"],
   textarea,
   select {
     font-size: 16px !important;
+    min-height: 44px;
+  }
+
+  .position-marker {
+    width: 36px;
+    height: 36px;
   }
 }
 
 /* Landscape orientation adjustments */
 @media (max-height: 600px) and (orientation: landscape) {
   .app-header {
-    padding: var(--space-8) var(--space-16);
+    padding: var(--space-6) var(--space-12);
   }
-  
+
   .app-header h1 {
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-sm);
   }
-  
+
+  .header-controls .btn {
+    padding: var(--space-4) var(--space-10);
+    font-size: var(--font-size-xs);
+  }
+
   .sidebar {
-    height: 100px;
+    max-height: clamp(100px, 20vh, 140px);
   }
-  
-  .cricket-ground {
-    width: 250px;
-    height: 250px;
+
+  .ground-wrapper {
+    padding: var(--space-8);
   }
-  
-  .inner-circle {
-    width: 120px;
-    height: 120px;
+
+  .field-indicators {
+    top: var(--space-6);
   }
-  
-  .close-infield {
-    width: 60px;
-    height: 60px;
+
+  .ground-controls {
+    padding: var(--space-4);
+    gap: var(--space-4);
   }
 }
 

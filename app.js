@@ -69,48 +69,49 @@ class CricketFieldPlanner {
     }
 
     initializeFieldPositions() {
-        // Properly calculated positions relative to 500x500 ground with center at 250,250
+        // Positions as percentages (0-100) relative to ground dimensions for true responsiveness
+        // Center is at 50%, 50%
         return {
-            // Close catching positions (within 60px of center)
-            'Wicket Keeper': { x: 250, y: 270, zone: 'close', angle: 180, distance: 20 },
-            'First Slip': { x: 270, y: 275, zone: 'close', angle: 200, distance: 25 },
-            'Second Slip': { x: 285, y: 280, zone: 'close', angle: 210, distance: 35 },
-            'Third Slip': { x: 300, y: 285, zone: 'close', angle: 220, distance: 45 },
-            'Fourth Slip': { x: 315, y: 290, zone: 'close', angle: 230, distance: 55 },
-            'Gully': { x: 325, y: 270, zone: 'close', angle: 250, distance: 60 },
-            'Silly Point': { x: 280, y: 230, zone: 'close', angle: 60, distance: 35 },
-            'Silly Mid-Off': { x: 265, y: 220, zone: 'close', angle: 30, distance: 30 },
-            'Silly Mid-On': { x: 235, y: 220, zone: 'close', angle: 330, distance: 30 },
-            'Short Leg': { x: 220, y: 230, zone: 'close', angle: 300, distance: 35 },
-            'Leg Slip': { x: 230, y: 275, zone: 'close', angle: 160, distance: 25 },
-            
-            // Inner ring positions (60-120px from center - 30 yard circle)
-            'Point': { x: 350, y: 250, zone: 'inner', angle: 90, distance: 100 },
-            'Backward Point': { x: 340, y: 290, zone: 'inner', angle: 120, distance: 95 },
-            'Cover Point': { x: 330, y: 200, zone: 'inner', angle: 60, distance: 90 },
-            'Cover': { x: 310, y: 180, zone: 'inner', angle: 45, distance: 85 },
-            'Extra Cover': { x: 285, y: 165, zone: 'inner', angle: 30, distance: 85 },
-            'Mid-Off': { x: 260, y: 155, zone: 'inner', angle: 15, distance: 95 },
-            'Mid-On': { x: 240, y: 155, zone: 'inner', angle: 345, distance: 95 },
-            'Mid-Wicket': { x: 190, y: 180, zone: 'inner', angle: 315, distance: 85 },
-            'Square Leg': { x: 150, y: 250, zone: 'inner', angle: 270, distance: 100 },
-            'Backward Square Leg': { x: 160, y: 290, zone: 'inner', angle: 240, distance: 95 },
-            'Fine Leg': { x: 210, y: 330, zone: 'inner', angle: 210, distance: 90 },
-            'Short Fine Leg': { x: 225, y: 310, zone: 'inner', angle: 200, distance: 65 },
-            'Short Third Man': { x: 275, y: 310, zone: 'inner', angle: 160, distance: 65 },
-            
-            // Boundary positions (120px+ from center)
-            'Deep Point': { x: 410, y: 250, zone: 'boundary', angle: 90, distance: 160 },
-            'Deep Cover': { x: 380, y: 150, zone: 'boundary', angle: 50, distance: 165 },
-            'Deep Extra Cover': { x: 340, y: 100, zone: 'boundary', angle: 35, distance: 170 },
-            'Long Off': { x: 250, y: 70, zone: 'boundary', angle: 0, distance: 180 },
-            'Long On': { x: 250, y: 430, zone: 'boundary', angle: 180, distance: 180 },
-            'Deep Mid-Wicket': { x: 120, y: 150, zone: 'boundary', angle: 310, distance: 165 },
-            'Deep Square Leg': { x: 90, y: 250, zone: 'boundary', angle: 270, distance: 160 },
-            'Deep Backward Square': { x: 100, y: 340, zone: 'boundary', angle: 240, distance: 165 },
-            'Deep Fine Leg': { x: 160, y: 400, zone: 'boundary', angle: 210, distance: 170 },
-            'Third Man': { x: 340, y: 400, zone: 'boundary', angle: 150, distance: 170 },
-            'Cow Corner': { x: 150, y: 100, zone: 'boundary', angle: 315, distance: 165 }
+            // Close catching positions (within 12% of center)
+            'Wicket Keeper': { x: 50, y: 54, zone: 'close', angle: 180, distance: 4 },
+            'First Slip': { x: 54, y: 55, zone: 'close', angle: 200, distance: 5 },
+            'Second Slip': { x: 57, y: 56, zone: 'close', angle: 210, distance: 7 },
+            'Third Slip': { x: 60, y: 57, zone: 'close', angle: 220, distance: 9 },
+            'Fourth Slip': { x: 63, y: 58, zone: 'close', angle: 230, distance: 11 },
+            'Gully': { x: 65, y: 54, zone: 'close', angle: 250, distance: 12 },
+            'Silly Point': { x: 56, y: 46, zone: 'close', angle: 60, distance: 7 },
+            'Silly Mid-Off': { x: 53, y: 44, zone: 'close', angle: 30, distance: 6 },
+            'Silly Mid-On': { x: 47, y: 44, zone: 'close', angle: 330, distance: 6 },
+            'Short Leg': { x: 44, y: 46, zone: 'close', angle: 300, distance: 7 },
+            'Leg Slip': { x: 46, y: 55, zone: 'close', angle: 160, distance: 5 },
+
+            // Inner ring positions (12-24% from center - 30 yard circle)
+            'Point': { x: 70, y: 50, zone: 'inner', angle: 90, distance: 20 },
+            'Backward Point': { x: 68, y: 58, zone: 'inner', angle: 120, distance: 19 },
+            'Cover Point': { x: 66, y: 40, zone: 'inner', angle: 60, distance: 18 },
+            'Cover': { x: 62, y: 36, zone: 'inner', angle: 45, distance: 17 },
+            'Extra Cover': { x: 57, y: 33, zone: 'inner', angle: 30, distance: 17 },
+            'Mid-Off': { x: 52, y: 31, zone: 'inner', angle: 15, distance: 19 },
+            'Mid-On': { x: 48, y: 31, zone: 'inner', angle: 345, distance: 19 },
+            'Mid-Wicket': { x: 38, y: 36, zone: 'inner', angle: 315, distance: 17 },
+            'Square Leg': { x: 30, y: 50, zone: 'inner', angle: 270, distance: 20 },
+            'Backward Square Leg': { x: 32, y: 58, zone: 'inner', angle: 240, distance: 19 },
+            'Fine Leg': { x: 42, y: 66, zone: 'inner', angle: 210, distance: 18 },
+            'Short Fine Leg': { x: 45, y: 62, zone: 'inner', angle: 200, distance: 13 },
+            'Short Third Man': { x: 55, y: 62, zone: 'inner', angle: 160, distance: 13 },
+
+            // Boundary positions (24%+ from center)
+            'Deep Point': { x: 82, y: 50, zone: 'boundary', angle: 90, distance: 32 },
+            'Deep Cover': { x: 76, y: 30, zone: 'boundary', angle: 50, distance: 33 },
+            'Deep Extra Cover': { x: 68, y: 20, zone: 'boundary', angle: 35, distance: 34 },
+            'Long Off': { x: 50, y: 14, zone: 'boundary', angle: 0, distance: 36 },
+            'Long On': { x: 50, y: 86, zone: 'boundary', angle: 180, distance: 36 },
+            'Deep Mid-Wicket': { x: 24, y: 30, zone: 'boundary', angle: 310, distance: 33 },
+            'Deep Square Leg': { x: 18, y: 50, zone: 'boundary', angle: 270, distance: 32 },
+            'Deep Backward Square': { x: 20, y: 68, zone: 'boundary', angle: 240, distance: 33 },
+            'Deep Fine Leg': { x: 32, y: 80, zone: 'boundary', angle: 210, distance: 34 },
+            'Third Man': { x: 68, y: 80, zone: 'boundary', angle: 150, distance: 34 },
+            'Cow Corner': { x: 30, y: 20, zone: 'boundary', angle: 315, distance: 33 }
         };
     }
 
@@ -348,23 +349,23 @@ class CricketFieldPlanner {
         const element = document.createElement('div');
         element.className = `player ${role}`;
         element.textContent = number;
-        element.style.left = '250px';
-        element.style.top = '250px';
-        
+        element.style.left = '50%';
+        element.style.top = '50%';
+
         const player = {
             id: `player-${number}`,
             element,
             role,
             name,
             number,
-            position: { x: 250, y: 250 },
+            position: { x: 50, y: 50 }, // Store as percentage
             positionName: 'Center',
             isDragging: false
         };
-        
+
         // Add event listeners
         this.setupPlayerEventListeners(player);
-        
+
         return player;
     }
 
@@ -404,13 +405,13 @@ class CricketFieldPlanner {
         this.saveFieldBtn.addEventListener('click', () => this.showSaveModal());
         this.exportBtn.addEventListener('click', () => this.exportField());
         this.resetFieldBtn.addEventListener('click', () => this.resetField());
-        this.fieldMapBtn.addEventListener('click', () => this.showFieldMap());
+        this.fieldMapBtn?.addEventListener('click', () => this.showFieldMap());
         
         // Analysis buttons
         this.showCoverageBtn.addEventListener('click', () => this.toggleAnalysis('coverage'));
         this.showGapsBtn.addEventListener('click', () => this.toggleAnalysis('gaps'));
         this.showRestrictionsBtn.addEventListener('click', () => this.toggleAnalysis('restrictions'));
-        this.showPositionsBtn.addEventListener('click', () => this.togglePositionMarkers());
+        this.showPositionsBtn?.addEventListener('click', () => this.togglePositionMarkers());
         
         // Modal events
         document.getElementById('cancelSaveBtn').addEventListener('click', () => this.hideSaveModal());
@@ -418,7 +419,7 @@ class CricketFieldPlanner {
         document.getElementById('cancelEditBtn').addEventListener('click', () => this.hidePlayerEditModal());
         document.getElementById('confirmEditBtn').addEventListener('click', () => this.savePlayerEdit());
         document.getElementById('saveCurrentBtn').addEventListener('click', () => this.showSaveModal());
-        document.getElementById('closeFieldMapBtn').addEventListener('click', () => this.hideFieldMap());
+        document.getElementById('closeFieldMapBtn')?.addEventListener('click', () => this.hideFieldMap());
         
         // Ground controls
         document.getElementById('zoomInBtn').addEventListener('click', () => this.zoom(110));
@@ -439,14 +440,9 @@ class CricketFieldPlanner {
         const clientX = e.clientX || (e.touches && e.touches[0].clientX);
         const clientY = e.clientY || (e.touches && e.touches[0].clientY);
         
-        // Calculate offset accounting for player centering
-        const playerRect = player.element.getBoundingClientRect();
-        const playerCenterX = playerRect.left + playerRect.width / 2;
-        const playerCenterY = playerRect.top + playerRect.height / 2;
-        
         player.dragOffset = {
-            x: clientX - playerCenterX,
-            y: clientY - playerCenterY
+            x: clientX - rect.left - player.position.x,
+            y: clientY - rect.top - player.position.y
         };
         
         e.preventDefault();
@@ -454,36 +450,39 @@ class CricketFieldPlanner {
 
     drag(e) {
         if (!this.isDragging || !this.draggedPlayer) return;
-        
+
         const rect = this.groundElement.getBoundingClientRect();
         const clientX = e.clientX || (e.touches && e.touches[0].clientX);
         const clientY = e.clientY || (e.touches && e.touches[0].clientY);
-        
-        // Calculate position relative to ground
+
         let x = clientX - rect.left - this.draggedPlayer.dragOffset.x;
         let y = clientY - rect.top - this.draggedPlayer.dragOffset.y;
-        
+
         // Apply zoom scaling
         const scale = this.currentZoom / 100;
         x = x / scale;
         y = y / scale;
-        
+
         // Get ground dimensions
         const groundSize = this.getGroundDimensions();
-        
+
+        // Convert to percentage
+        let xPercent = (x / groundSize.width) * 100;
+        let yPercent = (y / groundSize.height) * 100;
+
         // Constrain within ground bounds
-        x = Math.max(10, Math.min(groundSize.width - 10, x));
-        y = Math.max(10, Math.min(groundSize.height - 10, y));
-        
+        xPercent = Math.max(2, Math.min(98, xPercent));
+        yPercent = Math.max(2, Math.min(98, yPercent));
+
         // Apply snap to grid if enabled
         if (this.snapToGrid) {
-            const gridSize = 25;
-            x = Math.round(x / gridSize) * gridSize;
-            y = Math.round(y / gridSize) * gridSize;
+            const gridSize = 5; // 5% grid
+            xPercent = Math.round(xPercent / gridSize) * gridSize;
+            yPercent = Math.round(yPercent / gridSize) * gridSize;
         }
-        
-        this.updatePlayerPosition(this.draggedPlayer, x, y);
-        
+
+        this.updatePlayerPosition(this.draggedPlayer, xPercent, yPercent);
+
         e.preventDefault();
     }
 
@@ -507,23 +506,23 @@ class CricketFieldPlanner {
 
     updatePlayerPosition(player, x, y) {
         player.position = { x, y };
-        player.element.style.left = `${x}px`;
-        player.element.style.top = `${y}px`;
-        
+        player.element.style.left = `${x}%`;
+        player.element.style.top = `${y}%`;
+
         // Update position name based on location
         player.positionName = this.detectPosition(x, y);
         this.updatePlayerList();
     }
 
     detectPosition(x, y) {
-        const centerX = 250;
-        const centerY = 250;
+        const centerX = 50;
+        const centerY = 50;
         const distance = Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2));
-        
+
         // Find closest named position
         let closestPosition = 'Custom Position';
-        let minDistance = 30; // Threshold for snapping to position
-        
+        let minDistance = 6; // Threshold for snapping to position (6% of ground)
+
         for (const [posName, posData] of Object.entries(this.fieldPositions)) {
             const posDist = Math.sqrt(Math.pow(x - posData.x, 2) + Math.pow(y - posData.y, 2));
             if (posDist < minDistance) {
@@ -531,7 +530,7 @@ class CricketFieldPlanner {
                 closestPosition = posName;
             }
         }
-        
+
         return closestPosition;
     }
 
@@ -605,12 +604,12 @@ class CricketFieldPlanner {
         preset.players.forEach((playerData, index) => {
             if (index < this.players.length) {
                 const player = this.players[index];
-                const position = this.fieldPositions[playerData.position] || { x: 250, y: 250 };
-                
+                const position = this.fieldPositions[playerData.position] || { x: 50, y: 50 };
+
                 // Apply position with left/right handed adjustment
                 let adjustedX = position.x;
                 if (this.isLeftHandedBatsman && playerData.position !== 'Wicket Keeper') {
-                    adjustedX = 500 - position.x; // Mirror for left-handed
+                    adjustedX = 100 - position.x; // Mirror for left-handed
                 }
                 
                 this.updatePlayerPosition(player, adjustedX, position.y);
@@ -697,6 +696,8 @@ class CricketFieldPlanner {
     }
 
     togglePositionMarkers() {
+        if (!this.positionMarkers) return;
+        
         this.showingPositions = !this.showingPositions;
         this.showPositionsBtn.textContent = this.showingPositions ? 'Hide Positions' : 'Show Positions';
         
@@ -708,15 +709,18 @@ class CricketFieldPlanner {
     }
 
     showPositionMarkers() {
+        if (!this.positionMarkers) return;
+
         this.positionMarkers.innerHTML = '';
         this.positionMarkers.classList.add('visible');
-        
+
         for (const [posName, posData] of Object.entries(this.fieldPositions)) {
             const marker = document.createElement('div');
             marker.className = 'position-marker';
-            marker.style.left = `${posData.x}px`;
-            marker.style.top = `${posData.y}px`;
-            
+            marker.style.left = `${posData.x}%`;
+            marker.style.top = `${posData.y}%`;
+            marker.style.transform = 'translate(-50%, -50%)';
+
             // Color code by zone
             if (posData.zone === 'close') {
                 marker.style.borderColor = 'rgba(255, 100, 100, 0.7)';
@@ -728,18 +732,73 @@ class CricketFieldPlanner {
                 marker.style.borderColor = 'rgba(100, 255, 100, 0.7)';
                 marker.style.backgroundColor = 'rgba(100, 255, 100, 0.1)';
             }
-            
+
             const label = document.createElement('div');
             label.className = 'position-marker-label';
             label.textContent = posName;
             marker.appendChild(label);
-            
+
             this.positionMarkers.appendChild(marker);
         }
     }
 
     hidePositionMarkers() {
+        if (!this.positionMarkers) return;
         this.positionMarkers.classList.remove('visible');
+    }
+
+    showFieldMap() {
+        if (!this.fieldMapModal) return;
+        this.fieldMapModal.classList.add('active');
+        this.renderFieldMapDiagram();
+    }
+
+    hideFieldMap() {
+        if (!this.fieldMapModal) return;
+        this.fieldMapModal.classList.remove('active');
+    }
+
+    renderFieldMapDiagram() {
+        const overlay = document.getElementById('fieldPositionsOverlay');
+        if (!overlay) return;
+        
+        overlay.innerHTML = '';
+        
+        // Add position labels to the field map
+        const positions = [
+            { name: 'WK', x: 50, y: 54, color: '#4caf50' },
+            { name: '1st', x: 54, y: 55, color: '#ff5252' },
+            { name: '2nd', x: 57, y: 56, color: '#ff5252' },
+            { name: '3rd', x: 60, y: 57, color: '#ff5252' },
+            { name: 'Gully', x: 65, y: 54, color: '#ff5252' },
+            { name: 'Point', x: 70, y: 50, color: '#ffeb3b' },
+            { name: 'Cover', x: 62, y: 36, color: '#ffeb3b' },
+            { name: 'Mid-off', x: 52, y: 31, color: '#ffeb3b' },
+            { name: 'Mid-on', x: 48, y: 31, color: '#ffeb3b' },
+            { name: 'Mid-wicket', x: 38, y: 36, color: '#ffeb3b' },
+            { name: 'Square Leg', x: 30, y: 50, color: '#ffeb3b' },
+            { name: 'Fine Leg', x: 42, y: 66, color: '#ffeb3b' },
+            { name: 'Third Man', x: 68, y: 80, color: '#4caf50' },
+            { name: 'Long Off', x: 50, y: 14, color: '#4caf50' },
+            { name: 'Long On', x: 50, y: 86, color: '#4caf50' },
+            { name: 'Deep Cover', x: 76, y: 30, color: '#4caf50' },
+            { name: 'Deep Mid-wicket', x: 24, y: 30, color: '#4caf50' },
+            { name: 'Deep Square', x: 18, y: 50, color: '#4caf50' }
+        ];
+        
+        positions.forEach(pos => {
+            const label = document.createElement('div');
+            label.style.position = 'absolute';
+            label.style.left = `${pos.x}%`;
+            label.style.top = `${pos.y}%`;
+            label.style.transform = 'translate(-50%, -50%)';
+            label.style.fontSize = '10px';
+            label.style.fontWeight = 'bold';
+            label.style.color = pos.color;
+            label.style.textShadow = '0 0 2px rgba(0,0,0,0.8)';
+            label.textContent = pos.name;
+            overlay.appendChild(label);
+        });
     }
 
     handleBatsmanChange(handedness) {
@@ -756,10 +815,10 @@ class CricketFieldPlanner {
     updateFieldBalance() {
         let offSide = 0;
         let legSide = 0;
-        
+
         this.players.forEach(player => {
             if (player.role === 'fielder') {
-                const relativeX = player.position.x - 250;
+                const relativeX = player.position.x - 50;
                 if (this.isLeftHandedBatsman) {
                     if (relativeX < 0) offSide++;
                     else legSide++;
@@ -769,7 +828,7 @@ class CricketFieldPlanner {
                 }
             }
         });
-        
+
         this.fieldBalanceDisplay.textContent = `${offSide}-${legSide} field`;
     }
 
@@ -820,56 +879,6 @@ class CricketFieldPlanner {
         
         this.updatePlayerList();
         this.hidePlayerEditModal();
-    }
-
-    showFieldMap() {
-        this.fieldMapModal.classList.add('active');
-        this.renderFieldMapDiagram();
-    }
-
-    hideFieldMap() {
-        this.fieldMapModal.classList.remove('active');
-    }
-
-    renderFieldMapDiagram() {
-        const overlay = document.getElementById('fieldPositionsOverlay');
-        overlay.innerHTML = '';
-        
-        // Add position labels to the field map
-        const positions = [
-            { name: 'WK', x: 50, y: 54, color: '#4caf50' },
-            { name: '1st', x: 54, y: 55, color: '#ff5252' },
-            { name: '2nd', x: 57, y: 56, color: '#ff5252' },
-            { name: '3rd', x: 60, y: 57, color: '#ff5252' },
-            { name: 'Gully', x: 65, y: 54, color: '#ff5252' },
-            { name: 'Point', x: 70, y: 50, color: '#ffeb3b' },
-            { name: 'Cover', x: 62, y: 36, color: '#ffeb3b' },
-            { name: 'Mid-off', x: 52, y: 31, color: '#ffeb3b' },
-            { name: 'Mid-on', x: 48, y: 31, color: '#ffeb3b' },
-            { name: 'Mid-wicket', x: 38, y: 36, color: '#ffeb3b' },
-            { name: 'Square Leg', x: 30, y: 50, color: '#ffeb3b' },
-            { name: 'Fine Leg', x: 42, y: 66, color: '#ffeb3b' },
-            { name: 'Third Man', x: 68, y: 80, color: '#4caf50' },
-            { name: 'Long Off', x: 50, y: 14, color: '#4caf50' },
-            { name: 'Long On', x: 50, y: 86, color: '#4caf50' },
-            { name: 'Deep Cover', x: 76, y: 30, color: '#4caf50' },
-            { name: 'Deep Mid-wicket', x: 24, y: 30, color: '#4caf50' },
-            { name: 'Deep Square', x: 18, y: 50, color: '#4caf50' }
-        ];
-        
-        positions.forEach(pos => {
-            const label = document.createElement('div');
-            label.style.position = 'absolute';
-            label.style.left = `${pos.x}%`;
-            label.style.top = `${pos.y}%`;
-            label.style.transform = 'translate(-50%, -50%)';
-            label.style.fontSize = '10px';
-            label.style.fontWeight = 'bold';
-            label.style.color = pos.color;
-            label.style.textShadow = '0 0 2px rgba(0,0,0,0.8)';
-            label.textContent = pos.name;
-            overlay.appendChild(label);
-        });
     }
 
     showSaveModal() {
@@ -1020,23 +1029,23 @@ class CricketFieldPlanner {
         
         // Draw players
         this.players.forEach(player => {
-            const x = (player.position.x / 500) * 600;
-            const y = (player.position.y / 500) * 600;
-            
+            const x = (player.position.x / 100) * 600;
+            const y = (player.position.y / 100) * 600;
+
             ctx.beginPath();
             ctx.arc(x, y, 12, 0, 2 * Math.PI);
-            
+
             if (player.role === 'bowler') ctx.fillStyle = '#c0152f';
             else if (player.role === 'keeper') ctx.fillStyle = '#21808d';
             else ctx.fillStyle = '#4caf50';
-            
+
             ctx.fill();
-            
+
             ctx.fillStyle = '#ffffff';
             ctx.font = 'bold 10px Arial';
             ctx.textAlign = 'center';
             ctx.fillText(player.number.toString(), x, y + 4);
-            
+
             ctx.font = '9px Arial';
             ctx.fillText(player.positionName, x, y + 25);
         });
@@ -1074,10 +1083,10 @@ class CricketFieldPlanner {
             'Point', 'Cover', 'Mid-On', 'Mid-Wicket', 'Square Leg',
             'Backward Square Leg', 'Fine Leg'
         ];
-        
+
         this.players.forEach((player, index) => {
             const posName = defaultPositions[index];
-            const pos = this.fieldPositions[posName] || { x: 250, y: 250 };
+            const pos = this.fieldPositions[posName] || { x: 50, y: 50 };
             this.updatePlayerPosition(player, pos.x, pos.y);
             player.name = posName;
         });
@@ -1125,10 +1134,10 @@ class CricketFieldPlanner {
     getFieldBalance() {
         let offSide = 0;
         let legSide = 0;
-        
+
         this.players.forEach(player => {
             if (player.role === 'fielder') {
-                const relativeX = player.position.x - 250;
+                const relativeX = player.position.x - 50;
                 if (this.isLeftHandedBatsman) {
                     if (relativeX < 0) offSide++;
                     else legSide++;
@@ -1138,7 +1147,7 @@ class CricketFieldPlanner {
                 }
             }
         });
-        
+
         return { offSide, legSide };
     }
 
@@ -1159,29 +1168,29 @@ class CricketFieldPlanner {
         const boundaryCount = this.players.filter(player => {
             if (player.role !== 'fielder') return false;
             const distance = Math.sqrt(
-                Math.pow(player.position.x - 250, 2) + 
-                Math.pow(player.position.y - 250, 2)
+                Math.pow(player.position.x - 50, 2) +
+                Math.pow(player.position.y - 50, 2)
             );
-            return distance > 150;
+            return distance > 30; // 30% from center
         }).length;
         return boundaryCount >= 6;
     }
 
     hasFieldGaps() {
         const sectors = Array(8).fill(0);
-        
+
         this.players.forEach(player => {
             if (player.role === 'fielder') {
                 const angle = Math.atan2(
-                    player.position.y - 250,
-                    player.position.x - 250
+                    player.position.y - 50,
+                    player.position.x - 50
                 ) * (180 / Math.PI);
                 const normalizedAngle = angle < 0 ? angle + 360 : angle;
                 const sector = Math.floor(normalizedAngle / 45);
                 sectors[sector]++;
             }
         });
-        
+
         return sectors.filter(count => count === 0).length > 2;
     }
 
@@ -1222,10 +1231,11 @@ class CricketFieldPlanner {
             if (player.role === 'fielder') {
                 const circle = document.createElement('div');
                 circle.style.position = 'absolute';
-                circle.style.left = `${player.position.x - 30}px`;
-                circle.style.top = `${player.position.y - 30}px`;
-                circle.style.width = '60px';
-                circle.style.height = '60px';
+                circle.style.left = `${player.position.x}%`;
+                circle.style.top = `${player.position.y}%`;
+                circle.style.width = '12%';
+                circle.style.height = '12%';
+                circle.style.transform = 'translate(-50%, -50%)';
                 circle.style.border = '2px solid rgba(0, 255, 0, 0.5)';
                 circle.style.borderRadius = '50%';
                 circle.style.backgroundColor = 'rgba(0, 255, 0, 0.1)';
@@ -1236,14 +1246,15 @@ class CricketFieldPlanner {
 
     showGapAnalysis(overlay) {
         const gaps = this.identifyGaps();
-        
+
         gaps.forEach(gap => {
             const gapIndicator = document.createElement('div');
             gapIndicator.style.position = 'absolute';
-            gapIndicator.style.left = `${gap.x - 15}px`;
-            gapIndicator.style.top = `${gap.y - 15}px`;
-            gapIndicator.style.width = '30px';
-            gapIndicator.style.height = '30px';
+            gapIndicator.style.left = `${gap.x}%`;
+            gapIndicator.style.top = `${gap.y}%`;
+            gapIndicator.style.width = '6%';
+            gapIndicator.style.height = '6%';
+            gapIndicator.style.transform = 'translate(-50%, -50%)';
             gapIndicator.style.border = '2px solid rgba(255, 0, 0, 0.8)';
             gapIndicator.style.borderRadius = '50%';
             gapIndicator.style.backgroundColor = 'rgba(255, 0, 0, 0.2)';
@@ -1257,18 +1268,18 @@ class CricketFieldPlanner {
         restrictionCircle.style.position = 'absolute';
         restrictionCircle.style.left = '50%';
         restrictionCircle.style.top = '50%';
-        restrictionCircle.style.width = '240px';
-        restrictionCircle.style.height = '240px';
+        restrictionCircle.style.width = '48%';
+        restrictionCircle.style.height = '48%';
         restrictionCircle.style.transform = 'translate(-50%, -50%)';
         restrictionCircle.style.border = '3px dashed rgba(255, 255, 0, 0.8)';
         restrictionCircle.style.borderRadius = '50%';
         restrictionCircle.style.backgroundColor = 'rgba(255, 255, 0, 0.05)';
         overlay.appendChild(restrictionCircle);
-        
+
         const restrictionText = document.createElement('div');
         restrictionText.style.position = 'absolute';
         restrictionText.style.left = '50%';
-        restrictionText.style.top = '100px';
+        restrictionText.style.top = '20%';
         restrictionText.style.transform = 'translateX(-50%)';
         restrictionText.style.color = 'rgba(255, 255, 0, 0.9)';
         restrictionText.style.fontWeight = 'bold';
@@ -1281,32 +1292,32 @@ class CricketFieldPlanner {
     identifyGaps() {
         const gaps = [];
         const numAngles = 16;
-        
+
         for (let i = 0; i < numAngles; i++) {
             const angle = (i * 360 / numAngles) * Math.PI / 180;
-            const radius = 120; // Check at 30-yard circle
-            const x = 250 + radius * Math.cos(angle);
-            const y = 250 + radius * Math.sin(angle);
-            
+            const radius = 24; // Check at 24% from center (30-yard circle)
+            const x = 50 + radius * Math.cos(angle);
+            const y = 50 + radius * Math.sin(angle);
+
             let hasNearbyFielder = false;
             for (const player of this.players) {
                 if (player.role === 'fielder') {
                     const distance = Math.sqrt(
-                        Math.pow(x - player.position.x, 2) + 
+                        Math.pow(x - player.position.x, 2) +
                         Math.pow(y - player.position.y, 2)
                     );
-                    if (distance < 50) {
+                    if (distance < 10) {
                         hasNearbyFielder = true;
                         break;
                     }
                 }
             }
-            
+
             if (!hasNearbyFielder) {
                 gaps.push({ x, y });
             }
         }
-        
+
         return gaps;
     }
 
@@ -1344,6 +1355,7 @@ class CricketFieldPlanner {
         if (e.key === 'Escape') {
             this.hideSaveModal();
             this.hidePlayerEditModal();
+            this.hideFieldMap();
             document.querySelectorAll('.coverage-overlay, .gaps-overlay, .restrictions-overlay')
                 .forEach(overlay => overlay.classList.remove('active'));
         }
