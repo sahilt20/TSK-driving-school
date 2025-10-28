@@ -1,4 +1,4 @@
-// Cricket Field Planner Application
+// Cricket Field Planner Application - Complete Fixed Version
 class CricketFieldPlanner {
     constructor() {
         this.players = [];
@@ -7,11 +7,12 @@ class CricketFieldPlanner {
         this.isLeftHandedBatsman = false;
         this.currentZoom = 100;
         this.snapToGrid = false;
+        this.showingPositions = false;
         this.draggedPlayer = null;
         this.isDragging = false;
         
-        // Field position data
-        this.positions = this.initializePositions();
+        // Accurate field positions with proper coordinates
+        this.fieldPositions = this.initializeFieldPositions();
         this.presetFormations = this.initializePresetFormations();
         
         this.init();
@@ -31,6 +32,7 @@ class CricketFieldPlanner {
         this.groundElement = document.getElementById('cricketGround');
         this.playersContainer = document.getElementById('playersContainer');
         this.tooltip = document.getElementById('positionTooltip');
+        this.positionMarkers = document.getElementById('positionMarkers');
         
         // Control elements
         this.presetSelect = document.getElementById('presetFormation');
@@ -45,15 +47,18 @@ class CricketFieldPlanner {
         this.saveFieldBtn = document.getElementById('saveFieldBtn');
         this.exportBtn = document.getElementById('exportBtn');
         this.resetFieldBtn = document.getElementById('resetFieldBtn');
+        this.fieldMapBtn = document.getElementById('fieldMapBtn');
         
         // Analysis elements
         this.showCoverageBtn = document.getElementById('showCoverageBtn');
         this.showGapsBtn = document.getElementById('showGapsBtn');
         this.showRestrictionsBtn = document.getElementById('showRestrictionsBtn');
+        this.showPositionsBtn = document.getElementById('showPositionsBtn');
         
         // Modal elements
         this.saveModal = document.getElementById('saveFieldModal');
         this.playerEditModal = document.getElementById('playerEditModal');
+        this.fieldMapModal = document.getElementById('fieldMapModal');
         
         // Other elements
         this.playerList = document.getElementById('playerList');
@@ -63,253 +68,256 @@ class CricketFieldPlanner {
         this.savedFieldsContainer = document.getElementById('savedFields');
     }
 
-    initializePositions() {
+    initializeFieldPositions() {
+        // Properly calculated positions relative to 500x500 ground with center at 250,250
         return {
-            close_catching: [
-                { name: "Wicket Keeper", position: [0, -12], description: "Behind the stumps, catches deliveries and prevents byes" },
-                { name: "First Slip", position: [10, -16], description: "Catches edges off fast bowlers" },
-                { name: "Second Slip", position: [18, -18], description: "Additional slip catching position" },
-                { name: "Third Slip", position: [26, -20], description: "Extended slip cordon for attacking field" },
-                { name: "Gully", position: [30, -12], description: "Catches deflections at a 60° angle on the off side" },
-                { name: "Short Leg", position: [-22, 8], description: "Close on the leg side for catching edges" },
-                { name: "Silly Point", position: [22, 8], description: "Close on the off side, especially for spin bowling" },
-                { name: "Silly Mid-Off", position: [15, 15], description: "Very close to the batsman on the off side" },
-                { name: "Silly Mid-On", position: [-15, 15], description: "Very close to the batsman on the leg side" },
-                { name: "Leg Slip", position: [-10, -16], description: "Rare position behind the wicketkeeper on the leg side" }
-            ],
-            inner_ring: [
-                { name: "Point", position: [60, 0], description: "Square on the off side, a key position for saving runs" },
-                { name: "Cover", position: [50, 30], description: "Between point and mid-off, intercepts driving shots" },
-                { name: "Extra Cover", position: [40, 45], description: "Between cover and mid-off positions" },
-                { name: "Mid-Off", position: [25, 55], description: "Straight on the off side, stops straight drives" },
-                { name: "Mid-On", position: [-25, 55], description: "Straight on the leg side, a mirror of mid-off" },
-                { name: "Mid-Wicket", position: [-50, 30], description: "Between square leg and mid-on" },
-                { name: "Square Leg", position: [-60, 0], description: "Square on the leg side, level with the batsman" },
-                { name: "Backward Square Leg", position: [-55, -25], description: "Behind square on the leg side" },
-                { name: "Backward Point", position: [55, -25], description: "Behind square on the off side" },
-                { name: "Short Third Man", position: [45, -40], description: "A shorter version of the third man position" },
-                { name: "Short Fine Leg", position: [-45, -40], description: "A shorter version of the fine leg position" }
-            ],
-            outfield: [
-                { name: "Third Man", position: [70, -70], description: "Deep on the off side boundary, saves runs from edges" },
-                { name: "Deep Point", position: [90, -30], description: "Deep backward point on the boundary" },
-                { name: "Deep Cover", position: [80, 40], description: "Deep cover on the boundary line" },
-                { name: "Long Off", position: [40, 85], description: "Straight boundary on the off side" },
-                { name: "Long On", position: [-40, 85], description: "Straight boundary on the leg side" },
-                { name: "Deep Mid-Wicket", position: [-80, 40], description: "Deep on the leg side boundary" },
-                { name: "Deep Square Leg", position: [-90, -5], description: "Deep square on the leg side boundary" },
-                { name: "Fine Leg", position: [-70, -70], description: "Deep behind square on the leg side" },
-                { name: "Long Leg", position: [-80, -50], description: "Wider than fine leg on the boundary" },
-                { name: "Cow Corner", position: [-65, 70], description: "Between deep mid-wicket and long-on" },
-                { name: "Deep Backward Square Leg", position: [-85, -35], description: "Deep behind square leg on the boundary" }
-            ]
+            // Close catching positions (within 60px of center)
+            'Wicket Keeper': { x: 250, y: 270, zone: 'close', angle: 180, distance: 20 },
+            'First Slip': { x: 270, y: 275, zone: 'close', angle: 200, distance: 25 },
+            'Second Slip': { x: 285, y: 280, zone: 'close', angle: 210, distance: 35 },
+            'Third Slip': { x: 300, y: 285, zone: 'close', angle: 220, distance: 45 },
+            'Fourth Slip': { x: 315, y: 290, zone: 'close', angle: 230, distance: 55 },
+            'Gully': { x: 325, y: 270, zone: 'close', angle: 250, distance: 60 },
+            'Silly Point': { x: 280, y: 230, zone: 'close', angle: 60, distance: 35 },
+            'Silly Mid-Off': { x: 265, y: 220, zone: 'close', angle: 30, distance: 30 },
+            'Silly Mid-On': { x: 235, y: 220, zone: 'close', angle: 330, distance: 30 },
+            'Short Leg': { x: 220, y: 230, zone: 'close', angle: 300, distance: 35 },
+            'Leg Slip': { x: 230, y: 275, zone: 'close', angle: 160, distance: 25 },
+            
+            // Inner ring positions (60-120px from center - 30 yard circle)
+            'Point': { x: 350, y: 250, zone: 'inner', angle: 90, distance: 100 },
+            'Backward Point': { x: 340, y: 290, zone: 'inner', angle: 120, distance: 95 },
+            'Cover Point': { x: 330, y: 200, zone: 'inner', angle: 60, distance: 90 },
+            'Cover': { x: 310, y: 180, zone: 'inner', angle: 45, distance: 85 },
+            'Extra Cover': { x: 285, y: 165, zone: 'inner', angle: 30, distance: 85 },
+            'Mid-Off': { x: 260, y: 155, zone: 'inner', angle: 15, distance: 95 },
+            'Mid-On': { x: 240, y: 155, zone: 'inner', angle: 345, distance: 95 },
+            'Mid-Wicket': { x: 190, y: 180, zone: 'inner', angle: 315, distance: 85 },
+            'Square Leg': { x: 150, y: 250, zone: 'inner', angle: 270, distance: 100 },
+            'Backward Square Leg': { x: 160, y: 290, zone: 'inner', angle: 240, distance: 95 },
+            'Fine Leg': { x: 210, y: 330, zone: 'inner', angle: 210, distance: 90 },
+            'Short Fine Leg': { x: 225, y: 310, zone: 'inner', angle: 200, distance: 65 },
+            'Short Third Man': { x: 275, y: 310, zone: 'inner', angle: 160, distance: 65 },
+            
+            // Boundary positions (120px+ from center)
+            'Deep Point': { x: 410, y: 250, zone: 'boundary', angle: 90, distance: 160 },
+            'Deep Cover': { x: 380, y: 150, zone: 'boundary', angle: 50, distance: 165 },
+            'Deep Extra Cover': { x: 340, y: 100, zone: 'boundary', angle: 35, distance: 170 },
+            'Long Off': { x: 250, y: 70, zone: 'boundary', angle: 0, distance: 180 },
+            'Long On': { x: 250, y: 430, zone: 'boundary', angle: 180, distance: 180 },
+            'Deep Mid-Wicket': { x: 120, y: 150, zone: 'boundary', angle: 310, distance: 165 },
+            'Deep Square Leg': { x: 90, y: 250, zone: 'boundary', angle: 270, distance: 160 },
+            'Deep Backward Square': { x: 100, y: 340, zone: 'boundary', angle: 240, distance: 165 },
+            'Deep Fine Leg': { x: 160, y: 400, zone: 'boundary', angle: 210, distance: 170 },
+            'Third Man': { x: 340, y: 400, zone: 'boundary', angle: 150, distance: 170 },
+            'Cow Corner': { x: 150, y: 100, zone: 'boundary', angle: 315, distance: 165 }
         };
     }
 
     initializePresetFormations() {
         return {
             attacking: {
-                name: 'Attacking',
-                description: 'Close fielders for taking wickets - 5 slips and close catchers',
-                positions: [
-                    { role: 'bowler', position: [0, -200], name: 'Bowler' },
-                    { role: 'keeper', position: [0, -15], name: 'Wicket Keeper' },
-                    { role: 'fielder', position: [12, -25], name: 'First Slip' },
-                    { role: 'fielder', position: [20, -28], name: 'Second Slip' },
-                    { role: 'fielder', position: [28, -30], name: 'Third Slip' },
-                    { role: 'fielder', position: [36, -32], name: 'Fourth Slip' },
-                    { role: 'fielder', position: [45, -25], name: 'Gully' },
-                    { role: 'fielder', position: [-30, 15], name: 'Short Leg' },
-                    { role: 'fielder', position: [35, 15], name: 'Silly Point' },
-                    { role: 'fielder', position: [85, 0], name: 'Point' },
-                    { role: 'fielder', position: [-170, -170], name: 'Fine Leg' }
+                name: 'Attacking (5 Slips)',
+                description: 'Aggressive field with multiple slips for taking wickets',
+                players: [
+                    { role: 'bowler', position: 'Mid-Off', name: 'Bowler' },
+                    { role: 'keeper', position: 'Wicket Keeper', name: 'Keeper' },
+                    { role: 'fielder', position: 'First Slip', name: 'First Slip' },
+                    { role: 'fielder', position: 'Second Slip', name: 'Second Slip' },
+                    { role: 'fielder', position: 'Third Slip', name: 'Third Slip' },
+                    { role: 'fielder', position: 'Fourth Slip', name: 'Fourth Slip' },
+                    { role: 'fielder', position: 'Gully', name: 'Gully' },
+                    { role: 'fielder', position: 'Point', name: 'Point' },
+                    { role: 'fielder', position: 'Cover', name: 'Cover' },
+                    { role: 'fielder', position: 'Mid-On', name: 'Mid-On' },
+                    { role: 'fielder', position: 'Fine Leg', name: 'Fine Leg' }
                 ]
             },
             defensive: {
-                name: 'Defensive',
-                description: 'Deep fielders to prevent boundaries - 7-2 field',
-                positions: [
-                    { role: 'bowler', position: [0, -200], name: 'Bowler' },
-                    { role: 'keeper', position: [0, -15], name: 'Wicket Keeper' },
-                    { role: 'fielder', position: [85, 0], name: 'Point' },
-                    { role: 'fielder', position: [169, 120], name: 'Deep Cover' },
-                    { role: 'fielder', position: [120, 169], name: 'Long Off' },
-                    { role: 'fielder', position: [-120, 169], name: 'Long On' },
-                    { role: 'fielder', position: [-169, 120], name: 'Deep Mid-Wicket' },
-                    { role: 'fielder', position: [-240, 0], name: 'Deep Square Leg' },
-                    { role: 'fielder', position: [-169, -120], name: 'Deep Backward Square' },
-                    { role: 'fielder', position: [169, -120], name: 'Third Man' },
-                    { role: 'fielder', position: [60, 85], name: 'Cover' }
+                name: 'Defensive (7-2 Field)',
+                description: 'Deep fielders to prevent boundaries',
+                players: [
+                    { role: 'bowler', position: 'Mid-Off', name: 'Bowler' },
+                    { role: 'keeper', position: 'Wicket Keeper', name: 'Keeper' },
+                    { role: 'fielder', position: 'Deep Point', name: 'Deep Point' },
+                    { role: 'fielder', position: 'Deep Cover', name: 'Deep Cover' },
+                    { role: 'fielder', position: 'Long Off', name: 'Long Off' },
+                    { role: 'fielder', position: 'Long On', name: 'Long On' },
+                    { role: 'fielder', position: 'Deep Mid-Wicket', name: 'Deep Mid-Wicket' },
+                    { role: 'fielder', position: 'Deep Square Leg', name: 'Deep Square Leg' },
+                    { role: 'fielder', position: 'Deep Fine Leg', name: 'Deep Fine Leg' },
+                    { role: 'fielder', position: 'Third Man', name: 'Third Man' },
+                    { role: 'fielder', position: 'Point', name: 'Point' }
                 ]
             },
             'offside-heavy': {
                 name: 'Off-side Heavy',
                 description: '6-3 field with majority on off side',
-                positions: [
-                    { role: 'bowler', position: [0, 50], name: 'Bowler' },
-                    { role: 'keeper', position: [0, -15], name: 'Keeper' },
-                    { role: 'fielder', position: [8, -18], name: 'First Slip' },
-                    { role: 'fielder', position: [15, -20], name: 'Second Slip' },
-                    { role: 'fielder', position: [50, 0], name: 'Point' },
-                    { role: 'fielder', position: [45, 25], name: 'Cover' },
-                    { role: 'fielder', position: [35, 35], name: 'Extra Cover' },
-                    { role: 'fielder', position: [20, 45], name: 'Mid-Off' },
-                    { role: 'fielder', position: [65, -60], name: 'Third Man' },
-                    { role: 'fielder', position: [-20, 45], name: 'Mid-On' },
-                    { role: 'fielder', position: [-65, -60], name: 'Fine Leg' }
+                players: [
+                    { role: 'bowler', position: 'Mid-Off', name: 'Bowler' },
+                    { role: 'keeper', position: 'Wicket Keeper', name: 'Keeper' },
+                    { role: 'fielder', position: 'First Slip', name: 'First Slip' },
+                    { role: 'fielder', position: 'Gully', name: 'Gully' },
+                    { role: 'fielder', position: 'Point', name: 'Point' },
+                    { role: 'fielder', position: 'Cover', name: 'Cover' },
+                    { role: 'fielder', position: 'Extra Cover', name: 'Extra Cover' },
+                    { role: 'fielder', position: 'Deep Cover', name: 'Deep Cover' },
+                    { role: 'fielder', position: 'Third Man', name: 'Third Man' },
+                    { role: 'fielder', position: 'Mid-On', name: 'Mid-On' },
+                    { role: 'fielder', position: 'Fine Leg', name: 'Fine Leg' }
                 ]
             },
             'legside-heavy': {
                 name: 'Leg-side Heavy',
                 description: '3-6 field with majority on leg side',
-                positions: [
-                    { role: 'bowler', position: [0, 50], name: 'Bowler' },
-                    { role: 'keeper', position: [0, -15], name: 'Keeper' },
-                    { role: 'fielder', position: [50, 0], name: 'Point' },
-                    { role: 'fielder', position: [20, 45], name: 'Mid-Off' },
-                    { role: 'fielder', position: [65, -60], name: 'Third Man' },
-                    { role: 'fielder', position: [-20, 45], name: 'Mid-On' },
-                    { role: 'fielder', position: [-45, 25], name: 'Mid-Wicket' },
-                    { role: 'fielder', position: [-50, 0], name: 'Square Leg' },
-                    { role: 'fielder', position: [-45, -15], name: 'Backward Square Leg' },
-                    { role: 'fielder', position: [-65, -60], name: 'Fine Leg' },
-                    { role: 'fielder', position: [-70, -45], name: 'Long Leg' }
+                players: [
+                    { role: 'bowler', position: 'Mid-Off', name: 'Bowler' },
+                    { role: 'keeper', position: 'Wicket Keeper', name: 'Keeper' },
+                    { role: 'fielder', position: 'Point', name: 'Point' },
+                    { role: 'fielder', position: 'Cover', name: 'Cover' },
+                    { role: 'fielder', position: 'Third Man', name: 'Third Man' },
+                    { role: 'fielder', position: 'Mid-On', name: 'Mid-On' },
+                    { role: 'fielder', position: 'Mid-Wicket', name: 'Mid-Wicket' },
+                    { role: 'fielder', position: 'Square Leg', name: 'Square Leg' },
+                    { role: 'fielder', position: 'Deep Square Leg', name: 'Deep Square Leg' },
+                    { role: 'fielder', position: 'Fine Leg', name: 'Fine Leg' },
+                    { role: 'fielder', position: 'Deep Fine Leg', name: 'Deep Fine Leg' }
                 ]
             },
             'new-ball': {
                 name: 'New Ball',
-                description: 'Standard new ball attack field with slips',
-                positions: [
-                    { role: 'bowler', position: [0, -200], name: 'Bowler' },
-                    { role: 'keeper', position: [0, -15], name: 'Wicket Keeper' },
-                    { role: 'fielder', position: [12, -25], name: 'First Slip' },
-                    { role: 'fielder', position: [20, -28], name: 'Second Slip' },
-                    { role: 'fielder', position: [35, -20], name: 'Gully' },
-                    { role: 'fielder', position: [85, 0], name: 'Point' },
-                    { role: 'fielder', position: [60, 85], name: 'Cover' },
-                    { role: 'fielder', position: [35, 100], name: 'Mid-Off' },
-                    { role: 'fielder', position: [-35, 100], name: 'Mid-On' },
-                    { role: 'fielder', position: [-85, 0], name: 'Square Leg' },
-                    { role: 'fielder', position: [-169, -120], name: 'Fine Leg' }
+                description: 'Standard new ball attack field',
+                players: [
+                    { role: 'bowler', position: 'Mid-Off', name: 'Bowler' },
+                    { role: 'keeper', position: 'Wicket Keeper', name: 'Keeper' },
+                    { role: 'fielder', position: 'First Slip', name: 'First Slip' },
+                    { role: 'fielder', position: 'Second Slip', name: 'Second Slip' },
+                    { role: 'fielder', position: 'Third Slip', name: 'Third Slip' },
+                    { role: 'fielder', position: 'Gully', name: 'Gully' },
+                    { role: 'fielder', position: 'Point', name: 'Point' },
+                    { role: 'fielder', position: 'Cover', name: 'Cover' },
+                    { role: 'fielder', position: 'Mid-On', name: 'Mid-On' },
+                    { role: 'fielder', position: 'Square Leg', name: 'Square Leg' },
+                    { role: 'fielder', position: 'Fine Leg', name: 'Fine Leg' }
                 ]
             },
             'spin-bowling': {
                 name: 'Spin Bowling',
                 description: 'Close catchers for spin bowling',
-                positions: [
-                    { role: 'bowler', position: [0, 50], name: 'Bowler' },
-                    { role: 'keeper', position: [0, -15], name: 'Keeper' },
-                    { role: 'fielder', position: [8, -18], name: 'First Slip' },
-                    { role: 'fielder', position: [-25, 8], name: 'Short Leg' },
-                    { role: 'fielder', position: [25, 8], name: 'Silly Point' },
-                    { role: 'fielder', position: [50, 0], name: 'Point' },
-                    { role: 'fielder', position: [45, 25], name: 'Cover' },
-                    { role: 'fielder', position: [20, 45], name: 'Mid-Off' },
-                    { role: 'fielder', position: [-20, 45], name: 'Mid-On' },
-                    { role: 'fielder', position: [-45, 25], name: 'Mid-Wicket' },
-                    { role: 'fielder', position: [-50, 0], name: 'Square Leg' }
+                players: [
+                    { role: 'bowler', position: 'Mid-Off', name: 'Bowler' },
+                    { role: 'keeper', position: 'Wicket Keeper', name: 'Keeper' },
+                    { role: 'fielder', position: 'First Slip', name: 'First Slip' },
+                    { role: 'fielder', position: 'Silly Point', name: 'Silly Point' },
+                    { role: 'fielder', position: 'Short Leg', name: 'Short Leg' },
+                    { role: 'fielder', position: 'Point', name: 'Point' },
+                    { role: 'fielder', position: 'Cover', name: 'Cover' },
+                    { role: 'fielder', position: 'Mid-On', name: 'Mid-On' },
+                    { role: 'fielder', position: 'Mid-Wicket', name: 'Mid-Wicket' },
+                    { role: 'fielder', position: 'Square Leg', name: 'Square Leg' },
+                    { role: 'fielder', position: 'Backward Square Leg', name: 'Backward Square' }
                 ]
             },
             'death-bowling': {
                 name: 'Death Bowling',
-                description: 'Boundary protection for death overs - all deep',
-                positions: [
-                    { role: 'bowler', position: [0, -200], name: 'Bowler' },
-                    { role: 'keeper', position: [0, -15], name: 'Wicket Keeper' },
-                    { role: 'fielder', position: [85, 0], name: 'Point' },
-                    { role: 'fielder', position: [169, 120], name: 'Deep Cover' },
-                    { role: 'fielder', position: [120, 169], name: 'Long Off' },
-                    { role: 'fielder', position: [-120, 169], name: 'Long On' },
-                    { role: 'fielder', position: [-141, 141], name: 'Cow Corner' },
-                    { role: 'fielder', position: [-169, 120], name: 'Deep Mid-Wicket' },
-                    { role: 'fielder', position: [-240, 0], name: 'Deep Square Leg' },
-                    { role: 'fielder', position: [169, -120], name: 'Third Man' },
-                    { role: 'fielder', position: [-169, -120], name: 'Fine Leg' }
+                description: 'Boundary protection for death overs',
+                players: [
+                    { role: 'bowler', position: 'Mid-Off', name: 'Bowler' },
+                    { role: 'keeper', position: 'Wicket Keeper', name: 'Keeper' },
+                    { role: 'fielder', position: 'Deep Point', name: 'Deep Point' },
+                    { role: 'fielder', position: 'Deep Cover', name: 'Deep Cover' },
+                    { role: 'fielder', position: 'Long Off', name: 'Long Off' },
+                    { role: 'fielder', position: 'Long On', name: 'Long On' },
+                    { role: 'fielder', position: 'Cow Corner', name: 'Cow Corner' },
+                    { role: 'fielder', position: 'Deep Mid-Wicket', name: 'Deep Mid-Wicket' },
+                    { role: 'fielder', position: 'Deep Square Leg', name: 'Deep Square Leg' },
+                    { role: 'fielder', position: 'Third Man', name: 'Third Man' },
+                    { role: 'fielder', position: 'Short Fine Leg', name: 'Short Fine Leg' }
                 ]
             },
             'powerplay-1-6': {
-                name: 'Powerplay 1-6',
-                description: 'Only 2 fielders outside 30-yard circle - aggressive field',
-                positions: [
-                    { role: 'bowler', position: [0, -200], name: 'Bowler' },
-                    { role: 'keeper', position: [0, -15], name: 'Wicket Keeper' },
-                    { role: 'fielder', position: [12, -25], name: 'First Slip' },
-                    { role: 'fielder', position: [20, -28], name: 'Second Slip' },
-                    { role: 'fielder', position: [85, 0], name: 'Point' },
-                    { role: 'fielder', position: [60, 85], name: 'Cover' },
-                    { role: 'fielder', position: [35, 100], name: 'Mid-Off' },
-                    { role: 'fielder', position: [-35, 100], name: 'Mid-On' },
-                    { role: 'fielder', position: [-60, 85], name: 'Mid-Wicket' },
-                    { role: 'fielder', position: [169, -120], name: 'Third Man' },
-                    { role: 'fielder', position: [-169, -120], name: 'Fine Leg' }
+                name: 'Powerplay (1-6 Overs)',
+                description: 'Only 2 fielders outside 30-yard circle',
+                players: [
+                    { role: 'bowler', position: 'Mid-Off', name: 'Bowler' },
+                    { role: 'keeper', position: 'Wicket Keeper', name: 'Keeper' },
+                    { role: 'fielder', position: 'First Slip', name: 'First Slip' },
+                    { role: 'fielder', position: 'Second Slip', name: 'Second Slip' },
+                    { role: 'fielder', position: 'Point', name: 'Point' },
+                    { role: 'fielder', position: 'Cover', name: 'Cover' },
+                    { role: 'fielder', position: 'Mid-On', name: 'Mid-On' },
+                    { role: 'fielder', position: 'Mid-Wicket', name: 'Mid-Wicket' },
+                    { role: 'fielder', position: 'Square Leg', name: 'Square Leg' },
+                    { role: 'fielder', position: 'Third Man', name: 'Third Man' },
+                    { role: 'fielder', position: 'Deep Fine Leg', name: 'Deep Fine Leg' }
                 ]
             },
             'middle-overs-containment': {
                 name: 'Middle Overs (7-40)',
-                description: 'Containment field - maximum 5 outside circle',
-                positions: [
-                    { role: 'bowler', position: [0, -200], name: 'Bowler' },
-                    { role: 'keeper', position: [0, -15], name: 'Wicket Keeper' },
-                    { role: 'fielder', position: [85, 0], name: 'Point' },
-                    { role: 'fielder', position: [60, 85], name: 'Cover' },
-                    { role: 'fielder', position: [35, 100], name: 'Mid-Off' },
-                    { role: 'fielder', position: [-35, 100], name: 'Mid-On' },
-                    { role: 'fielder', position: [-60, 85], name: 'Mid-Wicket' },
-                    { role: 'fielder', position: [169, 120], name: 'Deep Cover' },
-                    { role: 'fielder', position: [-169, 120], name: 'Deep Mid-Wicket' },
-                    { role: 'fielder', position: [169, -120], name: 'Third Man' },
-                    { role: 'fielder', position: [-169, -120], name: 'Fine Leg' }
+                description: 'Maximum 5 fielders outside circle',
+                players: [
+                    { role: 'bowler', position: 'Mid-Off', name: 'Bowler' },
+                    { role: 'keeper', position: 'Wicket Keeper', name: 'Keeper' },
+                    { role: 'fielder', position: 'Point', name: 'Point' },
+                    { role: 'fielder', position: 'Cover', name: 'Cover' },
+                    { role: 'fielder', position: 'Mid-On', name: 'Mid-On' },
+                    { role: 'fielder', position: 'Mid-Wicket', name: 'Mid-Wicket' },
+                    { role: 'fielder', position: 'Deep Cover', name: 'Deep Cover' },
+                    { role: 'fielder', position: 'Long Off', name: 'Long Off' },
+                    { role: 'fielder', position: 'Deep Mid-Wicket', name: 'Deep Mid-Wicket' },
+                    { role: 'fielder', position: 'Third Man', name: 'Third Man' },
+                    { role: 'fielder', position: 'Deep Fine Leg', name: 'Deep Fine Leg' }
                 ]
             },
             'test-match-day1': {
                 name: 'Test Match Day 1',
-                description: 'Classic Test match field - 3 slips, gully, and attacking positions',
-                positions: [
-                    { role: 'bowler', position: [0, -200], name: 'Bowler' },
-                    { role: 'keeper', position: [0, -15], name: 'Wicket Keeper' },
-                    { role: 'fielder', position: [12, -25], name: 'First Slip' },
-                    { role: 'fielder', position: [20, -28], name: 'Second Slip' },
-                    { role: 'fielder', position: [28, -30], name: 'Third Slip' },
-                    { role: 'fielder', position: [40, -22], name: 'Gully' },
-                    { role: 'fielder', position: [85, 0], name: 'Point' },
-                    { role: 'fielder', position: [60, 85], name: 'Cover' },
-                    { role: 'fielder', position: [35, 100], name: 'Mid-Off' },
-                    { role: 'fielder', position: [-35, 100], name: 'Mid-On' },
-                    { role: 'fielder', position: [-169, -120], name: 'Fine Leg' }
+                description: 'Classic Test match field',
+                players: [
+                    { role: 'bowler', position: 'Mid-Off', name: 'Bowler' },
+                    { role: 'keeper', position: 'Wicket Keeper', name: 'Keeper' },
+                    { role: 'fielder', position: 'First Slip', name: 'First Slip' },
+                    { role: 'fielder', position: 'Second Slip', name: 'Second Slip' },
+                    { role: 'fielder', position: 'Third Slip', name: 'Third Slip' },
+                    { role: 'fielder', position: 'Gully', name: 'Gully' },
+                    { role: 'fielder', position: 'Point', name: 'Point' },
+                    { role: 'fielder', position: 'Cover', name: 'Cover' },
+                    { role: 'fielder', position: 'Mid-On', name: 'Mid-On' },
+                    { role: 'fielder', position: 'Square Leg', name: 'Square Leg' },
+                    { role: 'fielder', position: 'Fine Leg', name: 'Fine Leg' }
                 ]
             },
             'umbrella-field': {
                 name: 'Umbrella Field',
-                description: 'Ring field around the bat - prevents singles and twos',
-                positions: [
-                    { role: 'bowler', position: [0, -200], name: 'Bowler' },
-                    { role: 'keeper', position: [0, -15], name: 'Wicket Keeper' },
-                    { role: 'fielder', position: [85, 0], name: 'Point' },
-                    { role: 'fielder', position: [84, 84], name: 'Cover' },
-                    { role: 'fielder', position: [0, 120], name: 'Straight Hit' },
-                    { role: 'fielder', position: [-84, 84], name: 'Mid-Wicket' },
-                    { role: 'fielder', position: [-85, 0], name: 'Square Leg' },
-                    { role: 'fielder', position: [-84, -84], name: 'Backward Square' },
-                    { role: 'fielder', position: [84, -84], name: 'Backward Point' },
-                    { role: 'fielder', position: [169, -120], name: 'Third Man' },
-                    { role: 'fielder', position: [-169, -120], name: 'Fine Leg' }
+                description: 'Ring field around the bat',
+                players: [
+                    { role: 'bowler', position: 'Mid-Off', name: 'Bowler' },
+                    { role: 'keeper', position: 'Wicket Keeper', name: 'Keeper' },
+                    { role: 'fielder', position: 'Point', name: 'Point' },
+                    { role: 'fielder', position: 'Cover Point', name: 'Cover Point' },
+                    { role: 'fielder', position: 'Cover', name: 'Cover' },
+                    { role: 'fielder', position: 'Extra Cover', name: 'Extra Cover' },
+                    { role: 'fielder', position: 'Mid-On', name: 'Mid-On' },
+                    { role: 'fielder', position: 'Mid-Wicket', name: 'Mid-Wicket' },
+                    { role: 'fielder', position: 'Square Leg', name: 'Square Leg' },
+                    { role: 'fielder', position: 'Backward Square Leg', name: 'Backward Square' },
+                    { role: 'fielder', position: 'Short Fine Leg', name: 'Short Fine Leg' }
                 ]
             },
             'leg-side-theory': {
                 name: 'Leg Side Theory',
-                description: 'Bodyline style - leg side heavy with short leg',
-                positions: [
-                    { role: 'bowler', position: [0, -200], name: 'Bowler' },
-                    { role: 'keeper', position: [0, -15], name: 'Wicket Keeper' },
-                    { role: 'fielder', position: [-15, 10], name: 'Leg Slip' },
-                    { role: 'fielder', position: [-30, 15], name: 'Short Leg' },
-                    { role: 'fielder', position: [-45, 30], name: 'Forward Short Leg' },
-                    { role: 'fielder', position: [-60, 85], name: 'Mid-Wicket' },
-                    { role: 'fielder', position: [-85, 0], name: 'Square Leg' },
-                    { role: 'fielder', position: [-60, -85], name: 'Backward Square' },
-                    { role: 'fielder', position: [-169, 120], name: 'Deep Mid-Wicket' },
-                    { role: 'fielder', position: [-169, -120], name: 'Fine Leg' },
-                    { role: 'fielder', position: [85, 0], name: 'Point' }
+                description: 'Bodyline style - leg side heavy',
+                players: [
+                    { role: 'bowler', position: 'Mid-Off', name: 'Bowler' },
+                    { role: 'keeper', position: 'Wicket Keeper', name: 'Keeper' },
+                    { role: 'fielder', position: 'Leg Slip', name: 'Leg Slip' },
+                    { role: 'fielder', position: 'Short Leg', name: 'Short Leg' },
+                    { role: 'fielder', position: 'Silly Mid-On', name: 'Silly Mid-On' },
+                    { role: 'fielder', position: 'Mid-On', name: 'Mid-On' },
+                    { role: 'fielder', position: 'Mid-Wicket', name: 'Mid-Wicket' },
+                    { role: 'fielder', position: 'Square Leg', name: 'Square Leg' },
+                    { role: 'fielder', position: 'Backward Square Leg', name: 'Backward Square' },
+                    { role: 'fielder', position: 'Deep Square Leg', name: 'Deep Square Leg' },
+                    { role: 'fielder', position: 'Fine Leg', name: 'Fine Leg' }
                 ]
             }
         };
@@ -318,13 +326,13 @@ class CricketFieldPlanner {
     createPlayers() {
         // Create 11 players
         const playerRoles = [
-            { role: 'bowler', name: 'Bowler', number: 1 },
-            { role: 'keeper', name: 'Keeper', number: 2 }
+            { role: 'bowler', name: 'Bowler', number: 'B' },
+            { role: 'keeper', name: 'Keeper', number: 'WK' }
         ];
         
         // Add 9 fielders
-        for (let i = 3; i <= 11; i++) {
-            playerRoles.push({ role: 'fielder', name: `Player ${i}`, number: i });
+        for (let i = 1; i <= 9; i++) {
+            playerRoles.push({ role: 'fielder', name: `Fielder ${i}`, number: i });
         }
         
         playerRoles.forEach((playerData, index) => {
@@ -350,7 +358,7 @@ class CricketFieldPlanner {
             name,
             number,
             position: { x: 250, y: 250 },
-            positionName: this.detectPosition(250, 250),
+            positionName: 'Center',
             isDragging: false
         };
         
@@ -374,21 +382,10 @@ class CricketFieldPlanner {
             e.preventDefault();
             this.startDrag(e, player);
         }, { passive: false });
-        
-        // Add better touch feedback
-        element.addEventListener('touchstart', () => {
-            element.style.transform = 'scale(1.05)';
-        }, { passive: true });
-        
-        element.addEventListener('touchend', () => {
-            setTimeout(() => {
-                element.style.transform = '';
-            }, 100);
-        }, { passive: true });
     }
 
     setupEventListeners() {
-        // Global mouse events for dragging
+        // Global mouse/touch events for dragging
         document.addEventListener('mousemove', (e) => this.drag(e));
         document.addEventListener('mouseup', () => this.endDrag());
         document.addEventListener('touchmove', (e) => this.drag(e), { passive: false });
@@ -407,11 +404,13 @@ class CricketFieldPlanner {
         this.saveFieldBtn.addEventListener('click', () => this.showSaveModal());
         this.exportBtn.addEventListener('click', () => this.exportField());
         this.resetFieldBtn.addEventListener('click', () => this.resetField());
+        this.fieldMapBtn.addEventListener('click', () => this.showFieldMap());
         
         // Analysis buttons
         this.showCoverageBtn.addEventListener('click', () => this.toggleAnalysis('coverage'));
         this.showGapsBtn.addEventListener('click', () => this.toggleAnalysis('gaps'));
         this.showRestrictionsBtn.addEventListener('click', () => this.toggleAnalysis('restrictions'));
+        this.showPositionsBtn.addEventListener('click', () => this.togglePositionMarkers());
         
         // Modal events
         document.getElementById('cancelSaveBtn').addEventListener('click', () => this.hideSaveModal());
@@ -419,6 +418,7 @@ class CricketFieldPlanner {
         document.getElementById('cancelEditBtn').addEventListener('click', () => this.hidePlayerEditModal());
         document.getElementById('confirmEditBtn').addEventListener('click', () => this.savePlayerEdit());
         document.getElementById('saveCurrentBtn').addEventListener('click', () => this.showSaveModal());
+        document.getElementById('closeFieldMapBtn').addEventListener('click', () => this.hideFieldMap());
         
         // Ground controls
         document.getElementById('zoomInBtn').addEventListener('click', () => this.zoom(110));
@@ -439,9 +439,14 @@ class CricketFieldPlanner {
         const clientX = e.clientX || (e.touches && e.touches[0].clientX);
         const clientY = e.clientY || (e.touches && e.touches[0].clientY);
         
+        // Calculate offset accounting for player centering
+        const playerRect = player.element.getBoundingClientRect();
+        const playerCenterX = playerRect.left + playerRect.width / 2;
+        const playerCenterY = playerRect.top + playerRect.height / 2;
+        
         player.dragOffset = {
-            x: clientX - rect.left - player.position.x,
-            y: clientY - rect.top - player.position.y
+            x: clientX - playerCenterX,
+            y: clientY - playerCenterY
         };
         
         e.preventDefault();
@@ -454,23 +459,21 @@ class CricketFieldPlanner {
         const clientX = e.clientX || (e.touches && e.touches[0].clientX);
         const clientY = e.clientY || (e.touches && e.touches[0].clientY);
         
-        // Account for potential scaling/zoom
-        const scale = this.currentZoom / 100;
-        const scaledRect = {
-            left: rect.left + (rect.width * (1 - scale)) / 2,
-            top: rect.top + (rect.height * (1 - scale)) / 2,
-            width: rect.width * scale,
-            height: rect.height * scale
-        };
+        // Calculate position relative to ground
+        let x = clientX - rect.left - this.draggedPlayer.dragOffset.x;
+        let y = clientY - rect.top - this.draggedPlayer.dragOffset.y;
         
-        let x = (clientX - scaledRect.left) / scale - this.draggedPlayer.dragOffset.x / scale;
-        let y = (clientY - scaledRect.top) / scale - this.draggedPlayer.dragOffset.y / scale;
+        // Apply zoom scaling
+        const scale = this.currentZoom / 100;
+        x = x / scale;
+        y = y / scale;
+        
+        // Get ground dimensions
+        const groundSize = this.getGroundDimensions();
         
         // Constrain within ground bounds
-        const groundSize = 500;
-        const playerSize = 20;
-        x = Math.max(playerSize / 2, Math.min(groundSize - playerSize / 2, x));
-        y = Math.max(playerSize / 2, Math.min(groundSize - playerSize / 2, y));
+        x = Math.max(10, Math.min(groundSize.width - 10, x));
+        y = Math.max(10, Math.min(groundSize.height - 10, y));
         
         // Apply snap to grid if enabled
         if (this.snapToGrid) {
@@ -480,11 +483,6 @@ class CricketFieldPlanner {
         }
         
         this.updatePlayerPosition(this.draggedPlayer, x, y);
-        
-        // Update tooltip position for touch devices
-        if (e.touches) {
-            this.updateTooltip(e, this.draggedPlayer);
-        }
         
         e.preventDefault();
     }
@@ -496,7 +494,6 @@ class CricketFieldPlanner {
         this.draggedPlayer.element.classList.remove('dragging');
         this.draggedPlayer.element.classList.add('placed');
         
-        // Remove placed animation class after animation completes
         setTimeout(() => {
             this.draggedPlayer.element.classList.remove('placed');
         }, 300);
@@ -510,104 +507,40 @@ class CricketFieldPlanner {
 
     updatePlayerPosition(player, x, y) {
         player.position = { x, y };
-        player.element.style.left = `${x - 10}px`;
-        player.element.style.top = `${y - 10}px`;
+        player.element.style.left = `${x}px`;
+        player.element.style.top = `${y}px`;
         
-        // Update position name
-        const positionName = this.detectPosition(x, y);
-        if (positionName !== player.positionName) {
-            player.positionName = positionName;
-            this.updatePlayerList();
-        }
+        // Update position name based on location
+        player.positionName = this.detectPosition(x, y);
+        this.updatePlayerList();
     }
 
     detectPosition(x, y) {
         const centerX = 250;
         const centerY = 250;
-        const relativeX = x - centerX;
-        const relativeY = y - centerY;
-        const distance = Math.sqrt(relativeX * relativeX + relativeY * relativeY);
-        const angle = Math.atan2(relativeY, relativeX) * (180 / Math.PI);
+        const distance = Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2));
         
-        // Adjust angle to be relative to bowler's end
-        let adjustedAngle = angle + 90;
-        if (adjustedAngle < 0) adjustedAngle += 360;
-        if (adjustedAngle >= 360) adjustedAngle -= 360;
+        // Find closest named position
+        let closestPosition = 'Custom Position';
+        let minDistance = 30; // Threshold for snapping to position
         
-        // Flip for left-handed batsman
-        if (this.isLeftHandedBatsman) {
-            adjustedAngle = 360 - adjustedAngle;
-        }
-        
-        // Define position ranges based on distance and angle
-        // Close catching positions (within 60px - close to batsman)
-        if (distance < 60) {
-            if (Math.abs(relativeY) < 20 && Math.abs(relativeX) < 20) return 'Wicket Keeper';
-            if (adjustedAngle > 300 || adjustedAngle < 60) {
-                if (relativeX > 0) return 'First Slip';
-                if (relativeX < 0) return 'Leg Slip';
-            }
-            if (adjustedAngle >= 60 && adjustedAngle <= 120) {
-                return relativeX > 0 ? 'Silly Point' : 'Silly Mid-Off';
-            }
-            if (adjustedAngle >= 240 && adjustedAngle <= 300) {
-                return relativeX < 0 ? 'Short Leg' : 'Silly Mid-On';
-            }
-        } 
-        // Inner circle (30-yard circle - 60px to 120px)
-        else if (distance < 120) {
-            if (adjustedAngle >= 15 && adjustedAngle <= 165) {
-                if (adjustedAngle < 45) return 'Point';
-                if (adjustedAngle < 75) return 'Cover';
-                if (adjustedAngle < 105) return 'Extra Cover';
-                if (adjustedAngle < 135) return 'Mid-Off';
-                return 'Short Mid-Off';
-            }
-            if (adjustedAngle >= 195 && adjustedAngle <= 345) {
-                if (adjustedAngle < 225) return 'Mid-On';
-                if (adjustedAngle < 255) return 'Short Mid-On';
-                if (adjustedAngle < 285) return 'Mid-Wicket';
-                if (adjustedAngle < 315) return 'Square Leg';
-                return 'Backward Square Leg';
-            }
-            if (adjustedAngle >= 345 || adjustedAngle <= 15) {
-                return 'Short Fine Leg';
-            }
-            if (adjustedAngle >= 165 && adjustedAngle <= 195) {
-                return 'Straight Hit';
-            }
-        } 
-        // Deep field (outside 30-yard circle - beyond 120px)
-        else {
-            if (adjustedAngle >= 15 && adjustedAngle <= 165) {
-                if (adjustedAngle < 45) return 'Third Man';
-                if (adjustedAngle < 75) return 'Deep Point';
-                if (adjustedAngle < 105) return 'Deep Cover';
-                if (adjustedAngle < 135) return 'Long Off';
-                return 'Deep Mid-Off';
-            }
-            if (adjustedAngle >= 195 && adjustedAngle <= 345) {
-                if (adjustedAngle < 225) return 'Long On';
-                if (adjustedAngle < 255) return 'Cow Corner';
-                if (adjustedAngle < 285) return 'Deep Mid-Wicket';
-                if (adjustedAngle < 315) return 'Deep Square Leg';
-                return 'Deep Backward Square';
-            }
-            if (adjustedAngle >= 345 || adjustedAngle <= 15) {
-                return 'Fine Leg';
-            }
-            if (adjustedAngle >= 165 && adjustedAngle <= 195) {
-                return distance > 200 ? 'Long Stop' : 'Deep Straight';
+        for (const [posName, posData] of Object.entries(this.fieldPositions)) {
+            const posDist = Math.sqrt(Math.pow(x - posData.x, 2) + Math.pow(y - posData.y, 2));
+            if (posDist < minDistance) {
+                minDistance = posDist;
+                closestPosition = posName;
             }
         }
         
-        return 'Custom Position';
+        return closestPosition;
     }
 
-    getPositionDescription(positionName) {
-        const allPositions = [...this.positions.close_catching, ...this.positions.inner_ring, ...this.positions.outfield];
-        const position = allPositions.find(p => p.name === positionName);
-        return position ? position.description : 'Custom field position';
+    getGroundDimensions() {
+        const styles = window.getComputedStyle(this.groundElement);
+        return {
+            width: parseInt(styles.width),
+            height: parseInt(styles.height)
+        };
     }
 
     showTooltip(e, player) {
@@ -620,21 +553,45 @@ class CricketFieldPlanner {
         positionName.textContent = `${player.name} - ${player.positionName}`;
         positionDescription.textContent = this.getPositionDescription(player.positionName);
         
-        this.updateTooltip(e, player);
-        this.tooltip.classList.add('visible');
-    }
-
-    updateTooltip(e, player) {
         const rect = this.groundElement.getBoundingClientRect();
-        const tooltipX = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left + 15;
-        const tooltipY = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top - 10;
+        const tooltipX = e.clientX - rect.left + 15;
+        const tooltipY = e.clientY - rect.top - 10;
         
         this.tooltip.style.left = `${tooltipX}px`;
         this.tooltip.style.top = `${tooltipY}px`;
+        this.tooltip.classList.add('visible');
     }
 
     hideTooltip() {
         this.tooltip.classList.remove('visible');
+    }
+
+    getPositionDescription(positionName) {
+        const descriptions = {
+            'Wicket Keeper': 'Behind the stumps, catches and prevents byes',
+            'First Slip': 'Catches edges from pace bowlers',
+            'Second Slip': 'Second slip catching position',
+            'Third Slip': 'Third slip in the cordon',
+            'Fourth Slip': 'Wide slip position',
+            'Gully': 'Between point and slips',
+            'Silly Point': 'Very close on off side',
+            'Short Leg': 'Close catching on leg side',
+            'Point': 'Square on the off side',
+            'Cover': 'Between point and mid-off',
+            'Mid-Off': 'Straight on off side',
+            'Mid-On': 'Straight on leg side',
+            'Mid-Wicket': 'Between mid-on and square leg',
+            'Square Leg': 'Square on leg side',
+            'Fine Leg': 'Behind square on leg side',
+            'Third Man': 'Behind keeper on off side boundary',
+            'Long Off': 'Straight boundary off side',
+            'Long On': 'Straight boundary leg side',
+            'Deep Cover': 'Cover boundary',
+            'Deep Mid-Wicket': 'Mid-wicket boundary',
+            'Deep Square Leg': 'Square leg boundary'
+        };
+        
+        return descriptions[positionName] || 'Custom field position';
     }
 
     applyPreset(presetName) {
@@ -645,16 +602,21 @@ class CricketFieldPlanner {
         
         this.currentFormation = presetName;
         
-        preset.positions.forEach((pos, index) => {
+        preset.players.forEach((playerData, index) => {
             if (index < this.players.length) {
                 const player = this.players[index];
-                const x = pos.position[0] + 250;
-                const y = pos.position[1] + 250;
+                const position = this.fieldPositions[playerData.position] || { x: 250, y: 250 };
                 
-                this.updatePlayerPosition(player, x, y);
-                player.name = pos.name;
-                player.role = pos.role;
-                player.element.className = `player ${pos.role}`;
+                // Apply position with left/right handed adjustment
+                let adjustedX = position.x;
+                if (this.isLeftHandedBatsman && playerData.position !== 'Wicket Keeper') {
+                    adjustedX = 500 - position.x; // Mirror for left-handed
+                }
+                
+                this.updatePlayerPosition(player, adjustedX, position.y);
+                player.name = playerData.name;
+                player.role = playerData.role;
+                player.element.className = `player ${playerData.role}`;
             }
         });
         
@@ -684,85 +646,111 @@ class CricketFieldPlanner {
     }
 
     setFourSlips() {
-        const slipPositions = [
-            { x: 258, y: 232 }, // First slip
-            { x: 265, y: 230 }, // Second slip
-            { x: 272, y: 228 }, // Third slip
-            { x: 280, y: 225 }  // Fourth slip
-        ];
-        
+        const slipPositions = ['First Slip', 'Second Slip', 'Third Slip', 'Fourth Slip'];
         let slipIndex = 0;
+        
         this.players.forEach(player => {
             if (player.role === 'fielder' && slipIndex < 4) {
-                this.updatePlayerPosition(player, slipPositions[slipIndex].x, slipPositions[slipIndex].y);
-                player.name = `${this.getOrdinal(slipIndex + 1)} Slip`;
+                const posName = slipPositions[slipIndex];
+                const pos = this.fieldPositions[posName];
+                this.updatePlayerPosition(player, pos.x, pos.y);
+                player.name = posName;
                 slipIndex++;
             }
         });
     }
 
     setRingField() {
-        // 30-yard circle is approximately 120px radius from center (250,250)
-        const center = { x: 250, y: 250 };
-        const ringRadius = 120;
-        
-        const ringPositions = [
-            { x: center.x + ringRadius * Math.cos(0), y: center.y + ringRadius * Math.sin(0), name: 'Point' }, // 0°
-            { x: center.x + ringRadius * Math.cos(Math.PI/4), y: center.y + ringRadius * Math.sin(Math.PI/4), name: 'Cover' }, // 45°
-            { x: center.x + ringRadius * Math.cos(Math.PI/2), y: center.y + ringRadius * Math.sin(Math.PI/2), name: 'Mid-Off' }, // 90°
-            { x: center.x + ringRadius * Math.cos(Math.PI*2/3), y: center.y + ringRadius * Math.sin(Math.PI*2/3), name: 'Mid-On' }, // 120°
-            { x: center.x + ringRadius * Math.cos(Math.PI), y: center.y + ringRadius * Math.sin(Math.PI), name: 'Mid-Wicket' }, // 180°
-            { x: center.x + ringRadius * Math.cos(Math.PI*3/2), y: center.y + ringRadius * Math.sin(Math.PI*3/2), name: 'Square Leg' }, // 270°
-            { x: center.x + ringRadius * Math.cos(Math.PI*7/4), y: center.y + ringRadius * Math.sin(Math.PI*7/4), name: 'Backward Point' } // 315°
-        ];
+        const ringPositions = ['Point', 'Cover', 'Extra Cover', 'Mid-Off', 'Mid-On', 
+                              'Mid-Wicket', 'Square Leg', 'Backward Square Leg', 'Short Fine Leg'];
         
         let ringIndex = 0;
         this.players.forEach(player => {
             if (player.role === 'fielder' && ringIndex < ringPositions.length) {
-                const pos = ringPositions[ringIndex];
-                this.updatePlayerPosition(player, Math.round(pos.x), Math.round(pos.y));
-                player.name = pos.name;
-                ringIndex++;
+                const posName = ringPositions[ringIndex];
+                const pos = this.fieldPositions[posName];
+                if (pos) {
+                    this.updatePlayerPosition(player, pos.x, pos.y);
+                    player.name = posName;
+                    ringIndex++;
+                }
             }
         });
     }
 
     setBoundaryRiders() {
-        // Ground dimensions: 500x500, center at (250,250), boundary at ~240px radius
-        const center = { x: 250, y: 250 };
-        const boundaryRadius = 240;
-        
-        const boundaryPositions = [
-            { x: center.x + boundaryRadius * Math.cos(Math.PI * 5/4), y: center.y + boundaryRadius * Math.sin(Math.PI * 5/4), name: 'Third Man' }, // 225°
-            { x: center.x + boundaryRadius * Math.cos(Math.PI * 1/6), y: center.y + boundaryRadius * Math.sin(Math.PI * 1/6), name: 'Deep Point' }, // 30°
-            { x: center.x + boundaryRadius * Math.cos(Math.PI * 1/3), y: center.y + boundaryRadius * Math.sin(Math.PI * 1/3), name: 'Deep Cover' }, // 60°
-            { x: center.x + boundaryRadius * Math.cos(Math.PI * 1/2), y: center.y + boundaryRadius * Math.sin(Math.PI * 1/2), name: 'Long Off' }, // 90°
-            { x: center.x + boundaryRadius * Math.cos(Math.PI * 2/3), y: center.y + boundaryRadius * Math.sin(Math.PI * 2/3), name: 'Long On' }, // 120°
-            { x: center.x + boundaryRadius * Math.cos(Math.PI), y: center.y + boundaryRadius * Math.sin(Math.PI), name: 'Deep Mid-Wicket' }, // 180°
-            { x: center.x + boundaryRadius * Math.cos(Math.PI * 7/4), y: center.y + boundaryRadius * Math.sin(Math.PI * 7/4), name: 'Fine Leg' } // 315°
-        ];
+        const boundaryPositions = ['Deep Point', 'Deep Cover', 'Long Off', 'Long On',
+                                  'Deep Mid-Wicket', 'Deep Square Leg', 'Deep Fine Leg', 'Third Man'];
         
         let boundaryIndex = 0;
         this.players.forEach(player => {
             if (player.role === 'fielder' && boundaryIndex < boundaryPositions.length) {
-                const pos = boundaryPositions[boundaryIndex];
-                this.updatePlayerPosition(player, Math.round(pos.x), Math.round(pos.y));
-                player.name = pos.name;
-                boundaryIndex++;
+                const posName = boundaryPositions[boundaryIndex];
+                const pos = this.fieldPositions[posName];
+                if (pos) {
+                    this.updatePlayerPosition(player, pos.x, pos.y);
+                    player.name = posName;
+                    boundaryIndex++;
+                }
             }
         });
+    }
+
+    togglePositionMarkers() {
+        this.showingPositions = !this.showingPositions;
+        this.showPositionsBtn.textContent = this.showingPositions ? 'Hide Positions' : 'Show Positions';
+        
+        if (this.showingPositions) {
+            this.showPositionMarkers();
+        } else {
+            this.hidePositionMarkers();
+        }
+    }
+
+    showPositionMarkers() {
+        this.positionMarkers.innerHTML = '';
+        this.positionMarkers.classList.add('visible');
+        
+        for (const [posName, posData] of Object.entries(this.fieldPositions)) {
+            const marker = document.createElement('div');
+            marker.className = 'position-marker';
+            marker.style.left = `${posData.x}px`;
+            marker.style.top = `${posData.y}px`;
+            
+            // Color code by zone
+            if (posData.zone === 'close') {
+                marker.style.borderColor = 'rgba(255, 100, 100, 0.7)';
+                marker.style.backgroundColor = 'rgba(255, 100, 100, 0.1)';
+            } else if (posData.zone === 'inner') {
+                marker.style.borderColor = 'rgba(255, 255, 100, 0.7)';
+                marker.style.backgroundColor = 'rgba(255, 255, 100, 0.1)';
+            } else {
+                marker.style.borderColor = 'rgba(100, 255, 100, 0.7)';
+                marker.style.backgroundColor = 'rgba(100, 255, 100, 0.1)';
+            }
+            
+            const label = document.createElement('div');
+            label.className = 'position-marker-label';
+            label.textContent = posName;
+            marker.appendChild(label);
+            
+            this.positionMarkers.appendChild(marker);
+        }
+    }
+
+    hidePositionMarkers() {
+        this.positionMarkers.classList.remove('visible');
     }
 
     handleBatsmanChange(handedness) {
         this.isLeftHandedBatsman = handedness === 'left-handed';
         
-        // Update all player position names
-        this.players.forEach(player => {
-            player.positionName = this.detectPosition(player.position.x, player.position.y);
-        });
+        // Mirror field for left-handed batsman
+        if (this.currentFormation !== 'custom') {
+            this.applyPreset(this.currentFormation);
+        }
         
-        this.updatePlayerList();
-        this.updateFormationAnalysis();
+        this.updateFieldBalance();
     }
 
     updateFieldBalance() {
@@ -796,7 +784,7 @@ class CricketFieldPlanner {
                     <div>${player.name}</div>
                     <div class="player-role">${player.role}</div>
                 </div>
-                <div>${player.positionName}</div>
+                <div style="font-size: 11px; color: var(--color-text-secondary);">${player.positionName}</div>
             `;
             
             item.addEventListener('click', () => this.editPlayer(player));
@@ -832,6 +820,56 @@ class CricketFieldPlanner {
         
         this.updatePlayerList();
         this.hidePlayerEditModal();
+    }
+
+    showFieldMap() {
+        this.fieldMapModal.classList.add('active');
+        this.renderFieldMapDiagram();
+    }
+
+    hideFieldMap() {
+        this.fieldMapModal.classList.remove('active');
+    }
+
+    renderFieldMapDiagram() {
+        const overlay = document.getElementById('fieldPositionsOverlay');
+        overlay.innerHTML = '';
+        
+        // Add position labels to the field map
+        const positions = [
+            { name: 'WK', x: 50, y: 54, color: '#4caf50' },
+            { name: '1st', x: 54, y: 55, color: '#ff5252' },
+            { name: '2nd', x: 57, y: 56, color: '#ff5252' },
+            { name: '3rd', x: 60, y: 57, color: '#ff5252' },
+            { name: 'Gully', x: 65, y: 54, color: '#ff5252' },
+            { name: 'Point', x: 70, y: 50, color: '#ffeb3b' },
+            { name: 'Cover', x: 62, y: 36, color: '#ffeb3b' },
+            { name: 'Mid-off', x: 52, y: 31, color: '#ffeb3b' },
+            { name: 'Mid-on', x: 48, y: 31, color: '#ffeb3b' },
+            { name: 'Mid-wicket', x: 38, y: 36, color: '#ffeb3b' },
+            { name: 'Square Leg', x: 30, y: 50, color: '#ffeb3b' },
+            { name: 'Fine Leg', x: 42, y: 66, color: '#ffeb3b' },
+            { name: 'Third Man', x: 68, y: 80, color: '#4caf50' },
+            { name: 'Long Off', x: 50, y: 14, color: '#4caf50' },
+            { name: 'Long On', x: 50, y: 86, color: '#4caf50' },
+            { name: 'Deep Cover', x: 76, y: 30, color: '#4caf50' },
+            { name: 'Deep Mid-wicket', x: 24, y: 30, color: '#4caf50' },
+            { name: 'Deep Square', x: 18, y: 50, color: '#4caf50' }
+        ];
+        
+        positions.forEach(pos => {
+            const label = document.createElement('div');
+            label.style.position = 'absolute';
+            label.style.left = `${pos.x}%`;
+            label.style.top = `${pos.y}%`;
+            label.style.transform = 'translate(-50%, -50%)';
+            label.style.fontSize = '10px';
+            label.style.fontWeight = 'bold';
+            label.style.color = pos.color;
+            label.style.textShadow = '0 0 2px rgba(0,0,0,0.8)';
+            label.textContent = pos.name;
+            overlay.appendChild(label);
+        });
     }
 
     showSaveModal() {
@@ -874,19 +912,21 @@ class CricketFieldPlanner {
         this.updateSavedFieldsList();
         this.hideSaveModal();
         
-        // Show success message
         this.showNotification(`Field "${name}" saved successfully!`, 'success');
     }
 
     loadSavedFields() {
-        // In a real app, this would load from localStorage or an API
-        this.savedFields = [];
+        const saved = localStorage.getItem('cricketFields');
+        if (saved) {
+            this.savedFields = JSON.parse(saved);
+        } else {
+            this.savedFields = [];
+        }
         this.updateSavedFieldsList();
     }
 
     saveSavedFields() {
-        // In a real app, this would save to localStorage or an API
-        // For now, we'll just keep them in memory
+        localStorage.setItem('cricketFields', JSON.stringify(this.savedFields));
     }
 
     updateSavedFieldsList() {
@@ -897,7 +937,7 @@ class CricketFieldPlanner {
             item.className = 'saved-field-item';
             item.innerHTML = `
                 <div style="font-weight: 500;">${field.name}</div>
-                <div style="font-size: 12px; color: var(--color-text-secondary); margin-top: 2px;">${field.formation}</div>
+                <div style="font-size: 11px; color: var(--color-text-secondary); margin-top: 2px;">${field.formation}</div>
             `;
             
             item.addEventListener('click', () => this.loadSavedField(field));
@@ -909,13 +949,11 @@ class CricketFieldPlanner {
         this.currentFormation = fieldData.formation;
         this.isLeftHandedBatsman = fieldData.isLeftHandedBatsman;
         
-        // Update controls
         this.batsmanTypeSelect.value = fieldData.isLeftHandedBatsman ? 'left-handed' : 'right-handed';
         this.bowlerTypeSelect.value = fieldData.bowlerType;
         this.overStageSelect.value = fieldData.overStage;
         this.presetSelect.value = fieldData.formation;
         
-        // Update players
         fieldData.players.forEach((playerData, index) => {
             if (index < this.players.length) {
                 const player = this.players[index];
@@ -934,13 +972,12 @@ class CricketFieldPlanner {
     }
 
     exportField() {
-        // Create a canvas to export the field
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = 600;
         canvas.height = 600;
         
-        // Draw ground background
+        // Draw ground
         const gradient = ctx.createRadialGradient(300, 300, 0, 300, 300, 250);
         gradient.addColorStop(0, '#2d5016');
         gradient.addColorStop(1, '#1a3d0b');
@@ -956,51 +993,61 @@ class CricketFieldPlanner {
         ctx.arc(300, 300, 240, 0, 2 * Math.PI);
         ctx.stroke();
         
+        // Draw 30-yard circle
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
+        ctx.lineWidth = 2;
+        ctx.setLineDash([5, 5]);
+        ctx.beginPath();
+        ctx.arc(300, 300, 120, 0, 2 * Math.PI);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        
         // Draw pitch
         ctx.fillStyle = '#8b6914';
-        ctx.fillRect(260, 220, 80, 160);
+        ctx.fillRect(280, 220, 40, 160);
         
         // Draw creases
         ctx.strokeStyle = '#ffffff';
         ctx.lineWidth = 2;
         ctx.beginPath();
-        ctx.moveTo(260, 300);
-        ctx.lineTo(340, 300);
-        ctx.moveTo(260, 240);
-        ctx.lineTo(340, 240);
-        ctx.moveTo(260, 360);
-        ctx.lineTo(340, 360);
+        ctx.moveTo(275, 300);
+        ctx.lineTo(325, 300);
+        ctx.moveTo(275, 240);
+        ctx.lineTo(325, 240);
+        ctx.moveTo(275, 360);
+        ctx.lineTo(325, 360);
         ctx.stroke();
         
         // Draw players
         this.players.forEach(player => {
-            const x = (player.position.x / 500) * 500 + 50;
-            const y = (player.position.y / 500) * 500 + 50;
+            const x = (player.position.x / 500) * 600;
+            const y = (player.position.y / 500) * 600;
             
-            // Player circle
             ctx.beginPath();
             ctx.arc(x, y, 12, 0, 2 * Math.PI);
             
-            // Color based on role
             if (player.role === 'bowler') ctx.fillStyle = '#c0152f';
             else if (player.role === 'keeper') ctx.fillStyle = '#21808d';
-            else ctx.fillStyle = '#21808d';
+            else ctx.fillStyle = '#4caf50';
             
             ctx.fill();
             
-            // Player number
             ctx.fillStyle = '#ffffff';
-            ctx.font = '12px Arial';
+            ctx.font = 'bold 10px Arial';
             ctx.textAlign = 'center';
             ctx.fillText(player.number.toString(), x, y + 4);
             
-            // Position name
-            ctx.fillStyle = '#ffffff';
-            ctx.font = '10px Arial';
+            ctx.font = '9px Arial';
             ctx.fillText(player.positionName, x, y + 25);
         });
         
-        // Download image
+        // Add title
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 16px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText(this.currentFormation.toUpperCase() + ' FIELD', 300, 30);
+        
+        // Download
         const link = document.createElement('a');
         link.download = `cricket-field-${Date.now()}.png`;
         link.href = canvas.toDataURL();
@@ -1010,7 +1057,7 @@ class CricketFieldPlanner {
     }
 
     resetField() {
-        if (confirm('Are you sure you want to reset the field to default positions?')) {
+        if (confirm('Reset field to default positions?')) {
             this.setDefaultFormation();
             this.presetSelect.value = 'custom';
             this.currentFormation = 'custom';
@@ -1022,35 +1069,22 @@ class CricketFieldPlanner {
     }
 
     setDefaultFormation() {
-        // Standard Test match field - balanced and realistic
         const defaultPositions = [
-            { x: 250, y: 50, role: 'bowler', name: 'Bowler' },
-            { x: 250, y: 235, role: 'keeper', name: 'Wicket Keeper' },
-            { x: 262, y: 225, role: 'fielder', name: 'First Slip' },
-            { x: 270, y: 222, role: 'fielder', name: 'Second Slip' },
-            { x: 335, y: 250, role: 'fielder', name: 'Point' },
-            { x: 310, y: 335, role: 'fielder', name: 'Cover' },
-            { x: 285, y: 350, role: 'fielder', name: 'Mid-Off' },
-            { x: 215, y: 350, role: 'fielder', name: 'Mid-On' },
-            { x: 190, y: 335, role: 'fielder', name: 'Mid-Wicket' },
-            { x: 165, y: 250, role: 'fielder', name: 'Square Leg' },
-            { x: 81, y: 130, role: 'fielder', name: 'Fine Leg' }
+            'Mid-Off', 'Wicket Keeper', 'First Slip', 'Second Slip',
+            'Point', 'Cover', 'Mid-On', 'Mid-Wicket', 'Square Leg',
+            'Backward Square Leg', 'Fine Leg'
         ];
         
-        defaultPositions.forEach((pos, index) => {
-            if (index < this.players.length) {
-                const player = this.players[index];
-                player.role = pos.role;
-                player.name = pos.name;
-                player.element.className = `player ${pos.role}`;
-                this.updatePlayerPosition(player, pos.x, pos.y);
-            }
+        this.players.forEach((player, index) => {
+            const posName = defaultPositions[index];
+            const pos = this.fieldPositions[posName] || { x: 250, y: 250 };
+            this.updatePlayerPosition(player, pos.x, pos.y);
+            player.name = posName;
         });
     }
 
     updateFormationAnalysis() {
-        // Calculate field effectiveness
-        let effectiveness = this.calculateFieldEffectiveness();
+        const effectiveness = this.calculateFieldEffectiveness();
         
         this.effectivenessRating.style.width = `${effectiveness}%`;
         
@@ -1070,14 +1104,12 @@ class CricketFieldPlanner {
     }
 
     calculateFieldEffectiveness() {
-        let score = 50; // Base score
+        let score = 50;
         
-        // Check for balanced field
         const balance = this.getFieldBalance();
         if (Math.abs(balance.offSide - balance.legSide) <= 2) score += 15;
         else if (Math.abs(balance.offSide - balance.legSide) > 4) score -= 10;
         
-        // Check for appropriate bowling field
         const bowlerType = this.bowlerTypeSelect.value;
         const overStage = this.overStageSelect.value;
         
@@ -1085,7 +1117,6 @@ class CricketFieldPlanner {
         if (bowlerType === 'spin' && this.hasCloseFielders()) score += 10;
         if (overStage === 'death-overs' && this.hasBoundaryProtection()) score += 15;
         
-        // Check for gaps in field
         if (this.hasFieldGaps()) score -= 15;
         
         return Math.max(0, Math.min(100, score));
@@ -1113,8 +1144,7 @@ class CricketFieldPlanner {
 
     hasSlips() {
         return this.players.some(player => 
-            player.positionName.includes('Slip') && 
-            this.getDistanceFromCenter(player) < 60
+            player.positionName.includes('Slip') && player.role === 'fielder'
         );
     }
 
@@ -1126,50 +1156,39 @@ class CricketFieldPlanner {
     }
 
     hasBoundaryProtection() {
-        const boundaryCount = this.players.filter(player => 
-            this.getDistanceFromCenter(player) > 200
-        ).length;
+        const boundaryCount = this.players.filter(player => {
+            if (player.role !== 'fielder') return false;
+            const distance = Math.sqrt(
+                Math.pow(player.position.x - 250, 2) + 
+                Math.pow(player.position.y - 250, 2)
+            );
+            return distance > 150;
+        }).length;
         return boundaryCount >= 6;
     }
 
     hasFieldGaps() {
-        // Simplified gap detection
         const sectors = Array(8).fill(0);
         
         this.players.forEach(player => {
             if (player.role === 'fielder') {
-                const angle = this.getAngleFromCenter(player);
-                const sector = Math.floor(angle / 45);
+                const angle = Math.atan2(
+                    player.position.y - 250,
+                    player.position.x - 250
+                ) * (180 / Math.PI);
+                const normalizedAngle = angle < 0 ? angle + 360 : angle;
+                const sector = Math.floor(normalizedAngle / 45);
                 sectors[sector]++;
             }
         });
         
-        return sectors.some(count => count === 0);
-    }
-
-    getDistanceFromCenter(player) {
-        const centerX = 250;
-        const centerY = 250;
-        const dx = player.position.x - centerX;
-        const dy = player.position.y - centerY;
-        return Math.sqrt(dx * dx + dy * dy);
-    }
-
-    getAngleFromCenter(player) {
-        const centerX = 250;
-        const centerY = 250;
-        const dx = player.position.x - centerX;
-        const dy = player.position.y - centerY;
-        let angle = Math.atan2(dy, dx) * (180 / Math.PI);
-        if (angle < 0) angle += 360;
-        return angle;
+        return sectors.filter(count => count === 0).length > 2;
     }
 
     toggleAnalysis(type) {
         const overlay = document.getElementById(`${type}Overlay`);
         overlay.classList.toggle('active');
         
-        // Hide other overlays
         ['coverage', 'gaps', 'restrictions'].forEach(overlayType => {
             if (overlayType !== type) {
                 document.getElementById(`${overlayType}Overlay`).classList.remove('active');
@@ -1183,7 +1202,7 @@ class CricketFieldPlanner {
 
     showAnalysis(type) {
         const overlay = document.getElementById(`${type}Overlay`);
-        overlay.innerHTML = ''; // Clear previous analysis
+        overlay.innerHTML = '';
         
         switch (type) {
             case 'coverage':
@@ -1199,15 +1218,14 @@ class CricketFieldPlanner {
     }
 
     showCoverageAnalysis(overlay) {
-        // Create coverage circles around each fielder
         this.players.forEach(player => {
             if (player.role === 'fielder') {
                 const circle = document.createElement('div');
                 circle.style.position = 'absolute';
-                circle.style.left = `${player.position.x - 25}px`;
-                circle.style.top = `${player.position.y - 25}px`;
-                circle.style.width = '50px';
-                circle.style.height = '50px';
+                circle.style.left = `${player.position.x - 30}px`;
+                circle.style.top = `${player.position.y - 30}px`;
+                circle.style.width = '60px';
+                circle.style.height = '60px';
                 circle.style.border = '2px solid rgba(0, 255, 0, 0.5)';
                 circle.style.borderRadius = '50%';
                 circle.style.backgroundColor = 'rgba(0, 255, 0, 0.1)';
@@ -1217,10 +1235,9 @@ class CricketFieldPlanner {
     }
 
     showGapAnalysis(overlay) {
-        // Identify and highlight gaps in the field
-        const gapZones = this.identifyGaps();
+        const gaps = this.identifyGaps();
         
-        gapZones.forEach(gap => {
+        gaps.forEach(gap => {
             const gapIndicator = document.createElement('div');
             gapIndicator.style.position = 'absolute';
             gapIndicator.style.left = `${gap.x - 15}px`;
@@ -1235,70 +1252,62 @@ class CricketFieldPlanner {
     }
 
     showRestrictionsAnalysis(overlay) {
-        // Show fielding restrictions based on format
+        // 30-yard circle
         const restrictionCircle = document.createElement('div');
         restrictionCircle.style.position = 'absolute';
-        restrictionCircle.style.left = '125px';
-        restrictionCircle.style.top = '125px';
-        restrictionCircle.style.width = '250px';
-        restrictionCircle.style.height = '250px';
+        restrictionCircle.style.left = '50%';
+        restrictionCircle.style.top = '50%';
+        restrictionCircle.style.width = '240px';
+        restrictionCircle.style.height = '240px';
+        restrictionCircle.style.transform = 'translate(-50%, -50%)';
         restrictionCircle.style.border = '3px dashed rgba(255, 255, 0, 0.8)';
         restrictionCircle.style.borderRadius = '50%';
-        restrictionCircle.style.backgroundColor = 'rgba(255, 255, 0, 0.1)';
+        restrictionCircle.style.backgroundColor = 'rgba(255, 255, 0, 0.05)';
         overlay.appendChild(restrictionCircle);
         
-        // Add restriction text
         const restrictionText = document.createElement('div');
         restrictionText.style.position = 'absolute';
-        restrictionText.style.left = '200px';
+        restrictionText.style.left = '50%';
         restrictionText.style.top = '100px';
+        restrictionText.style.transform = 'translateX(-50%)';
         restrictionText.style.color = 'rgba(255, 255, 0, 0.9)';
         restrictionText.style.fontWeight = 'bold';
         restrictionText.style.fontSize = '12px';
+        restrictionText.style.textShadow = '0 0 2px rgba(0,0,0,0.8)';
         restrictionText.textContent = '30-yard circle';
         overlay.appendChild(restrictionText);
     }
 
     identifyGaps() {
-        // Simplified gap detection - returns positions where there are no fielders nearby
         const gaps = [];
-        const testPositions = [
-            { x: 200, y: 200 }, { x: 250, y: 180 }, { x: 300, y: 200 },
-            { x: 320, y: 250 }, { x: 300, y: 300 }, { x: 250, y: 320 },
-            { x: 200, y: 300 }, { x: 180, y: 250 }
-        ];
+        const numAngles = 16;
         
-        testPositions.forEach(testPos => {
-            const nearestFielder = this.findNearestFielder(testPos.x, testPos.y);
-            if (nearestFielder && this.getDistance(testPos, nearestFielder.position) > 60) {
-                gaps.push(testPos);
-            }
-        });
-        
-        return gaps;
-    }
-
-    findNearestFielder(x, y) {
-        let nearest = null;
-        let minDistance = Infinity;
-        
-        this.players.forEach(player => {
-            if (player.role === 'fielder') {
-                const distance = this.getDistance({ x, y }, player.position);
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    nearest = player;
+        for (let i = 0; i < numAngles; i++) {
+            const angle = (i * 360 / numAngles) * Math.PI / 180;
+            const radius = 120; // Check at 30-yard circle
+            const x = 250 + radius * Math.cos(angle);
+            const y = 250 + radius * Math.sin(angle);
+            
+            let hasNearbyFielder = false;
+            for (const player of this.players) {
+                if (player.role === 'fielder') {
+                    const distance = Math.sqrt(
+                        Math.pow(x - player.position.x, 2) + 
+                        Math.pow(y - player.position.y, 2)
+                    );
+                    if (distance < 50) {
+                        hasNearbyFielder = true;
+                        break;
+                    }
                 }
             }
-        });
+            
+            if (!hasNearbyFielder) {
+                gaps.push({ x, y });
+            }
+        }
         
-        return nearest;
-    }
-
-    getDistance(pos1, pos2) {
-        const dx = pos1.x - pos2.x;
-        const dy = pos1.y - pos2.y;
-        return Math.sqrt(dx * dx + dy * dy);
+        return gaps;
     }
 
     zoom(factor) {
@@ -1333,7 +1342,6 @@ class CricketFieldPlanner {
         }
         
         if (e.key === 'Escape') {
-            // Hide all modals and overlays
             this.hideSaveModal();
             this.hidePlayerEditModal();
             document.querySelectorAll('.coverage-overlay, .gaps-overlay, .restrictions-overlay')
@@ -1341,14 +1349,7 @@ class CricketFieldPlanner {
         }
     }
 
-    getOrdinal(n) {
-        const suffixes = ['th', 'st', 'nd', 'rd'];
-        const v = n % 100;
-        return n + (suffixes[(v - 20) % 10] || suffixes[v] || suffixes[0]);
-    }
-
     showNotification(message, type = 'info') {
-        // Create notification element
         const notification = document.createElement('div');
         notification.style.position = 'fixed';
         notification.style.top = '20px';
@@ -1362,7 +1363,6 @@ class CricketFieldPlanner {
         notification.style.transition = 'transform 0.3s ease';
         notification.textContent = message;
         
-        // Set color based on type
         switch (type) {
             case 'success':
                 notification.style.backgroundColor = 'var(--color-success)';
@@ -1379,12 +1379,10 @@ class CricketFieldPlanner {
         
         document.body.appendChild(notification);
         
-        // Animate in
         setTimeout(() => {
             notification.style.transform = 'translateX(0)';
         }, 100);
         
-        // Remove after delay
         setTimeout(() => {
             notification.style.transform = 'translateX(400px)';
             setTimeout(() => {
