@@ -289,6 +289,17 @@ class CricketFieldPlanner {
             e.preventDefault();
             this.startDrag(e, player);
         }, { passive: false });
+        
+        // Add better touch feedback
+        element.addEventListener('touchstart', () => {
+            element.style.transform = 'scale(1.05)';
+        }, { passive: true });
+        
+        element.addEventListener('touchend', () => {
+            setTimeout(() => {
+                element.style.transform = '';
+            }, 100);
+        }, { passive: true });
     }
 
     setupEventListeners() {
@@ -358,8 +369,17 @@ class CricketFieldPlanner {
         const clientX = e.clientX || (e.touches && e.touches[0].clientX);
         const clientY = e.clientY || (e.touches && e.touches[0].clientY);
         
-        let x = clientX - rect.left - this.draggedPlayer.dragOffset.x;
-        let y = clientY - rect.top - this.draggedPlayer.dragOffset.y;
+        // Account for potential scaling/zoom
+        const scale = this.currentZoom / 100;
+        const scaledRect = {
+            left: rect.left + (rect.width * (1 - scale)) / 2,
+            top: rect.top + (rect.height * (1 - scale)) / 2,
+            width: rect.width * scale,
+            height: rect.height * scale
+        };
+        
+        let x = (clientX - scaledRect.left) / scale - this.draggedPlayer.dragOffset.x / scale;
+        let y = (clientY - scaledRect.top) / scale - this.draggedPlayer.dragOffset.y / scale;
         
         // Constrain within ground bounds
         const groundSize = 500;
@@ -376,8 +396,10 @@ class CricketFieldPlanner {
         
         this.updatePlayerPosition(this.draggedPlayer, x, y);
         
-        // Update tooltip position
-        this.updateTooltip(e, this.draggedPlayer);
+        // Update tooltip position for touch devices
+        if (e.touches) {
+            this.updateTooltip(e, this.draggedPlayer);
+        }
         
         e.preventDefault();
     }

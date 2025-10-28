@@ -405,6 +405,9 @@ pre code {
   border: none;
   text-decoration: none;
   position: relative;
+  min-height: 44px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .btn:focus-visible {
@@ -452,6 +455,8 @@ pre code {
   padding: var(--space-4) var(--space-12);
   font-size: var(--font-size-sm);
   border-radius: var(--radius-sm);
+  min-height: 36px;
+  min-width: 44px;
 }
 
 .btn--lg {
@@ -998,6 +1003,9 @@ h3 {
   border: none;
   text-decoration: none;
   position: relative;
+  min-height: 44px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .btn:focus-visible {
@@ -1256,6 +1264,7 @@ select.form-control {
   background: var(--color-bg-3);
   position: relative;
   overflow: hidden;
+  touch-action: pan-x pan-y;
 }
 
 .ground-wrapper {
@@ -1265,6 +1274,7 @@ select.form-control {
   align-items: center;
   position: relative;
   padding: var(--space-20);
+  touch-action: none;
 }
 
 .field-indicators {
@@ -1420,6 +1430,10 @@ select.form-control {
   box-shadow: var(--shadow-sm), 0 0 0 1px rgba(0, 0, 0, 0.1);
   transition: transform var(--duration-fast), box-shadow var(--duration-fast);
   z-index: 100;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .player:hover {
@@ -1547,6 +1561,8 @@ select.form-control {
   padding: var(--space-24);
   max-width: 400px;
   width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
   box-shadow: var(--shadow-lg);
   transform: translateY(20px);
   transition: transform var(--duration-normal);
@@ -1610,23 +1626,33 @@ select.form-control {
 @media (max-width: 768px) {
   .app-header {
     padding: var(--space-12) var(--space-16);
+    flex-wrap: wrap;
+    gap: var(--space-8);
   }
   
   .app-header h1 {
     font-size: var(--font-size-xl);
+    flex: 1;
+    min-width: 200px;
   }
   
   .header-controls {
     gap: var(--space-8);
+    flex-wrap: wrap;
+  }
+  
+  .header-controls .btn {
+    font-size: var(--font-size-sm);
+    padding: var(--space-6) var(--space-12);
   }
   
   .sidebar {
-    height: 150px;
+    height: 180px;
     padding: var(--space-12);
   }
   
   .sidebar-section {
-    min-width: 200px;
+    min-width: 220px;
   }
   
   .cricket-ground {
@@ -1639,22 +1665,100 @@ select.form-control {
   }
   
   .player {
-    width: 18px;
-    height: 18px;
-    font-size: 10px;
+    width: 22px;
+    height: 22px;
+    font-size: 11px;
+    border-width: 3px;
+  }
+  
+  .btn--sm {
+    padding: var(--space-6) var(--space-10);
+    font-size: var(--font-size-xs);
+    min-height: 40px;
+  }
+  
+  .form-control {
+    padding: var(--space-10) var(--space-12);
+    font-size: var(--font-size-base);
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-header {
+    padding: var(--space-10) var(--space-12);
+  }
+  
+  .app-header h1 {
+    font-size: var(--font-size-lg);
+    width: 100%;
+    text-align: center;
+    margin-bottom: var(--space-8);
+  }
+  
+  .header-controls {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .sidebar {
+    height: 160px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: var(--space-10);
+  }
+  
+  .sidebar-section {
+    min-width: 200px;
+  }
+  
+  .sidebar-section h3 {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-12);
+  }
+  
+  .cricket-ground {
+    width: 320px;
+    height: 320px;
+  }
+  
+  .ground-wrapper {
+    padding: var(--space-8);
+  }
+  
+  .quick-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+  }
+  
+  .strategy-controls {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
   }
 }
 
 @media (max-width: 480px) {
+  .app-header h1 {
+    font-size: var(--font-size-md);
+    margin-bottom: var(--space-6);
+  }
+  
+  .header-controls .btn {
+    font-size: var(--font-size-xs);
+    padding: var(--space-4) var(--space-8);
+  }
+  
   .cricket-ground {
-    width: 300px;
-    height: 300px;
+    width: 280px;
+    height: 280px;
   }
   
   .player {
-    width: 16px;
-    height: 16px;
-    font-size: 9px;
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+    border-width: 2px;
   }
   
   .field-indicators {
@@ -1663,9 +1767,32 @@ select.form-control {
     top: var(--space-8);
   }
   
+  .field-indicator {
+    padding: var(--space-2) var(--space-8);
+    font-size: var(--font-size-xs);
+  }
+  
   .modal-content {
     width: 95%;
     padding: var(--space-16);
+    margin: var(--space-16);
+  }
+  
+  .ground-controls {
+    bottom: var(--space-12);
+    right: var(--space-12);
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+  
+  .ground-controls .btn {
+    font-size: var(--font-size-xs);
+    padding: var(--space-4) var(--space-8);
+  }
+  
+  .zoom-level {
+    font-size: var(--font-size-xs);
+    padding: var(--space-2) var(--space-6);
   }
 }
 
@@ -1717,6 +1844,55 @@ select.form-control {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 768px) {
+  /* Prevent zoom on focus for iOS */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+  
+  /* Better touch targets */
+  .player-item,
+  .saved-field-item {
+    min-height: 48px;
+    padding: var(--space-12) var(--space-8);
+  }
+  
+  /* Improve sidebar scrolling */
+  .sidebar {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+}
+
+/* Landscape orientation adjustments */
+@media (max-width: 768px) and (orientation: landscape) {
+  .app-header h1 {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-4);
+  }
+  
+  .sidebar {
+    height: 120px;
+  }
+  
+  .cricket-ground {
+    width: 280px;
+    height: 280px;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .player {
+    border-width: 1px;
   }
 }
 
