@@ -110,36 +110,36 @@ class CricketFieldPlanner {
         return {
             attacking: {
                 name: 'Attacking',
-                description: 'Close fielders for taking wickets',
+                description: 'Close fielders for taking wickets - 5 slips and close catchers',
                 positions: [
-                    { role: 'bowler', position: [0, 50], name: 'Bowler' },
-                    { role: 'keeper', position: [0, -15], name: 'Keeper' },
-                    { role: 'fielder', position: [8, -18], name: 'First Slip' },
-                    { role: 'fielder', position: [15, -20], name: 'Second Slip' },
-                    { role: 'fielder', position: [22, -22], name: 'Third Slip' },
-                    { role: 'fielder', position: [30, -15], name: 'Gully' },
-                    { role: 'fielder', position: [-25, 8], name: 'Short Leg' },
-                    { role: 'fielder', position: [25, 8], name: 'Silly Point' },
-                    { role: 'fielder', position: [50, 0], name: 'Point' },
-                    { role: 'fielder', position: [20, 45], name: 'Mid-Off' },
-                    { role: 'fielder', position: [-65, -60], name: 'Fine Leg' }
+                    { role: 'bowler', position: [0, -200], name: 'Bowler' },
+                    { role: 'keeper', position: [0, -15], name: 'Wicket Keeper' },
+                    { role: 'fielder', position: [12, -25], name: 'First Slip' },
+                    { role: 'fielder', position: [20, -28], name: 'Second Slip' },
+                    { role: 'fielder', position: [28, -30], name: 'Third Slip' },
+                    { role: 'fielder', position: [36, -32], name: 'Fourth Slip' },
+                    { role: 'fielder', position: [45, -25], name: 'Gully' },
+                    { role: 'fielder', position: [-30, 15], name: 'Short Leg' },
+                    { role: 'fielder', position: [35, 15], name: 'Silly Point' },
+                    { role: 'fielder', position: [85, 0], name: 'Point' },
+                    { role: 'fielder', position: [-170, -170], name: 'Fine Leg' }
                 ]
             },
             defensive: {
                 name: 'Defensive',
-                description: 'Deep fielders to prevent boundaries',
+                description: 'Deep fielders to prevent boundaries - 7-2 field',
                 positions: [
-                    { role: 'bowler', position: [0, 50], name: 'Bowler' },
-                    { role: 'keeper', position: [0, -15], name: 'Keeper' },
-                    { role: 'fielder', position: [50, 0], name: 'Point' },
-                    { role: 'fielder', position: [75, 35], name: 'Deep Cover' },
-                    { role: 'fielder', position: [35, 75], name: 'Long Off' },
-                    { role: 'fielder', position: [-35, 75], name: 'Long On' },
-                    { role: 'fielder', position: [-75, 35], name: 'Deep Mid-Wicket' },
-                    { role: 'fielder', position: [-80, -5], name: 'Deep Square Leg' },
-                    { role: 'fielder', position: [-65, -60], name: 'Fine Leg' },
-                    { role: 'fielder', position: [65, -60], name: 'Third Man' },
-                    { role: 'fielder', position: [45, 25], name: 'Cover' }
+                    { role: 'bowler', position: [0, -200], name: 'Bowler' },
+                    { role: 'keeper', position: [0, -15], name: 'Wicket Keeper' },
+                    { role: 'fielder', position: [85, 0], name: 'Point' },
+                    { role: 'fielder', position: [169, 120], name: 'Deep Cover' },
+                    { role: 'fielder', position: [120, 169], name: 'Long Off' },
+                    { role: 'fielder', position: [-120, 169], name: 'Long On' },
+                    { role: 'fielder', position: [-169, 120], name: 'Deep Mid-Wicket' },
+                    { role: 'fielder', position: [-240, 0], name: 'Deep Square Leg' },
+                    { role: 'fielder', position: [-169, -120], name: 'Deep Backward Square' },
+                    { role: 'fielder', position: [169, -120], name: 'Third Man' },
+                    { role: 'fielder', position: [60, 85], name: 'Cover' }
                 ]
             },
             'offside-heavy': {
@@ -178,19 +178,19 @@ class CricketFieldPlanner {
             },
             'new-ball': {
                 name: 'New Ball',
-                description: 'Standard new ball attack field',
+                description: 'Standard new ball attack field with slips',
                 positions: [
-                    { role: 'bowler', position: [0, 50], name: 'Bowler' },
-                    { role: 'keeper', position: [0, -15], name: 'Keeper' },
-                    { role: 'fielder', position: [8, -18], name: 'First Slip' },
-                    { role: 'fielder', position: [15, -20], name: 'Second Slip' },
-                    { role: 'fielder', position: [30, -15], name: 'Gully' },
-                    { role: 'fielder', position: [50, 0], name: 'Point' },
-                    { role: 'fielder', position: [45, 25], name: 'Cover' },
-                    { role: 'fielder', position: [20, 45], name: 'Mid-Off' },
-                    { role: 'fielder', position: [-20, 45], name: 'Mid-On' },
-                    { role: 'fielder', position: [-50, 0], name: 'Square Leg' },
-                    { role: 'fielder', position: [-65, -60], name: 'Fine Leg' }
+                    { role: 'bowler', position: [0, -200], name: 'Bowler' },
+                    { role: 'keeper', position: [0, -15], name: 'Wicket Keeper' },
+                    { role: 'fielder', position: [12, -25], name: 'First Slip' },
+                    { role: 'fielder', position: [20, -28], name: 'Second Slip' },
+                    { role: 'fielder', position: [35, -20], name: 'Gully' },
+                    { role: 'fielder', position: [85, 0], name: 'Point' },
+                    { role: 'fielder', position: [60, 85], name: 'Cover' },
+                    { role: 'fielder', position: [35, 100], name: 'Mid-Off' },
+                    { role: 'fielder', position: [-35, 100], name: 'Mid-On' },
+                    { role: 'fielder', position: [-85, 0], name: 'Square Leg' },
+                    { role: 'fielder', position: [-169, -120], name: 'Fine Leg' }
                 ]
             },
             'spin-bowling': {
@@ -212,19 +212,104 @@ class CricketFieldPlanner {
             },
             'death-bowling': {
                 name: 'Death Bowling',
-                description: 'Boundary protection for death overs',
+                description: 'Boundary protection for death overs - all deep',
                 positions: [
-                    { role: 'bowler', position: [0, 50], name: 'Bowler' },
-                    { role: 'keeper', position: [0, -15], name: 'Keeper' },
-                    { role: 'fielder', position: [50, 0], name: 'Point' },
-                    { role: 'fielder', position: [75, 35], name: 'Deep Cover' },
-                    { role: 'fielder', position: [35, 75], name: 'Long Off' },
-                    { role: 'fielder', position: [-35, 75], name: 'Long On' },
-                    { role: 'fielder', position: [-60, 60], name: 'Cow Corner' },
-                    { role: 'fielder', position: [-75, 35], name: 'Deep Mid-Wicket' },
-                    { role: 'fielder', position: [-80, -5], name: 'Deep Square Leg' },
-                    { role: 'fielder', position: [65, -60], name: 'Third Man' },
-                    { role: 'fielder', position: [-65, -60], name: 'Fine Leg' }
+                    { role: 'bowler', position: [0, -200], name: 'Bowler' },
+                    { role: 'keeper', position: [0, -15], name: 'Wicket Keeper' },
+                    { role: 'fielder', position: [85, 0], name: 'Point' },
+                    { role: 'fielder', position: [169, 120], name: 'Deep Cover' },
+                    { role: 'fielder', position: [120, 169], name: 'Long Off' },
+                    { role: 'fielder', position: [-120, 169], name: 'Long On' },
+                    { role: 'fielder', position: [-141, 141], name: 'Cow Corner' },
+                    { role: 'fielder', position: [-169, 120], name: 'Deep Mid-Wicket' },
+                    { role: 'fielder', position: [-240, 0], name: 'Deep Square Leg' },
+                    { role: 'fielder', position: [169, -120], name: 'Third Man' },
+                    { role: 'fielder', position: [-169, -120], name: 'Fine Leg' }
+                ]
+            },
+            'powerplay-1-6': {
+                name: 'Powerplay 1-6',
+                description: 'Only 2 fielders outside 30-yard circle - aggressive field',
+                positions: [
+                    { role: 'bowler', position: [0, -200], name: 'Bowler' },
+                    { role: 'keeper', position: [0, -15], name: 'Wicket Keeper' },
+                    { role: 'fielder', position: [12, -25], name: 'First Slip' },
+                    { role: 'fielder', position: [20, -28], name: 'Second Slip' },
+                    { role: 'fielder', position: [85, 0], name: 'Point' },
+                    { role: 'fielder', position: [60, 85], name: 'Cover' },
+                    { role: 'fielder', position: [35, 100], name: 'Mid-Off' },
+                    { role: 'fielder', position: [-35, 100], name: 'Mid-On' },
+                    { role: 'fielder', position: [-60, 85], name: 'Mid-Wicket' },
+                    { role: 'fielder', position: [169, -120], name: 'Third Man' },
+                    { role: 'fielder', position: [-169, -120], name: 'Fine Leg' }
+                ]
+            },
+            'middle-overs-containment': {
+                name: 'Middle Overs (7-40)',
+                description: 'Containment field - maximum 5 outside circle',
+                positions: [
+                    { role: 'bowler', position: [0, -200], name: 'Bowler' },
+                    { role: 'keeper', position: [0, -15], name: 'Wicket Keeper' },
+                    { role: 'fielder', position: [85, 0], name: 'Point' },
+                    { role: 'fielder', position: [60, 85], name: 'Cover' },
+                    { role: 'fielder', position: [35, 100], name: 'Mid-Off' },
+                    { role: 'fielder', position: [-35, 100], name: 'Mid-On' },
+                    { role: 'fielder', position: [-60, 85], name: 'Mid-Wicket' },
+                    { role: 'fielder', position: [169, 120], name: 'Deep Cover' },
+                    { role: 'fielder', position: [-169, 120], name: 'Deep Mid-Wicket' },
+                    { role: 'fielder', position: [169, -120], name: 'Third Man' },
+                    { role: 'fielder', position: [-169, -120], name: 'Fine Leg' }
+                ]
+            },
+            'test-match-day1': {
+                name: 'Test Match Day 1',
+                description: 'Classic Test match field - 3 slips, gully, and attacking positions',
+                positions: [
+                    { role: 'bowler', position: [0, -200], name: 'Bowler' },
+                    { role: 'keeper', position: [0, -15], name: 'Wicket Keeper' },
+                    { role: 'fielder', position: [12, -25], name: 'First Slip' },
+                    { role: 'fielder', position: [20, -28], name: 'Second Slip' },
+                    { role: 'fielder', position: [28, -30], name: 'Third Slip' },
+                    { role: 'fielder', position: [40, -22], name: 'Gully' },
+                    { role: 'fielder', position: [85, 0], name: 'Point' },
+                    { role: 'fielder', position: [60, 85], name: 'Cover' },
+                    { role: 'fielder', position: [35, 100], name: 'Mid-Off' },
+                    { role: 'fielder', position: [-35, 100], name: 'Mid-On' },
+                    { role: 'fielder', position: [-169, -120], name: 'Fine Leg' }
+                ]
+            },
+            'umbrella-field': {
+                name: 'Umbrella Field',
+                description: 'Ring field around the bat - prevents singles and twos',
+                positions: [
+                    { role: 'bowler', position: [0, -200], name: 'Bowler' },
+                    { role: 'keeper', position: [0, -15], name: 'Wicket Keeper' },
+                    { role: 'fielder', position: [85, 0], name: 'Point' },
+                    { role: 'fielder', position: [84, 84], name: 'Cover' },
+                    { role: 'fielder', position: [0, 120], name: 'Straight Hit' },
+                    { role: 'fielder', position: [-84, 84], name: 'Mid-Wicket' },
+                    { role: 'fielder', position: [-85, 0], name: 'Square Leg' },
+                    { role: 'fielder', position: [-84, -84], name: 'Backward Square' },
+                    { role: 'fielder', position: [84, -84], name: 'Backward Point' },
+                    { role: 'fielder', position: [169, -120], name: 'Third Man' },
+                    { role: 'fielder', position: [-169, -120], name: 'Fine Leg' }
+                ]
+            },
+            'leg-side-theory': {
+                name: 'Leg Side Theory',
+                description: 'Bodyline style - leg side heavy with short leg',
+                positions: [
+                    { role: 'bowler', position: [0, -200], name: 'Bowler' },
+                    { role: 'keeper', position: [0, -15], name: 'Wicket Keeper' },
+                    { role: 'fielder', position: [-15, 10], name: 'Leg Slip' },
+                    { role: 'fielder', position: [-30, 15], name: 'Short Leg' },
+                    { role: 'fielder', position: [-45, 30], name: 'Forward Short Leg' },
+                    { role: 'fielder', position: [-60, 85], name: 'Mid-Wicket' },
+                    { role: 'fielder', position: [-85, 0], name: 'Square Leg' },
+                    { role: 'fielder', position: [-60, -85], name: 'Backward Square' },
+                    { role: 'fielder', position: [-169, 120], name: 'Deep Mid-Wicket' },
+                    { role: 'fielder', position: [-169, -120], name: 'Fine Leg' },
+                    { role: 'fielder', position: [85, 0], name: 'Point' }
                 ]
             }
         };
@@ -455,8 +540,8 @@ class CricketFieldPlanner {
         }
         
         // Define position ranges based on distance and angle
-        if (distance < 50) {
-            // Close catching positions
+        // Close catching positions (within 60px - close to batsman)
+        if (distance < 60) {
             if (Math.abs(relativeY) < 20 && Math.abs(relativeX) < 20) return 'Wicket Keeper';
             if (adjustedAngle > 300 || adjustedAngle < 60) {
                 if (relativeX > 0) return 'First Slip';
@@ -468,41 +553,51 @@ class CricketFieldPlanner {
             if (adjustedAngle >= 240 && adjustedAngle <= 300) {
                 return relativeX < 0 ? 'Short Leg' : 'Silly Mid-On';
             }
-        } else if (distance < 120) {
-            // Inner ring positions
-            if (adjustedAngle >= 45 && adjustedAngle <= 135) {
-                if (adjustedAngle < 70) return 'Point';
-                if (adjustedAngle < 100) return 'Cover';
-                if (adjustedAngle < 120) return 'Mid-Off';
-                return 'Extra Cover';
+        } 
+        // Inner circle (30-yard circle - 60px to 120px)
+        else if (distance < 120) {
+            if (adjustedAngle >= 15 && adjustedAngle <= 165) {
+                if (adjustedAngle < 45) return 'Point';
+                if (adjustedAngle < 75) return 'Cover';
+                if (adjustedAngle < 105) return 'Extra Cover';
+                if (adjustedAngle < 135) return 'Mid-Off';
+                return 'Short Mid-Off';
             }
-            if (adjustedAngle >= 225 && adjustedAngle <= 315) {
-                if (adjustedAngle < 250) return 'Mid-On';
-                if (adjustedAngle < 280) return 'Mid-Wicket';
-                if (adjustedAngle < 300) return 'Square Leg';
+            if (adjustedAngle >= 195 && adjustedAngle <= 345) {
+                if (adjustedAngle < 225) return 'Mid-On';
+                if (adjustedAngle < 255) return 'Short Mid-On';
+                if (adjustedAngle < 285) return 'Mid-Wicket';
+                if (adjustedAngle < 315) return 'Square Leg';
                 return 'Backward Square Leg';
             }
-            if (adjustedAngle >= 315 || adjustedAngle <= 45) {
-                return adjustedAngle > 350 || adjustedAngle < 10 ? 'Short Fine Leg' : 
-                       (relativeX > 0 ? 'Backward Point' : 'Short Third Man');
+            if (adjustedAngle >= 345 || adjustedAngle <= 15) {
+                return 'Short Fine Leg';
             }
-        } else {
-            // Outfield positions
-            if (adjustedAngle >= 30 && adjustedAngle <= 150) {
-                if (adjustedAngle < 60) return 'Third Man';
-                if (adjustedAngle < 90) return 'Deep Point';
-                if (adjustedAngle < 120) return 'Deep Cover';
-                return 'Long Off';
+            if (adjustedAngle >= 165 && adjustedAngle <= 195) {
+                return 'Straight Hit';
             }
-            if (adjustedAngle >= 210 && adjustedAngle <= 330) {
-                if (adjustedAngle < 240) return 'Long On';
-                if (adjustedAngle < 270) return 'Cow Corner';
-                if (adjustedAngle < 300) return 'Deep Mid-Wicket';
-                return 'Deep Square Leg';
+        } 
+        // Deep field (outside 30-yard circle - beyond 120px)
+        else {
+            if (adjustedAngle >= 15 && adjustedAngle <= 165) {
+                if (adjustedAngle < 45) return 'Third Man';
+                if (adjustedAngle < 75) return 'Deep Point';
+                if (adjustedAngle < 105) return 'Deep Cover';
+                if (adjustedAngle < 135) return 'Long Off';
+                return 'Deep Mid-Off';
             }
-            if (adjustedAngle >= 330 || adjustedAngle <= 30) {
-                return adjustedAngle > 350 || adjustedAngle < 10 ? 'Fine Leg' : 
-                       (relativeX > 0 ? 'Deep Backward Point' : 'Long Leg');
+            if (adjustedAngle >= 195 && adjustedAngle <= 345) {
+                if (adjustedAngle < 225) return 'Long On';
+                if (adjustedAngle < 255) return 'Cow Corner';
+                if (adjustedAngle < 285) return 'Deep Mid-Wicket';
+                if (adjustedAngle < 315) return 'Deep Square Leg';
+                return 'Deep Backward Square';
+            }
+            if (adjustedAngle >= 345 || adjustedAngle <= 15) {
+                return 'Fine Leg';
+            }
+            if (adjustedAngle >= 165 && adjustedAngle <= 195) {
+                return distance > 200 ? 'Long Stop' : 'Deep Straight';
             }
         }
         
@@ -607,20 +702,25 @@ class CricketFieldPlanner {
     }
 
     setRingField() {
+        // 30-yard circle is approximately 120px radius from center (250,250)
+        const center = { x: 250, y: 250 };
+        const ringRadius = 120;
+        
         const ringPositions = [
-            { x: 300, y: 250, name: 'Point' },
-            { x: 295, y: 275, name: 'Cover' },
-            { x: 270, y: 295, name: 'Mid-Off' },
-            { x: 230, y: 295, name: 'Mid-On' },
-            { x: 205, y: 275, name: 'Mid-Wicket' },
-            { x: 200, y: 250, name: 'Square Leg' }
+            { x: center.x + ringRadius * Math.cos(0), y: center.y + ringRadius * Math.sin(0), name: 'Point' }, // 0°
+            { x: center.x + ringRadius * Math.cos(Math.PI/4), y: center.y + ringRadius * Math.sin(Math.PI/4), name: 'Cover' }, // 45°
+            { x: center.x + ringRadius * Math.cos(Math.PI/2), y: center.y + ringRadius * Math.sin(Math.PI/2), name: 'Mid-Off' }, // 90°
+            { x: center.x + ringRadius * Math.cos(Math.PI*2/3), y: center.y + ringRadius * Math.sin(Math.PI*2/3), name: 'Mid-On' }, // 120°
+            { x: center.x + ringRadius * Math.cos(Math.PI), y: center.y + ringRadius * Math.sin(Math.PI), name: 'Mid-Wicket' }, // 180°
+            { x: center.x + ringRadius * Math.cos(Math.PI*3/2), y: center.y + ringRadius * Math.sin(Math.PI*3/2), name: 'Square Leg' }, // 270°
+            { x: center.x + ringRadius * Math.cos(Math.PI*7/4), y: center.y + ringRadius * Math.sin(Math.PI*7/4), name: 'Backward Point' } // 315°
         ];
         
         let ringIndex = 0;
         this.players.forEach(player => {
             if (player.role === 'fielder' && ringIndex < ringPositions.length) {
                 const pos = ringPositions[ringIndex];
-                this.updatePlayerPosition(player, pos.x, pos.y);
+                this.updatePlayerPosition(player, Math.round(pos.x), Math.round(pos.y));
                 player.name = pos.name;
                 ringIndex++;
             }
@@ -628,20 +728,25 @@ class CricketFieldPlanner {
     }
 
     setBoundaryRiders() {
+        // Ground dimensions: 500x500, center at (250,250), boundary at ~240px radius
+        const center = { x: 250, y: 250 };
+        const boundaryRadius = 240;
+        
         const boundaryPositions = [
-            { x: 325, y: 190, name: 'Third Man' },
-            { x: 375, y: 285, name: 'Deep Cover' },
-            { x: 285, y: 375, name: 'Long Off' },
-            { x: 215, y: 375, name: 'Long On' },
-            { x: 125, y: 285, name: 'Deep Mid-Wicket' },
-            { x: 175, y: 190, name: 'Fine Leg' }
+            { x: center.x + boundaryRadius * Math.cos(Math.PI * 5/4), y: center.y + boundaryRadius * Math.sin(Math.PI * 5/4), name: 'Third Man' }, // 225°
+            { x: center.x + boundaryRadius * Math.cos(Math.PI * 1/6), y: center.y + boundaryRadius * Math.sin(Math.PI * 1/6), name: 'Deep Point' }, // 30°
+            { x: center.x + boundaryRadius * Math.cos(Math.PI * 1/3), y: center.y + boundaryRadius * Math.sin(Math.PI * 1/3), name: 'Deep Cover' }, // 60°
+            { x: center.x + boundaryRadius * Math.cos(Math.PI * 1/2), y: center.y + boundaryRadius * Math.sin(Math.PI * 1/2), name: 'Long Off' }, // 90°
+            { x: center.x + boundaryRadius * Math.cos(Math.PI * 2/3), y: center.y + boundaryRadius * Math.sin(Math.PI * 2/3), name: 'Long On' }, // 120°
+            { x: center.x + boundaryRadius * Math.cos(Math.PI), y: center.y + boundaryRadius * Math.sin(Math.PI), name: 'Deep Mid-Wicket' }, // 180°
+            { x: center.x + boundaryRadius * Math.cos(Math.PI * 7/4), y: center.y + boundaryRadius * Math.sin(Math.PI * 7/4), name: 'Fine Leg' } // 315°
         ];
         
         let boundaryIndex = 0;
         this.players.forEach(player => {
             if (player.role === 'fielder' && boundaryIndex < boundaryPositions.length) {
                 const pos = boundaryPositions[boundaryIndex];
-                this.updatePlayerPosition(player, pos.x, pos.y);
+                this.updatePlayerPosition(player, Math.round(pos.x), Math.round(pos.y));
                 player.name = pos.name;
                 boundaryIndex++;
             }
@@ -917,18 +1022,19 @@ class CricketFieldPlanner {
     }
 
     setDefaultFormation() {
+        // Standard Test match field - balanced and realistic
         const defaultPositions = [
-            { x: 250, y: 200, role: 'bowler', name: 'Bowler' },
-            { x: 250, y: 235, role: 'keeper', name: 'Keeper' },
-            { x: 258, y: 232, role: 'fielder', name: 'First Slip' },
-            { x: 265, y: 230, role: 'fielder', name: 'Second Slip' },
-            { x: 300, y: 250, role: 'fielder', name: 'Point' },
-            { x: 295, y: 275, role: 'fielder', name: 'Cover' },
-            { x: 270, y: 295, role: 'fielder', name: 'Mid-Off' },
-            { x: 230, y: 295, role: 'fielder', name: 'Mid-On' },
-            { x: 205, y: 275, role: 'fielder', name: 'Mid-Wicket' },
-            { x: 200, y: 250, role: 'fielder', name: 'Square Leg' },
-            { x: 175, y: 190, role: 'fielder', name: 'Fine Leg' }
+            { x: 250, y: 50, role: 'bowler', name: 'Bowler' },
+            { x: 250, y: 235, role: 'keeper', name: 'Wicket Keeper' },
+            { x: 262, y: 225, role: 'fielder', name: 'First Slip' },
+            { x: 270, y: 222, role: 'fielder', name: 'Second Slip' },
+            { x: 335, y: 250, role: 'fielder', name: 'Point' },
+            { x: 310, y: 335, role: 'fielder', name: 'Cover' },
+            { x: 285, y: 350, role: 'fielder', name: 'Mid-Off' },
+            { x: 215, y: 350, role: 'fielder', name: 'Mid-On' },
+            { x: 190, y: 335, role: 'fielder', name: 'Mid-Wicket' },
+            { x: 165, y: 250, role: 'fielder', name: 'Square Leg' },
+            { x: 81, y: 130, role: 'fielder', name: 'Fine Leg' }
         ];
         
         defaultPositions.forEach((pos, index) => {
@@ -1021,7 +1127,7 @@ class CricketFieldPlanner {
 
     hasBoundaryProtection() {
         const boundaryCount = this.players.filter(player => 
-            this.getDistanceFromCenter(player) > 180
+            this.getDistanceFromCenter(player) > 200
         ).length;
         return boundaryCount >= 6;
     }
