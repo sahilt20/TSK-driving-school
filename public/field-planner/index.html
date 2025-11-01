@@ -12,6 +12,9 @@
         <header class="app-header">
             <h1>Cricket Field Planner</h1>
             <div class="header-controls">
+                <button class="btn btn--icon" id="themeToggleBtn" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
                 <button class="btn btn--secondary" id="fieldMapBtn">Field Map</button>
                 <button class="btn btn--secondary" id="saveFieldBtn">Save Field</button>
                 <button class="btn btn--secondary" id="exportBtn">Export Image</button>
@@ -35,11 +38,11 @@
                             <option value="new-ball">New Ball</option>
                             <option value="spin-bowling">Spin Bowling</option>
                             <option value="death-bowling">Death Bowling</option>
-                            <option value="powerplay">Powerplay (1-6 Overs)</option>
-                            <option value="middle-overs">Middle Overs (7-40)</option>
-                            <option value="test-match">Test Match Day 1</option>
+                            <option value="powerplay-1-6">Powerplay (1-6 Overs)</option>
+                            <option value="middle-overs-containment">Middle Overs (7-40)</option>
+                            <option value="test-match-day1">Test Match Day 1</option>
                             <option value="umbrella-field">Umbrella Field</option>
-                            <option value="leg-theory">Leg Side Theory</option>
+                            <option value="leg-side-theory">Leg Side Theory</option>
                         </select>
                     </div>
                     
@@ -145,6 +148,8 @@
                             <div class="popping-crease popping-crease-non-striker"></div>
                             <div class="stumps stumps-striker"></div>
                             <div class="stumps stumps-non-striker"></div>
+                            <div class="batsman-marker" title="Batsman Position"></div>
+                            <div class="bowler-marker" title="Bowler Position"></div>
                         </div>
                         
                         <!-- Field Position Markers -->

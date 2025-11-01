@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  # Next.js Application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cricket-platform-app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL}
+      - NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+      - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+      - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
+    restart: unless-stopped
+    networks:
+      - cricket-network
+
+  # PostgreSQL Database (for local development without Supabase)
+  postgres:
+    image: postgres:15-alpine
+    container_name: cricket-platform-db
+    environment:
+      - POSTGRES_USER=cricket_user
+      - POSTGRES_PASSWORD=cricket_password
+      - POSTGRES_DB=cricket_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./supabase/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    restart: unless-stopped
+    networks:
+      - cricket-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cricket_user -d cricket_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Supabase Local (Optional - for full Supabase stack locally)
+  # Uncomment if you want to run Supabase locally instead of using cloud
+  # supabase:
+  #   image: supabase/postgres:15.1.0.117
+  #   container_name: cricket-platform-supabase
+  #   environment:
+  #     - POSTGRES_PASSWORD=your-super-secret-and-long-postgres-password
+  #   ports:
+  #     - "5433:5432"
+  #   volumes:
+  #     - supabase_data:/var/lib/postgresql/data
+  #   networks:
+  #     - cricket-network
+
+networks:
+  cricket-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  # supabase_data:

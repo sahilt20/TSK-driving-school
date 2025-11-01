@@ -117,26 +117,58 @@
   --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
 }
 
-/* Dark mode colors */
+/* Dark theme colors - using data attribute for manual control */
+[data-theme="dark"] {
+  --color-background: #1a1d1e;
+  --color-surface: #242729;
+  --color-text: #e8eaed;
+  --color-text-secondary: rgba(232, 234, 237, 0.7);
+  --color-primary: #5fd4f4;
+  --color-primary-hover: #7ddff7;
+  --color-primary-active: #3fc9f0;
+  --color-secondary: rgba(255, 255, 255, 0.1);
+  --color-secondary-hover: rgba(255, 255, 255, 0.15);
+  --color-secondary-active: rgba(255, 255, 255, 0.2);
+  --color-border: rgba(255, 255, 255, 0.15);
+  --color-card-border: rgba(255, 255, 255, 0.1);
+  --color-btn-primary-text: #0d1117;
+  --color-error: #ff6b6b;
+  --color-success: #5fd4f4;
+  --color-warning: #ffa94d;
+  --color-info: #a8b2c1;
+  --color-focus-ring: rgba(95, 212, 244, 0.4);
+
+  /* Cricket-specific colors for dark theme */
+  --cricket-grass-light: #2d5016;
+  --cricket-grass-dark: #1a3a0d;
+  --cricket-ground-shadow: rgba(0, 0, 0, 0.5);
+}
+
+/* Auto dark mode support (if user hasn't manually selected) */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: var(--color-charcoal-700);
-    --color-surface: var(--color-charcoal-800);
-    --color-text: var(--color-gray-200);
-    --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
-    --color-primary: var(--color-teal-300);
-    --color-primary-hover: var(--color-teal-400);
-    --color-primary-active: var(--color-teal-800);
-    --color-secondary: rgba(var(--color-gray-400-rgb), 0.15);
-    --color-secondary-hover: rgba(var(--color-gray-400-rgb), 0.25);
-    --color-secondary-active: rgba(var(--color-gray-400-rgb), 0.3);
-    --color-border: rgba(var(--color-gray-400-rgb), 0.3);
-    --color-error: var(--color-red-400);
-    --color-success: var(--color-teal-300);
-    --color-warning: var(--color-orange-400);
-    --color-info: var(--color-gray-300);
-    --color-focus-ring: rgba(var(--color-teal-300-rgb), 0.4);
-    --color-btn-primary-text: var(--color-slate-900);
+  :root:not([data-theme]) {
+    --color-background: #1a1d1e;
+    --color-surface: #242729;
+    --color-text: #e8eaed;
+    --color-text-secondary: rgba(232, 234, 237, 0.7);
+    --color-primary: #5fd4f4;
+    --color-primary-hover: #7ddff7;
+    --color-primary-active: #3fc9f0;
+    --color-secondary: rgba(255, 255, 255, 0.1);
+    --color-secondary-hover: rgba(255, 255, 255, 0.15);
+    --color-secondary-active: rgba(255, 255, 255, 0.2);
+    --color-border: rgba(255, 255, 255, 0.15);
+    --color-card-border: rgba(255, 255, 255, 0.1);
+    --color-btn-primary-text: #0d1117;
+    --color-error: #ff6b6b;
+    --color-success: #5fd4f4;
+    --color-warning: #ffa94d;
+    --color-info: #a8b2c1;
+    --color-focus-ring: rgba(95, 212, 244, 0.4);
+
+    --cricket-grass-light: #2d5016;
+    --cricket-grass-dark: #1a3a0d;
+    --cricket-ground-shadow: rgba(0, 0, 0, 0.5);
   }
 }
 
@@ -213,10 +245,31 @@ h3 { font-size: var(--font-size-2xl); }
 .btn--secondary {
   background: var(--color-secondary);
   color: var(--color-text);
+  border: 1px solid var(--color-border);
 }
 
 .btn--secondary:hover {
   background: var(--color-secondary-hover);
+}
+
+.btn--icon {
+  background: var(--color-secondary);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  padding: var(--space-8);
+  aspect-ratio: 1;
+  font-size: var(--font-size-xl);
+}
+
+.btn--icon:hover {
+  background: var(--color-secondary-hover);
+  transform: scale(1.05);
+}
+
+.btn--icon .theme-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn--sm {
@@ -360,6 +413,12 @@ select.form-control {
   padding: var(--space-12);
   background: rgba(var(--color-teal-500-rgb), 0.1);
   border-radius: var(--radius-base);
+  border: 1px solid rgba(var(--color-teal-500-rgb), 0.2);
+}
+
+[data-theme="dark"] .field-balance {
+  background: rgba(95, 212, 244, 0.1);
+  border: 1px solid rgba(95, 212, 244, 0.2);
 }
 
 .field-balance-display {
@@ -382,10 +441,16 @@ select.form-control {
   border-radius: var(--radius-sm);
   cursor: pointer;
   transition: background-color var(--duration-fast);
+  border: 1px solid transparent;
 }
 
 .player-item:hover {
   background: var(--color-secondary);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .player-item {
+  background: rgba(95, 212, 244, 0.05);
 }
 
 .player-role {
@@ -412,14 +477,20 @@ select.form-control {
   background: var(--color-secondary);
   border-radius: var(--radius-full);
   overflow: hidden;
+  border: 1px solid var(--color-border);
 }
 
 .rating-fill {
   height: 100%;
-  background: var(--color-success);
+  background: linear-gradient(90deg, var(--color-success) 0%, var(--color-primary) 100%);
   border-radius: var(--radius-full);
   transition: width var(--duration-normal);
   width: 75%;
+  box-shadow: 0 0 10px rgba(var(--color-teal-500-rgb), 0.3);
+}
+
+[data-theme="dark"] .rating-fill {
+  box-shadow: 0 0 10px rgba(95, 212, 244, 0.4);
 }
 
 .saved-fields {
@@ -435,10 +506,16 @@ select.form-control {
   margin-bottom: var(--space-4);
   cursor: pointer;
   transition: background-color var(--duration-fast);
+  border: 1px solid transparent;
 }
 
 .saved-field-item:hover {
   background: var(--color-secondary);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .saved-field-item {
+  background: rgba(95, 212, 244, 0.05);
 }
 
 /* Ground Container */
@@ -450,6 +527,10 @@ select.form-control {
   position: relative;
   overflow: auto;
   min-height: 0;
+}
+
+[data-theme="dark"] .ground-container {
+  background: linear-gradient(135deg, #1a2f1a 0%, #0f1f0f 100%);
 }
 
 .ground-wrapper {
@@ -478,7 +559,13 @@ select.form-control {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-bold);
   background: rgba(255, 255, 255, 0.9);
-  color: var(--color-text);
+  color: #1a1d1e;
+  backdrop-filter: blur(10px);
+}
+
+[data-theme="dark"] .field-indicator {
+  background: rgba(36, 39, 41, 0.9);
+  color: #e8eaed;
 }
 
 .field-indicator.off-side {
@@ -539,12 +626,13 @@ select.form-control {
 
 .cricket-pitch {
   position: absolute;
-  top: 50%;
+  top: 36%; /* Pitch centered in ground */
   left: 50%;
   width: 8%;
-  height: 32%;
-  transform: translate(-50%, -50%);
-  background: linear-gradient(to bottom, #a67c1a, var(--cricket-pitch), #8b5914);
+  height: 28%; /* Pitch length */
+  transform: translate(-50%, 0);
+  transform-origin: top center;
+  background: linear-gradient(to bottom, #8b5914, var(--cricket-pitch), #a67c1a);
   border-radius: var(--radius-sm);
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
   z-index: 5;
@@ -595,6 +683,57 @@ select.form-control {
 
 .stumps-non-striker {
   top: 11%;
+}
+
+/* Batsman and Bowler Markers */
+.batsman-marker {
+  position: absolute;
+  bottom: 15%; /* Batsman near striker's end (bottom) of pitch */
+  left: 50%;
+  width: 16%;
+  height: 8%;
+  background: rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  transform: translate(-50%, 50%);
+  pointer-events: none;
+  z-index: 6;
+}
+
+.batsman-marker::after {
+  content: 'B';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 10px;
+  font-weight: bold;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
+
+.bowler-marker {
+  position: absolute;
+  top: 5%; /* Bowler at non-striker's end (top) of pitch */
+  left: 50%;
+  width: 12%;
+  height: 6%;
+  background: rgba(255, 100, 100, 0.2);
+  border: 2px dashed rgba(255, 100, 100, 0.5);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 6;
+}
+
+.bowler-marker::after {
+  content: '⬇';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(255, 100, 100, 0.8);
+  font-size: 12px;
 }
 
 /* Position Markers */
@@ -697,22 +836,34 @@ select.form-control {
 }
 
 .player.bowler {
-  background: var(--color-red-500);
+  background: #d32f2f;
+}
+
+[data-theme="dark"] .player.bowler {
+  background: #ff5252;
 }
 
 .player.keeper {
-  background: var(--color-teal-500);
+  background: #0288d1;
+}
+
+[data-theme="dark"] .player.keeper {
+  background: #29b6f6;
 }
 
 .player.fielder {
-  background: #4caf50;
+  background: #388e3c;
+}
+
+[data-theme="dark"] .player.fielder {
+  background: #66bb6a;
 }
 
 /* Position Tooltip */
 .position-tooltip {
   position: absolute;
   background: rgba(0, 0, 0, 0.9);
-  color: var(--color-white);
+  color: #ffffff;
   padding: var(--space-8) var(--space-12);
   border-radius: var(--radius-base);
   font-size: var(--font-size-sm);
@@ -722,6 +873,13 @@ select.form-control {
   transform: translateY(-5px);
   transition: opacity var(--duration-fast), transform var(--duration-fast);
   max-width: 200px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .position-tooltip {
+  background: rgba(36, 39, 41, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .position-tooltip.visible {
@@ -732,6 +890,11 @@ select.form-control {
 .position-name {
   font-weight: var(--font-weight-bold);
   margin-bottom: var(--space-4);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .position-name {
+  color: #5fd4f4;
 }
 
 .position-description {
@@ -766,22 +929,29 @@ select.form-control {
   right: var(--space-20);
   display: flex;
   gap: var(--space-8);
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   padding: var(--space-8);
   border-radius: var(--radius-base);
   backdrop-filter: blur(10px);
   box-shadow: var(--shadow-md);
   z-index: 50;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] .ground-controls {
+  background: rgba(36, 39, 41, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .zoom-level {
   display: flex;
   align-items: center;
   padding: var(--space-4) var(--space-8);
-  background: rgba(0, 0, 0, 0.1);
+  background: var(--color-secondary);
   border-radius: var(--radius-sm);
   font-size: var(--font-size-sm);
   color: var(--color-text);
+  font-weight: var(--font-weight-medium);
 }
 
 /* Modal */
@@ -908,6 +1078,10 @@ select.form-control {
   padding: var(--space-12);
   border-radius: var(--radius-base);
   border-left: 3px solid var(--color-primary);
+}
+
+[data-theme="dark"] .position-category {
+  background: rgba(95, 212, 244, 0.08);
 }
 
 .position-category h5 {
