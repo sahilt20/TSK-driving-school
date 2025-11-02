@@ -11,7 +11,7 @@ export default function Home() {
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
               Cricket Club Platform
             </h1>
-            <p className="text-xl md:text-2xl mb-8 text-green-50">
+            <p className="text-xl md:text-2xl mb-8 text-white">
               Complete solution for live streaming, scoring, and match analysis
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
@@ -44,8 +44,8 @@ export default function Home() {
               <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
                 <Video className="w-6 h-6 text-red-600" />
               </div>
-              <h3 className="text-xl font-bold mb-2 text-gray-800">Live Streaming</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-bold mb-2 text-gray-900">Live Streaming</h3>
+              <p className="text-gray-700">
                 Stream matches directly to YouTube from your mobile device. Simple setup, professional quality.
               </p>
               <Link href="/stream-setup" className="text-green-600 font-semibold mt-4 inline-block hover:text-green-700">
@@ -58,8 +58,8 @@ export default function Home() {
               <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
                 <Wifi className="w-6 h-6 text-blue-600" />
               </div>
-              <h3 className="text-xl font-bold mb-2 text-gray-800">Real-time Scoring</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-bold mb-2 text-gray-900">Real-time Scoring</h3>
+              <p className="text-gray-700">
                 Ball-by-ball scoring with instant updates. Multiple scorers supported with conflict resolution.
               </p>
               <Link href="/matches" className="text-green-600 font-semibold mt-4 inline-block hover:text-green-700">
@@ -72,8 +72,8 @@ export default function Home() {
               <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
                 <Target className="w-6 h-6 text-purple-600" />
               </div>
-              <h3 className="text-xl font-bold mb-2 text-gray-800">Score Overlays</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-bold mb-2 text-gray-900">Score Overlays</h3>
+              <p className="text-gray-700">
                 Professional score tickers for your stream. Customizable themes with real-time WebSocket updates.
               </p>
               <Link href="/overlay" className="text-green-600 font-semibold mt-4 inline-block hover:text-green-700">
@@ -86,8 +86,8 @@ export default function Home() {
               <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
                 <Users className="w-6 h-6 text-green-600" />
               </div>
-              <h3 className="text-xl font-bold mb-2 text-gray-800">Match Management</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-bold mb-2 text-gray-900">Match Management</h3>
+              <p className="text-gray-700">
                 Manage teams, players, tournaments, and schedules all in one place.
               </p>
               <Link href="/matches" className="text-green-600 font-semibold mt-4 inline-block hover:text-green-700">
@@ -100,8 +100,8 @@ export default function Home() {
               <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
                 <BarChart3 className="w-6 h-6 text-orange-600" />
               </div>
-              <h3 className="text-xl font-bold mb-2 text-gray-800">Analytics & Stats</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-bold mb-2 text-gray-900">Analytics & Stats</h3>
+              <p className="text-gray-700">
                 Detailed player and team statistics. Track performance over time with comprehensive analytics.
               </p>
               <Link href="/analytics" className="text-green-600 font-semibold mt-4 inline-block hover:text-green-700">
@@ -114,8 +114,8 @@ export default function Home() {
               <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mb-4">
                 <TrendingUp className="w-6 h-6 text-yellow-600" />
               </div>
-              <h3 className="text-xl font-bold mb-2 text-gray-800">Field Planner</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-bold mb-2 text-gray-900">Field Planner</h3>
+              <p className="text-gray-700">
                 Design and analyze field formations. Save presets and optimize field placement strategies.
               </p>
               <Link href="/field-planner" className="text-green-600 font-semibold mt-4 inline-block hover:text-green-700">
@@ -139,8 +139,8 @@ export default function Home() {
                   1
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold mb-2 text-gray-800">Setup Your Match</h3>
-                  <p className="text-gray-600">
+                  <h3 className="text-xl font-bold mb-2 text-gray-900">Setup Your Match</h3>
+                  <p className="text-gray-700">
                     Create a match, add teams and players, conduct toss, and set batting order.
                   </p>
                 </div>
@@ -150,8 +150,8 @@ export default function Home() {
                   2
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold mb-2 text-gray-800">Start Streaming</h3>
-                  <p className="text-gray-600">
+                  <h3 className="text-xl font-bold mb-2 text-gray-900">Start Streaming</h3>
+                  <p className="text-gray-700">
                     Open the streaming app on your phone, connect to YouTube, and start broadcasting.
                   </p>
                 </div>
@@ -161,8 +161,8 @@ export default function Home() {
                   3
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold mb-2 text-gray-800">Add Score Overlay</h3>
-                  <p className="text-gray-600">
+                  <h3 className="text-xl font-bold mb-2 text-gray-900">Add Score Overlay</h3>
+                  <p className="text-gray-700">
                     Add the browser source overlay to OBS/StreamYard for professional score display.
                   </p>
                 </div>
@@ -172,8 +172,8 @@ export default function Home() {
                   4
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold mb-2 text-gray-800">Score Live</h3>
-                  <p className="text-gray-600">
+                  <h3 className="text-xl font-bold mb-2 text-gray-900">Score Live</h3>
+                  <p className="text-gray-700">
                     Use the scoring interface to update scores ball-by-ball. Scores sync instantly to the overlay.
                   </p>
                 </div>
@@ -187,7 +187,7 @@ export default function Home() {
       <section className="py-20 bg-gradient-to-br from-green-600 to-emerald-700 text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-6">Ready to Get Started?</h2>
-          <p className="text-xl mb-8 text-green-50 max-w-2xl mx-auto">
+          <p className="text-xl mb-8 text-white max-w-2xl mx-auto">
             Join cricket clubs around the world using our platform to stream and score their matches
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
@@ -208,7 +208,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-gray-400 py-12">
+      <footer className="bg-gray-900 text-gray-300 py-12">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8">
             <div>

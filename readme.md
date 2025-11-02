@@ -22,6 +22,23 @@ A comprehensive, **production-ready** platform for cricket clubs to stream match
 - ✅ **Docker Support** - Full containerization with Docker Compose
 - ✅ **Production Build** - Optimized standalone output
 
+## ⚠️ First Time Setup - IMPORTANT
+
+**Before running the app**, you need to configure Supabase (free database):
+
+### Quick Setup (5 minutes):
+```bash
+# Option 1: Interactive setup (easiest)
+node setup-supabase.js
+
+# Option 2: Manual setup
+# Follow: QUICK_SUPABASE_SETUP.md
+```
+
+See **[QUICK_SUPABASE_SETUP.md](QUICK_SUPABASE_SETUP.md)** for detailed instructions.
+
+---
+
 ## 🚀 Quick Start
 
 ### Option 1: Local Development
@@ -30,9 +47,9 @@ A comprehensive, **production-ready** platform for cricket clubs to stream match
 # 1. Install dependencies
 npm install
 
-# 2. Setup environment
-cp .env.local.example .env.local
-# Edit .env.local with your Supabase credentials
+# 2. Setup Supabase (REQUIRED - see above)
+node setup-supabase.js
+# OR manually configure .env.local with your Supabase credentials
 
 # 3. Run development server
 npm run dev

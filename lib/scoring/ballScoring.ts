@@ -65,17 +65,17 @@ export async function recordBall(ballData: BallInput) {
 
     // Update extras breakdown
     const extrasUpdate: any = {
-      extras_total: innings.extras_total + ballData.extrasRuns
+      extras_total: (innings.extras_total || 0) + ballData.extrasRuns
     }
 
     if (ballData.extrasType === 'wide') {
-      extrasUpdate.extras_wides = innings.extras_wides + ballData.extrasRuns
+      extrasUpdate.extras_wides = (innings.extras_wides || 0) + ballData.extrasRuns
     } else if (ballData.extrasType === 'no-ball') {
-      extrasUpdate.extras_no_balls = innings.extras_no_balls + ballData.extrasRuns
+      extrasUpdate.extras_noballs = (innings.extras_noballs || 0) + ballData.extrasRuns
     } else if (ballData.extrasType === 'bye') {
-      extrasUpdate.extras_byes = innings.extras_byes + ballData.extrasRuns
+      extrasUpdate.extras_byes = (innings.extras_byes || 0) + ballData.extrasRuns
     } else if (ballData.extrasType === 'leg-bye') {
-      extrasUpdate.extras_leg_byes = innings.extras_leg_byes + ballData.extrasRuns
+      extrasUpdate.extras_legbyes = (innings.extras_legbyes || 0) + ballData.extrasRuns
     }
 
     await supabase

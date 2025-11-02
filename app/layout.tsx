@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { ToastProvider } from '@/components/providers/ToastProvider'
+import { ThemeProvider } from '@/components/providers/ThemeProvider'
+import Header from '@/components/navigation/Header'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -45,14 +47,17 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
       </head>
       <body className={inter.className}>
-        {children}
-        <ToastProvider />
+        <ThemeProvider>
+          <Header />
+          {children}
+          <ToastProvider />
+        </ThemeProvider>
       </body>
     </html>
   )

@@ -98,13 +98,13 @@ export default function MatchesPage() {
                 href={`/teams/${team.id}/players`}
                 className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow block"
               >
-                <h3 className="font-bold text-lg">{team.name}</h3>
-                <p className="text-gray-600 text-sm mb-2">{team.short_name}</p>
+                <h3 className="font-bold text-lg text-gray-900">{team.name}</h3>
+                <p className="text-gray-700 text-sm mb-2">{team.short_name}</p>
                 <p className="text-xs text-blue-600 hover:underline">Manage Players →</p>
               </Link>
             ))}
             {teams.length === 0 && (
-              <div className="col-span-full text-center py-8 text-gray-500">
+              <div className="col-span-full text-center py-8 text-gray-600">
                 No teams yet. Create your first team to get started!
               </div>
             )}
@@ -135,19 +135,19 @@ export default function MatchesPage() {
                     </div>
 
                     <div className="space-y-2 mb-4">
-                      <div className="font-bold text-lg">{match.team_a?.name || 'Team A'}</div>
-                      <div className="text-gray-400 text-sm text-center">vs</div>
-                      <div className="font-bold text-lg">{match.team_b?.name || 'Team B'}</div>
+                      <div className="font-bold text-lg text-gray-900">{match.team_a?.name || 'Team A'}</div>
+                      <div className="text-gray-600 text-sm text-center font-semibold">vs</div>
+                      <div className="font-bold text-lg text-gray-900">{match.team_b?.name || 'Team B'}</div>
                     </div>
 
                     {match.venue && (
-                      <p className="text-sm text-gray-600 mb-2">
+                      <p className="text-sm text-gray-700 mb-2">
                         <span className="font-semibold">Venue:</span> {match.venue}
                       </p>
                     )}
 
                     {match.match_date && (
-                      <p className="text-sm text-gray-600 mb-4">
+                      <p className="text-sm text-gray-700 mb-4">
                         <span className="font-semibold">Date:</span> {new Date(match.match_date).toLocaleDateString()}
                       </p>
                     )}
@@ -182,7 +182,7 @@ export default function MatchesPage() {
 
               {matches.length === 0 && (
                 <div className="col-span-full text-center py-12 bg-white rounded-lg">
-                  <p className="text-gray-500 mb-4">No matches yet. Create your first match!</p>
+                  <p className="text-gray-700 mb-4">No matches yet. Create your first match!</p>
                   <button
                     onClick={() => setShowCreateMatch(true)}
                     className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg inline-flex items-center gap-2"
@@ -291,7 +291,7 @@ function CreateTeamModal({ onClose }: { onClose: () => void }) {
               maxLength={5}
               required
             />
-            <p className="text-xs text-gray-500 mt-1">Max 5 characters</p>
+            <p className="text-xs text-gray-600 mt-1">Max 5 characters</p>
           </div>
           <div className="flex gap-3">
             <button

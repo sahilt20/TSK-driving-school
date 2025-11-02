@@ -41,7 +41,7 @@ export default function MobileStreamPage() {
           <h1 className="text-2xl font-bold text-gray-900 mb-4">
             Browser Not Supported
           </h1>
-          <p className="text-gray-600 mb-6">
+          <p className="text-gray-700 mb-6">
             Your browser does not support camera access. Please use a modern browser like Chrome, Safari, or Firefox.
           </p>
           <Link
@@ -70,7 +70,7 @@ export default function MobileStreamPage() {
               </Link>
               <div>
                 <h1 className="text-lg font-bold">Mobile Streaming</h1>
-                <p className="text-sm text-red-100">Cricket Club Platform</p>
+                <p className="text-sm text-white">Cricket Club Platform</p>
               </div>
             </div>
             <button
@@ -88,7 +88,7 @@ export default function MobileStreamPage() {
         <div className="bg-blue-600 text-white px-4 py-3 text-sm">
           <div className="container mx-auto">
             <p className="mb-2 font-semibold">Streaming Instructions:</p>
-            <ol className="list-decimal list-inside space-y-1 text-blue-100">
+            <ol className="list-decimal list-inside space-y-1 text-white">
               <li>Grant camera and microphone permissions when prompted</li>
               <li>Adjust quality settings based on your internet speed</li>
               <li>Keep your phone charged or connected to power</li>
@@ -114,6 +114,14 @@ export default function MobileStreamPage() {
           {/* Camera Preview */}
           <div className="bg-white rounded-xl p-4 shadow-xl">
             <CameraPreview />
+            {status === 'idle' && (
+              <div className="mt-4 bg-blue-50 border-2 border-blue-200 rounded-lg p-4">
+                <p className="text-blue-800 font-semibold mb-2">📹 Ready to Start</p>
+                <p className="text-sm text-blue-700">
+                  Click "Start Streaming" below to begin. You'll be asked to allow camera and microphone access.
+                </p>
+              </div>
+            )}
           </div>
 
           {/* Stream Controls */}

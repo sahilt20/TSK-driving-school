@@ -17,62 +17,41 @@ function StreamOverlayContent() {
   const [lastBallAnimation, setLastBallAnimation] = useState<string | null>(null)
   const [showPlayerCard, setShowPlayerCard] = useState<any>(null)
   const [partnership, setPartnership] = useState<any>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    if (!matchId) {
-      setError('No match ID provided. Please add ?match=<match-id> to the URL')
-      setLoading(false)
-      return
-    }
+    if (!matchId) return
     fetchMatchData()
     setupRealtimeSubscription()
   }, [matchId])
 
   async function fetchMatchData() {
-    try {
-      setError(null)
+    // Fetch match details
+    const { data: matchData } = await supabase
+      .from('matches')
+      .select(`
+        *,
+        team_a:teams!matches_team_a_id_fkey(*),
+        team_b:teams!matches_team_b_id_fkey(*)
+      `)
+      .eq('id', matchId)
+      .single()
 
-      // Fetch match details
-      const { data: matchData, error: matchError } = await supabase
-        .from('matches')
-        .select(`
-          *,
-          team_a:teams!matches_team_a_id_fkey(*),
-          team_b:teams!matches_team_b_id_fkey(*)
-        `)
-        .eq('id', matchId)
-        .single()
+    if (matchData) {
+      setMatch(matchData)
+    }
 
-      if (matchError) {
-        setError(`Match not found: ${matchError.message}`)
-        setLoading(false)
-        return
-      }
+    // Fetch current innings
+    const { data: inningsData } = await supabase
+      .from('innings')
+      .select('*')
+      .eq('match_id', matchId)
+      .eq('is_completed', false)
+      .order('innings_number', { ascending: false })
+      .limit(1)
+      .maybeSingle()
 
-      if (matchData) {
-        setMatch(matchData)
-      }
-
-      // Fetch current innings
-      const { data: inningsData } = await supabase
-        .from('innings')
-        .select('*')
-        .eq('match_id', matchId)
-        .eq('is_completed', false)
-        .order('innings_number', { ascending: false })
-        .limit(1)
-        .maybeSingle()
-
-      if (!inningsData) {
-        setError('No active innings found. Start the match first.')
-        setLoading(false)
-        return
-      }
-
-      if (inningsData) {
-        setInnings(inningsData)
+    if (inningsData) {
+      setInnings(inningsData)
 
       // Fetch current batsmen
       const { data: batsmenData } = await supabase
@@ -137,13 +116,6 @@ function StreamOverlayContent() {
         detectBallAnimation(latestBall)
       }
     }
-
-    setLoading(false)
-    } catch (err: any) {
-      console.error('Error fetching overlay data:', err)
-      setError(`Error loading overlay: ${err.message}`)
-      setLoading(false)
-    }
   }
 
   function detectBallAnimation(ball: any) {
@@ -190,46 +162,8 @@ function StreamOverlayContent() {
     }
   }
 
-  // Loading state
-  if (loading) {
-    return (
-      <div className="w-full h-screen bg-black bg-opacity-90 flex items-center justify-center">
-        <div className="text-center text-white">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-green-500 mx-auto mb-4"></div>
-          <p className="text-xl">Loading overlay...</p>
-        </div>
-      </div>
-    )
-  }
-
-  // Error state
-  if (error) {
-    return (
-      <div className="w-full h-screen bg-gradient-to-br from-gray-900 to-black flex items-center justify-center p-8">
-        <div className="bg-red-900/80 border-2 border-red-500 rounded-lg p-8 max-w-lg text-white text-center shadow-2xl">
-          <div className="text-6xl mb-4">⚠️</div>
-          <h2 className="text-2xl font-bold mb-4">Overlay Error</h2>
-          <p className="mb-4">{error}</p>
-          <p className="text-sm text-gray-300">
-            Make sure the match is started and has an active innings.
-          </p>
-          <p className="text-xs text-gray-400 mt-4">
-            URL should be: /overlay?match=&lt;match-id&gt;
-          </p>
-        </div>
-      </div>
-    )
-  }
-
   if (!matchId || !innings || !match) {
-    return (
-      <div className="w-full h-screen bg-gradient-to-br from-gray-900 to-black flex items-center justify-center">
-        <div className="bg-gray-800 border-2 border-gray-600 rounded-lg p-8 max-w-lg text-white text-center">
-          <h2 className="text-2xl font-bold mb-4">No Match Data</h2>
-          <p>Waiting for match to start...</p>
-        </div>
-      </div>
-    )
+    return null
   }
 
   const battingTeam = innings.batting_team_id === match?.team_a_id ? match?.team_a : match?.team_b

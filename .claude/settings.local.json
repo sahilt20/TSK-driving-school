@@ -10,7 +10,8 @@
       "Bash(npm run dev:*)",
       "Bash(npm install:*)",
       "Bash(docker --version:*)",
-      "Bash(node scripts/generate-icons.js:*)"
+      "Bash(node scripts/generate-icons.js:*)",
+      "Bash(test:*)"
     ],
     "deny": [],
     "ask": []
