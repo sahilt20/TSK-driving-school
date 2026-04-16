@@ -23,17 +23,17 @@ const appData = {
       {
           name: "Rugby",
           automatic: {
-              "1hour": 40,
-              "1.5hours": 56,
+            "1hour": 42,
+            "1.5hours": 60,
               "2hours": 75,
-              "10hours": 365,
+            "10hours": 385,
               "beginnerPackage": 56
           },
           manual: {
-              "1hour": 40,
-              "1.5hours": 56,
+            "1hour": 42,
+            "1.5hours": 60,
               "2hours": 75,
-              "10hours": 365,
+            "10hours": 385,
               "beginnerPackage": 56
           }
       },
