@@ -219,13 +219,90 @@ const appData = {
         text: "TSK Driving School is the best! The instructor was calm, knowledgeable, and made sure I understood everything before my test. Passed with only 1 minor fault!",
         image: "images/st.png"
       },
-      // {
-      //   name: "Connor Walsh",
-      //   area: "Rugby",
-      //   rating: 5,
-      //   text: "Top quality instruction! The lessons were tailored to my learning style and I felt confident throughout. Highly recommend TSK Driving School!",
-      //   image: "images/tsk.png"
-      // }
+      {
+        name: "Priya Sharma",
+        area: "Coventry",
+        rating: 5,
+        text: "Absolutely thrilled to have passed my test! TSK made the whole experience enjoyable and stress-free. Couldn't recommend them more!",
+        image: "images/WhatsApp Image 2026-05-06 at 16.05.34.jpeg"
+      },
+      {
+        name: "Amir Khan",
+        area: "Nuneaton",
+        rating: 5,
+        text: "Passed first time thanks to the brilliant instruction at TSK! Patient, professional and always encouraging. 10/10!",
+        image: "images/WhatsApp Image 2026-05-06 at 16.05.35.jpeg"
+      },
+      {
+        name: "Jasmine Patel",
+        area: "Warwick",
+        rating: 5,
+        text: "I was so nervous before my test but TSK gave me the confidence I needed. Passed with flying colours! Highly recommend!",
+        image: "images/WhatsApp Image 2026-05-06 at 16.05.35d.jpeg"
+      },
+      {
+        name: "Daniel Hughes",
+        area: "Coventry",
+        rating: 5,
+        text: "Fantastic teaching! Every lesson was perfectly structured and I always left feeling more confident. Passed on my first attempt!",
+        image: "images/WhatsApp Image 2026-05-06 at 16.09.01.jpeg"
+      },
+      {
+        name: "Fatima Malik",
+        area: "Nuneaton",
+        rating: 5,
+        text: "TSK is the best driving school around! The instructor was so patient and made sure I was fully prepared. Passed first time!",
+        image: "images/WhatsApp Ima ge 2026-05-06 at 16.09.01.jpeg"
+      },
+      {
+        name: "Ravi Verma",
+        area: "Warwick",
+        rating: 5,
+        text: "Brilliant experience from start to finish. The lessons were tailored exactly to my needs and I passed with confidence. Thank you TSK!",
+        image: "images/WhatsApp Image 2026-05- 06 at 16.09.01.jpeg"
+      },
+      {
+        name: "Chloe Bennett",
+        area: "Coventry",
+        rating: 5,
+        text: "Such a professional and friendly instructor. I felt at ease from my very first lesson and passed my test first time. Amazing!",
+        image: "images/WhatsApp Image 2026-05d-06 at 16.09.01.jpeg"
+      },
+      {
+        name: "Zara Ahmed",
+        area: "Nuneaton",
+        rating: 5,
+        text: "I was a complete beginner but TSK made learning to drive so enjoyable. Passed with only 2 minor faults. Couldn't be happier!",
+        image: "images/WhatsApp Imdage 2026-05-06 at 16.09.13.jpeg"
+      },
+      {
+        name: "Leon Foster",
+        area: "Warwick",
+        rating: 5,
+        text: "Switched to TSK after struggling elsewhere and it made all the difference. Clear, calm instruction and passed first time!",
+        image: "images/WheatsApp Image 2026-05-06 at 16.09.02.jpeg"
+      },
+      {
+        name: "Maya Singh",
+        area: "Coventry",
+        rating: 5,
+        text: "TSK gave me the skills and confidence I needed to pass first time. Every lesson was fun and productive. Highly recommended!",
+        image: "images/WhatsA pp Image 2026-05-06 at 16.09.02.jpeg"
+      },
+      {
+        name: "Tariq Hussain",
+        area: "Nuneaton",
+        rating: 5,
+        text: "Excellent instructor who made me feel comfortable from day one. Passed my test first time with no major faults. Thank you TSK!",
+        image: "images/WhatsApp Image 202 6-05-06 at 16.09.02.jpeg"
+      },
+      {
+        name: "Grace Owens",
+        area: "Warwick",
+        rating: 5,
+        text: "Brilliant from start to finish! TSK's teaching style is second to none. I passed on my first attempt and couldn't be more grateful!",
+        image: "images/WhatsApp Image 2026-05- 06 at 16.09.02.jpeg"
+      }
   ],
   benefits: [
       {
