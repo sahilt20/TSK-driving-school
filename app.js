@@ -6,17 +6,17 @@ const appData = {
       {
           name: "Coventry",
           automatic: {
-              "1hour": 37,
-              "1.5hours": 57,
-              "2hours": 70,
-              "10hours": 340,
+              "1hour": 40,
+              "1.5hours": 58,
+              "2hours": 75,
+              "10hours": 350,
               "beginnerPackage": 68
           },
           manual: {
-              "1hour": 37,
-              "1.5hours": 57,
-              "2hours": 70,
-              "10hours": 340,
+              "1hour": 40,
+              "1.5hours": 58,
+              "2hours": 75,
+              "10hours": 350,
               "beginnerPackage": 68
           }
       },
@@ -41,16 +41,16 @@ const appData = {
           name: "Nuneaton",
           automatic: {
               "1hour": 40,
-              "1.5hours": 56,
+              "1.5hours": 58,
               "2hours": 75,
-              "10hours": 365,
+              "10hours": 350,
               "beginnerPackage": 56
           },
           manual: {
               "1hour": 40,
-              "1.5hours": 56,
+              "1.5hours": 58,
               "2hours": 75,
-              "10hours": 365,
+              "10hours": 350,
               "beginnerPackage": 56
           }
       },
@@ -92,16 +92,16 @@ const appData = {
           name: "Warwick",
           automatic: {
               "1hour": 40,
-              "1.5hours": 56,
+              "1.5hours": 58,
               "2hours": 75,
-              "10hours": 365,
+              "10hours": 350,
               "beginnerPackage": 56
           },
           manual: {
               "1hour": 40,
-              "1.5hours": 56,
+              "1.5hours": 58,
               "2hours": 75,
-              "10hours": 365,
+              "10hours": 350,
               "beginnerPackage": 56
           }
       }
